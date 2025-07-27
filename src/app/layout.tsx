@@ -3,15 +3,14 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import '@/styles/globals.css';
 import { ReactQueryProvider } from '@/providers/react-query-provider';
 import { AuthProvider } from '@/context/auth-context';
+import LayoutWrapper from '@/components/pages/layout/layout-wrapper';
 
-// Modern font for body text (clean, readable)
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
 
-// Elegant font for headings (sophisticated, premium feel)
 const playfairDisplay = Playfair_Display({
   variable: '--font-playfair-display',
   subsets: ['latin'],
@@ -35,7 +34,9 @@ export default function RootLayout({
         className={`${inter.variable} ${playfairDisplay.variable} antialiased`}
       >
         <ReactQueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </AuthProvider>
         </ReactQueryProvider>
       </body>
     </html>

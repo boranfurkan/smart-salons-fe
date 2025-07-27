@@ -46,7 +46,7 @@ function VerifyEmailContent() {
 
     // Automatically verify email when component mounts
     verifyEmailMutation.mutate({ data: { token } });
-  }, [token, verifyEmailMutation]);
+  }, [token]); // Removed verifyEmailMutation from dependencies to fix infinite loop
 
   // No token provided - user probably visited the page directly
   if (verificationState === 'no-token') {

@@ -21,10 +21,7 @@ export function AuthLayout({
   className,
 }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center p-4">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
-
+    <div className="min-h-screen  flex items-center justify-center p-4">
       <motion.div
         className="relative w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}

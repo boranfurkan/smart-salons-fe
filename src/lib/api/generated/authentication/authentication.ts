@@ -16,10 +16,13 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuthResponseDto,
   ForgotPasswordDto,
+  MessageResponseDto,
   ResetPasswordDto,
   SignInDto,
   SignUpDto,
+  SignUpResponseDto,
   VerifyEmailDto
 } from '../smartSalonsAPI.schemas';
 
@@ -39,7 +42,7 @@ export const authControllerSignUp = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<SignUpResponseDto>(
       {url: `/auth/signup`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: signUpDto, signal
@@ -103,7 +106,7 @@ export const authControllerSignIn = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<AuthResponseDto>(
       {url: `/auth/signin`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: signInDto, signal
@@ -167,7 +170,7 @@ export const authControllerVerifyEmail = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<MessageResponseDto>(
       {url: `/auth/verify-email`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: verifyEmailDto, signal
@@ -231,7 +234,7 @@ export const authControllerForgotPassword = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<MessageResponseDto>(
       {url: `/auth/forgot-password`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: forgotPasswordDto, signal
@@ -295,7 +298,7 @@ export const authControllerResetPassword = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<MessageResponseDto>(
       {url: `/auth/reset-password`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: resetPasswordDto, signal

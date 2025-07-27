@@ -5,7 +5,10 @@
  * API for Smart Salons hair dresser furniture e-commerce platform
  * OpenAPI spec version: 1.0
  */
-import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -18,7 +21,7 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
+  UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
@@ -40,3443 +43,2162 @@ import type {
   UpdateCarouselItemDto,
   UpdateProductDto,
   UpdateShippingStatusDto,
-  UpdateSocialPostDto,
+  UpdateSocialPostDto
 } from '../smartSalonsAPI.schemas';
 
 import { customInstance } from '../../mutator';
 
+
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 /**
  * @summary Create a new product with color variants and images
  */
 export const adminControllerCreateProduct = (
-  createProductDto: CreateProductDto,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    createProductDto: CreateProductDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<ProductResponseDto>(
-    {
-      url: `/admin/products`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: createProductDto,
-      signal,
+      
+      
+      return customInstance<ProductResponseDto>(
+      {url: `/admin/products`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createProductDto, signal
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerCreateProductMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerCreateProduct>>,
-    TError,
-    { data: CreateProductDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerCreateProduct>>,
-  TError,
-  { data: CreateProductDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerCreateProduct'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerCreateProduct>>,
-    { data: CreateProductDto }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getAdminControllerCreateProductMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProduct>>, TError,{data: CreateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProduct>>, TError,{data: CreateProductDto}, TContext> => {
 
-    return adminControllerCreateProduct(data, requestOptions);
-  };
+const mutationKey = ['adminControllerCreateProduct'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerCreateProductMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerCreateProduct>>
->;
-export type AdminControllerCreateProductMutationBody = CreateProductDto;
-export type AdminControllerCreateProductMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateProduct>>, {data: CreateProductDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerCreateProduct(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerCreateProductMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateProduct>>>
+    export type AdminControllerCreateProductMutationBody = CreateProductDto
+    export type AdminControllerCreateProductMutationError = void
+
+    /**
  * @summary Create a new product with color variants and images
  */
-export const useAdminControllerCreateProduct = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerCreateProduct>>,
-      TError,
-      { data: CreateProductDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerCreateProduct>>,
-  TError,
-  { data: CreateProductDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerCreateProductMutationOptions(options);
+export const useAdminControllerCreateProduct = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProduct>>, TError,{data: CreateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerCreateProduct>>,
+        TError,
+        {data: CreateProductDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerCreateProductMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all products
  */
 export const adminControllerGetAllProducts = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<ProductResponseDto[]>(
-    { url: `/admin/products`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<ProductResponseDto[]>(
+      {url: `/admin/products`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getAdminControllerGetAllProductsQueryKey = () => {
-  return [`/admin/products`] as const;
-};
+    return [`/admin/products`] as const;
+    }
 
-export const getAdminControllerGetAllProductsQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-  TError = unknown
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    
+export const getAdminControllerGetAllProductsQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetAllProductsQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetAllProducts>>
-  > = ({ signal }) => adminControllerGetAllProducts(requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllProductsQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetAllProductsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetAllProducts>>
->;
-export type AdminControllerGetAllProductsQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllProducts>>> = ({ signal }) => adminControllerGetAllProducts(requestOptions, signal);
 
-export function useAdminControllerGetAllProducts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-  TError = unknown
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllProductsQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllProducts>>>
+export type AdminControllerGetAllProductsQueryError = unknown
+
+
+export function useAdminControllerGetAllProducts<TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllProducts>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllProducts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllProducts<TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllProducts>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllProducts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllProducts<TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get all products
  */
 
-export function useAdminControllerGetAllProducts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllProducts>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetAllProductsQueryOptions(options);
+export function useAdminControllerGetAllProducts<TData = Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProducts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetAllProductsQueryOptions(options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Create a new product with uploaded images
  */
 export const adminControllerCreateProductWithImages = (
-  createProductWithImagesDto: CreateProductWithImagesDto,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    createProductWithImagesDto: CreateProductWithImagesDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  const formData = new FormData();
-  formData.append(`name`, createProductWithImagesDto.name);
-  formData.append(`description`, createProductWithImagesDto.description);
-  formData.append(`slug`, createProductWithImagesDto.slug);
-  formData.append(`price`, createProductWithImagesDto.price);
-  if (createProductWithImagesDto.discount !== undefined) {
-    formData.append(`discount`, createProductWithImagesDto.discount);
-  }
-  formData.append(`stock`, createProductWithImagesDto.stock.toString());
-  if (createProductWithImagesDto.dimensions !== undefined) {
-    formData.append(`dimensions`, createProductWithImagesDto.dimensions);
-  }
-  if (createProductWithImagesDto.deliveryDescription !== undefined) {
-    formData.append(
-      `deliveryDescription`,
-      createProductWithImagesDto.deliveryDescription
-    );
-  }
-  formData.append(`categoryId`, createProductWithImagesDto.categoryId);
-  if (createProductWithImagesDto.isActive !== undefined) {
-    formData.append(`isActive`, createProductWithImagesDto.isActive.toString());
-  }
-  if (createProductWithImagesDto.images !== undefined) {
-    createProductWithImagesDto.images.forEach((value) =>
-      formData.append(`images`, value)
-    );
-  }
-  if (createProductWithImagesDto.colorVariants !== undefined) {
-    createProductWithImagesDto.colorVariants.forEach((value) =>
-      formData.append(`colorVariants`, value)
-    );
-  }
+      
+      const formData = new FormData();
+formData.append(`name`, createProductWithImagesDto.name)
+formData.append(`description`, createProductWithImagesDto.description)
+formData.append(`slug`, createProductWithImagesDto.slug)
+formData.append(`price`, createProductWithImagesDto.price)
+if(createProductWithImagesDto.discount !== undefined) {
+ formData.append(`discount`, createProductWithImagesDto.discount)
+ }
+formData.append(`stock`, createProductWithImagesDto.stock.toString())
+if(createProductWithImagesDto.dimensions !== undefined) {
+ formData.append(`dimensions`, createProductWithImagesDto.dimensions)
+ }
+if(createProductWithImagesDto.deliveryDescription !== undefined) {
+ formData.append(`deliveryDescription`, createProductWithImagesDto.deliveryDescription)
+ }
+formData.append(`categoryId`, createProductWithImagesDto.categoryId)
+if(createProductWithImagesDto.isActive !== undefined) {
+ formData.append(`isActive`, createProductWithImagesDto.isActive.toString())
+ }
+if(createProductWithImagesDto.images !== undefined) {
+ createProductWithImagesDto.images.forEach(value => formData.append(`images`, value));
+ }
+if(createProductWithImagesDto.colorVariants !== undefined) {
+ createProductWithImagesDto.colorVariants.forEach(value => formData.append(`colorVariants`, value));
+ }
 
-  return customInstance<ProductResponseDto>(
-    {
-      url: `/admin/products/with-images`,
-      method: 'POST',
-      headers: { 'Content-Type': 'multipart/form-data' },
-      data: formData,
-      signal,
+      return customInstance<ProductResponseDto>(
+      {url: `/admin/products/with-images`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData, signal
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerCreateProductWithImagesMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
-    TError,
-    { data: CreateProductWithImagesDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
-  TError,
-  { data: CreateProductWithImagesDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerCreateProductWithImages'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
-    { data: CreateProductWithImagesDto }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getAdminControllerCreateProductWithImagesMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext> => {
 
-    return adminControllerCreateProductWithImages(data, requestOptions);
-  };
+const mutationKey = ['adminControllerCreateProductWithImages'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerCreateProductWithImagesMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>
->;
-export type AdminControllerCreateProductWithImagesMutationBody =
-  CreateProductWithImagesDto;
-export type AdminControllerCreateProductWithImagesMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, {data: CreateProductWithImagesDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerCreateProductWithImages(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerCreateProductWithImagesMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>>
+    export type AdminControllerCreateProductWithImagesMutationBody = CreateProductWithImagesDto
+    export type AdminControllerCreateProductWithImagesMutationError = void
+
+    /**
  * @summary Create a new product with uploaded images
  */
-export const useAdminControllerCreateProductWithImages = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
-      TError,
-      { data: CreateProductWithImagesDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
-  TError,
-  { data: CreateProductWithImagesDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerCreateProductWithImagesMutationOptions(options);
+export const useAdminControllerCreateProductWithImages = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
+        TError,
+        {data: CreateProductWithImagesDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerCreateProductWithImagesMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get product by ID
  */
 export const adminControllerGetProductById = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<ProductResponseDto>(
-    { url: `/admin/products/${id}`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<ProductResponseDto>(
+      {url: `/admin/products/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerGetProductByIdQueryKey = (id: string) => {
-  return [`/admin/products/${id}`] as const;
-};
+export const getAdminControllerGetProductByIdQueryKey = (id: string,) => {
+    return [`/admin/products/${id}`] as const;
+    }
 
-export const getAdminControllerGetProductByIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetProductById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetProductById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  }
+    
+export const getAdminControllerGetProductByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetProductById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetProductByIdQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetProductById>>
-  > = ({ signal }) => adminControllerGetProductById(id, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetProductByIdQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetProductById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetProductByIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetProductById>>
->;
-export type AdminControllerGetProductByIdQueryError = void;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetProductById>>> = ({ signal }) => adminControllerGetProductById(id, requestOptions, signal);
 
-export function useAdminControllerGetProductById<
-  TData = Awaited<ReturnType<typeof adminControllerGetProductById>>,
-  TError = void
->(
-  id: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetProductById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetProductByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetProductById>>>
+export type AdminControllerGetProductByIdQueryError = void
+
+
+export function useAdminControllerGetProductById<TData = Awaited<ReturnType<typeof adminControllerGetProductById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetProductById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetProductById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetProductById<
-  TData = Awaited<ReturnType<typeof adminControllerGetProductById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetProductById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetProductById<TData = Awaited<ReturnType<typeof adminControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetProductById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetProductById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetProductById<
-  TData = Awaited<ReturnType<typeof adminControllerGetProductById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetProductById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetProductById<TData = Awaited<ReturnType<typeof adminControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get product by ID
  */
 
-export function useAdminControllerGetProductById<
-  TData = Awaited<ReturnType<typeof adminControllerGetProductById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetProductById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetProductByIdQueryOptions(
-    id,
-    options
-  );
+export function useAdminControllerGetProductById<TData = Awaited<ReturnType<typeof adminControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetProductByIdQueryOptions(id,options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Update product by ID
  */
 export const adminControllerUpdateProduct = (
-  id: string,
-  updateProductDto: UpdateProductDto,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<ProductResponseDto>(
-    {
-      url: `/admin/products/${id}`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: updateProductDto,
+    id: string,
+    updateProductDto: UpdateProductDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<ProductResponseDto>(
+      {url: `/admin/products/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateProductDto
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerUpdateProductMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
-    TError,
-    { id: string; data: UpdateProductDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
-  TError,
-  { id: string; data: UpdateProductDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateProduct'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
-    { id: string; data: UpdateProductDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getAdminControllerUpdateProductMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProduct>>, TError,{id: string;data: UpdateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProduct>>, TError,{id: string;data: UpdateProductDto}, TContext> => {
 
-    return adminControllerUpdateProduct(id, data, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateProduct'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateProductMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateProduct>>
->;
-export type AdminControllerUpdateProductMutationBody = UpdateProductDto;
-export type AdminControllerUpdateProductMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateProduct>>, {id: string;data: UpdateProductDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateProduct(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateProductMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateProduct>>>
+    export type AdminControllerUpdateProductMutationBody = UpdateProductDto
+    export type AdminControllerUpdateProductMutationError = void
+
+    /**
  * @summary Update product by ID
  */
-export const useAdminControllerUpdateProduct = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
-      TError,
-      { id: string; data: UpdateProductDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
-  TError,
-  { id: string; data: UpdateProductDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateProductMutationOptions(options);
+export const useAdminControllerUpdateProduct = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProduct>>, TError,{id: string;data: UpdateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateProduct>>,
+        TError,
+        {id: string;data: UpdateProductDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateProductMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete product by ID
  */
 export const adminControllerDeleteProduct = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/products/${id}`, method: 'DELETE' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/products/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteProductMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteProduct'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerDeleteProductMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProduct>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProduct>>, TError,{id: string}, TContext> => {
 
-    return adminControllerDeleteProduct(id, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteProduct'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteProductMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteProduct>>
->;
 
-export type AdminControllerDeleteProductMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteProduct>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerDeleteProduct(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteProductMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteProduct>>>
+    
+    export type AdminControllerDeleteProductMutationError = void
+
+    /**
  * @summary Delete product by ID
  */
-export const useAdminControllerDeleteProduct = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerDeleteProductMutationOptions(options);
+export const useAdminControllerDeleteProduct = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProduct>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteProduct>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerDeleteProductMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Add color variant to product
  */
 export const adminControllerAddColorVariant = (
-  id: string,
-  createColorVariantDto: CreateColorVariantDto,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+    createColorVariantDto: CreateColorVariantDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    {
-      url: `/admin/products/${id}/color-variants`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: createColorVariantDto,
-      signal,
+      
+      
+      return customInstance<void>(
+      {url: `/admin/products/${id}/color-variants`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createColorVariantDto, signal
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerAddColorVariantMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
-    TError,
-    { id: string; data: CreateColorVariantDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
-  TError,
-  { id: string; data: CreateColorVariantDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerAddColorVariant'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
-    { id: string; data: CreateColorVariantDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getAdminControllerAddColorVariantMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext> => {
 
-    return adminControllerAddColorVariant(id, data, requestOptions);
-  };
+const mutationKey = ['adminControllerAddColorVariant'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerAddColorVariantMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerAddColorVariant>>
->;
-export type AdminControllerAddColorVariantMutationBody = CreateColorVariantDto;
-export type AdminControllerAddColorVariantMutationError = unknown;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerAddColorVariant>>, {id: string;data: CreateColorVariantDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerAddColorVariant(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerAddColorVariantMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerAddColorVariant>>>
+    export type AdminControllerAddColorVariantMutationBody = CreateColorVariantDto
+    export type AdminControllerAddColorVariantMutationError = unknown
+
+    /**
  * @summary Add color variant to product
  */
-export const useAdminControllerAddColorVariant = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
-      TError,
-      { id: string; data: CreateColorVariantDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
-  TError,
-  { id: string; data: CreateColorVariantDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerAddColorVariantMutationOptions(options);
+export const useAdminControllerAddColorVariant = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerAddColorVariant>>,
+        TError,
+        {id: string;data: CreateColorVariantDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerAddColorVariantMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Update color variant
  */
 export const adminControllerUpdateColorVariant = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/color-variants/${id}`, method: 'PUT' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/color-variants/${id}`, method: 'PUT'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerUpdateColorVariantMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateColorVariant'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerUpdateColorVariantMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext> => {
 
-    return adminControllerUpdateColorVariant(id, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateColorVariant'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateColorVariantMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>
->;
 
-export type AdminControllerUpdateColorVariantMutationError = unknown;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerUpdateColorVariant(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateColorVariantMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>>
+    
+    export type AdminControllerUpdateColorVariantMutationError = unknown
+
+    /**
  * @summary Update color variant
  */
-export const useAdminControllerUpdateColorVariant = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateColorVariantMutationOptions(options);
+export const useAdminControllerUpdateColorVariant = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateColorVariantMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete color variant
  */
 export const adminControllerDeleteColorVariant = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/color-variants/${id}`, method: 'DELETE' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/color-variants/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteColorVariantMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteColorVariant'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerDeleteColorVariantMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>, TError,{id: string}, TContext> => {
 
-    return adminControllerDeleteColorVariant(id, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteColorVariant'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteColorVariantMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>
->;
 
-export type AdminControllerDeleteColorVariantMutationError = unknown;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerDeleteColorVariant(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteColorVariantMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>>
+    
+    export type AdminControllerDeleteColorVariantMutationError = unknown
+
+    /**
  * @summary Delete color variant
  */
-export const useAdminControllerDeleteColorVariant = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerDeleteColorVariantMutationOptions(options);
+export const useAdminControllerDeleteColorVariant = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteColorVariant>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerDeleteColorVariantMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Add images to product
  */
 export const adminControllerAddProductImages = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/admin/products/${id}/images`, method: 'POST', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<void>(
+      {url: `/admin/products/${id}/images`, method: 'POST', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerAddProductImagesMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerAddProductImages>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerAddProductImages>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerAddProductImages'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerAddProductImages>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerAddProductImagesMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImages>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImages>>, TError,{id: string}, TContext> => {
 
-    return adminControllerAddProductImages(id, requestOptions);
-  };
+const mutationKey = ['adminControllerAddProductImages'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerAddProductImagesMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerAddProductImages>>
->;
 
-export type AdminControllerAddProductImagesMutationError = unknown;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerAddProductImages>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerAddProductImages(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerAddProductImagesMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerAddProductImages>>>
+    
+    export type AdminControllerAddProductImagesMutationError = unknown
+
+    /**
  * @summary Add images to product
  */
-export const useAdminControllerAddProductImages = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerAddProductImages>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerAddProductImages>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerAddProductImagesMutationOptions(options);
+export const useAdminControllerAddProductImages = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImages>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerAddProductImages>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerAddProductImagesMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Update product image
  */
 export const adminControllerUpdateProductImage = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/product-images/${id}`, method: 'PUT' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/product-images/${id}`, method: 'PUT'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerUpdateProductImageMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateProductImage'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerUpdateProductImageMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProductImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProductImage>>, TError,{id: string}, TContext> => {
 
-    return adminControllerUpdateProductImage(id, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateProductImage'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateProductImageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateProductImage>>
->;
 
-export type AdminControllerUpdateProductImageMutationError = unknown;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateProductImage>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerUpdateProductImage(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateProductImageMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateProductImage>>>
+    
+    export type AdminControllerUpdateProductImageMutationError = unknown
+
+    /**
  * @summary Update product image
  */
-export const useAdminControllerUpdateProductImage = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateProductImageMutationOptions(options);
+export const useAdminControllerUpdateProductImage = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateProductImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateProductImage>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateProductImageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete product image
  */
 export const adminControllerDeleteProductImage = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/product-images/${id}`, method: 'DELETE' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/product-images/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteProductImageMutationOptions = <
-  TError = unknown,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteProductImage'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerDeleteProductImageMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProductImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProductImage>>, TError,{id: string}, TContext> => {
 
-    return adminControllerDeleteProductImage(id, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteProductImage'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteProductImageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteProductImage>>
->;
 
-export type AdminControllerDeleteProductImageMutationError = unknown;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteProductImage>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerDeleteProductImage(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteProductImageMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteProductImage>>>
+    
+    export type AdminControllerDeleteProductImageMutationError = unknown
+
+    /**
  * @summary Delete product image
  */
-export const useAdminControllerDeleteProductImage = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerDeleteProductImageMutationOptions(options);
+export const useAdminControllerDeleteProductImage = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteProductImage>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteProductImage>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerDeleteProductImageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Create a new carousel item
  */
 export const adminControllerCreateCarouselItem = (
-  createCarouselItemDto: CreateCarouselItemDto,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    createCarouselItemDto: CreateCarouselItemDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<CarouselItemResponseDto>(
-    {
-      url: `/admin/carousel`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: createCarouselItemDto,
-      signal,
+      
+      
+      return customInstance<CarouselItemResponseDto>(
+      {url: `/admin/carousel`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createCarouselItemDto, signal
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerCreateCarouselItemMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
-    TError,
-    { data: CreateCarouselItemDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
-  TError,
-  { data: CreateCarouselItemDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerCreateCarouselItem'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
-    { data: CreateCarouselItemDto }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getAdminControllerCreateCarouselItemMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>, TError,{data: CreateCarouselItemDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>, TError,{data: CreateCarouselItemDto}, TContext> => {
 
-    return adminControllerCreateCarouselItem(data, requestOptions);
-  };
+const mutationKey = ['adminControllerCreateCarouselItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerCreateCarouselItemMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>
->;
-export type AdminControllerCreateCarouselItemMutationBody =
-  CreateCarouselItemDto;
-export type AdminControllerCreateCarouselItemMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>, {data: CreateCarouselItemDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerCreateCarouselItem(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerCreateCarouselItemMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>>
+    export type AdminControllerCreateCarouselItemMutationBody = CreateCarouselItemDto
+    export type AdminControllerCreateCarouselItemMutationError = void
+
+    /**
  * @summary Create a new carousel item
  */
-export const useAdminControllerCreateCarouselItem = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
-      TError,
-      { data: CreateCarouselItemDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
-  TError,
-  { data: CreateCarouselItemDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerCreateCarouselItemMutationOptions(options);
+export const useAdminControllerCreateCarouselItem = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>, TError,{data: CreateCarouselItemDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerCreateCarouselItem>>,
+        TError,
+        {data: CreateCarouselItemDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerCreateCarouselItemMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all carousel items
  */
 export const adminControllerGetAllCarouselItems = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<CarouselItemResponseDto[]>(
-    { url: `/admin/carousel`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<CarouselItemResponseDto[]>(
+      {url: `/admin/carousel`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getAdminControllerGetAllCarouselItemsQueryKey = () => {
-  return [`/admin/carousel`] as const;
-};
+    return [`/admin/carousel`] as const;
+    }
 
-export const getAdminControllerGetAllCarouselItemsQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-  TError = unknown
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    
+export const getAdminControllerGetAllCarouselItemsQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetAllCarouselItemsQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>
-  > = ({ signal }) =>
-    adminControllerGetAllCarouselItems(requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllCarouselItemsQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetAllCarouselItemsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>
->;
-export type AdminControllerGetAllCarouselItemsQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>> = ({ signal }) => adminControllerGetAllCarouselItems(requestOptions, signal);
 
-export function useAdminControllerGetAllCarouselItems<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-  TError = unknown
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllCarouselItemsQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>>
+export type AdminControllerGetAllCarouselItemsQueryError = unknown
+
+
+export function useAdminControllerGetAllCarouselItems<TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllCarouselItems<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCarouselItems<TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllCarouselItems<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCarouselItems<TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get all carousel items
  */
 
-export function useAdminControllerGetAllCarouselItems<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions =
-    getAdminControllerGetAllCarouselItemsQueryOptions(options);
+export function useAdminControllerGetAllCarouselItems<TData = Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCarouselItems>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetAllCarouselItemsQueryOptions(options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Get carousel item by ID
  */
 export const adminControllerGetCarouselItemById = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<CarouselItemResponseDto>(
-    { url: `/admin/carousel/${id}`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<CarouselItemResponseDto>(
+      {url: `/admin/carousel/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerGetCarouselItemByIdQueryKey = (id: string) => {
-  return [`/admin/carousel/${id}`] as const;
-};
+export const getAdminControllerGetCarouselItemByIdQueryKey = (id: string,) => {
+    return [`/admin/carousel/${id}`] as const;
+    }
 
-export const getAdminControllerGetCarouselItemByIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  }
+    
+export const getAdminControllerGetCarouselItemByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetCarouselItemByIdQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>
-  > = ({ signal }) =>
-    adminControllerGetCarouselItemById(id, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetCarouselItemByIdQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetCarouselItemByIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>
->;
-export type AdminControllerGetCarouselItemByIdQueryError = void;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>> = ({ signal }) => adminControllerGetCarouselItemById(id, requestOptions, signal);
 
-export function useAdminControllerGetCarouselItemById<
-  TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-  TError = void
->(
-  id: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetCarouselItemByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>>
+export type AdminControllerGetCarouselItemByIdQueryError = void
+
+
+export function useAdminControllerGetCarouselItemById<TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetCarouselItemById<
-  TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetCarouselItemById<TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetCarouselItemById<
-  TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetCarouselItemById<TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get carousel item by ID
  */
 
-export function useAdminControllerGetCarouselItemById<
-  TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetCarouselItemByIdQueryOptions(
-    id,
-    options
-  );
+export function useAdminControllerGetCarouselItemById<TData = Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCarouselItemById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetCarouselItemByIdQueryOptions(id,options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Update carousel item by ID
  */
 export const adminControllerUpdateCarouselItem = (
-  id: string,
-  updateCarouselItemDto: UpdateCarouselItemDto,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<CarouselItemResponseDto>(
-    {
-      url: `/admin/carousel/${id}`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: updateCarouselItemDto,
+    id: string,
+    updateCarouselItemDto: UpdateCarouselItemDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<CarouselItemResponseDto>(
+      {url: `/admin/carousel/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateCarouselItemDto
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerUpdateCarouselItemMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
-    TError,
-    { id: string; data: UpdateCarouselItemDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
-  TError,
-  { id: string; data: UpdateCarouselItemDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateCarouselItem'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
-    { id: string; data: UpdateCarouselItemDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getAdminControllerUpdateCarouselItemMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>, TError,{id: string;data: UpdateCarouselItemDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>, TError,{id: string;data: UpdateCarouselItemDto}, TContext> => {
 
-    return adminControllerUpdateCarouselItem(id, data, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateCarouselItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateCarouselItemMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>
->;
-export type AdminControllerUpdateCarouselItemMutationBody =
-  UpdateCarouselItemDto;
-export type AdminControllerUpdateCarouselItemMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>, {id: string;data: UpdateCarouselItemDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateCarouselItem(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateCarouselItemMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>>
+    export type AdminControllerUpdateCarouselItemMutationBody = UpdateCarouselItemDto
+    export type AdminControllerUpdateCarouselItemMutationError = void
+
+    /**
  * @summary Update carousel item by ID
  */
-export const useAdminControllerUpdateCarouselItem = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
-      TError,
-      { id: string; data: UpdateCarouselItemDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
-  TError,
-  { id: string; data: UpdateCarouselItemDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateCarouselItemMutationOptions(options);
+export const useAdminControllerUpdateCarouselItem = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>, TError,{id: string;data: UpdateCarouselItemDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateCarouselItem>>,
+        TError,
+        {id: string;data: UpdateCarouselItemDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateCarouselItemMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete carousel item by ID
  */
 export const adminControllerDeleteCarouselItem = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/carousel/${id}`, method: 'DELETE' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/carousel/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteCarouselItemMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteCarouselItem'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerDeleteCarouselItemMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>, TError,{id: string}, TContext> => {
 
-    return adminControllerDeleteCarouselItem(id, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteCarouselItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteCarouselItemMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>
->;
 
-export type AdminControllerDeleteCarouselItemMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerDeleteCarouselItem(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteCarouselItemMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>>
+    
+    export type AdminControllerDeleteCarouselItemMutationError = void
+
+    /**
  * @summary Delete carousel item by ID
  */
-export const useAdminControllerDeleteCarouselItem = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerDeleteCarouselItemMutationOptions(options);
+export const useAdminControllerDeleteCarouselItem = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteCarouselItem>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerDeleteCarouselItemMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all orders
  */
 export const adminControllerGetAllOrders = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<OrderResponseDto[]>(
-    { url: `/admin/orders`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<OrderResponseDto[]>(
+      {url: `/admin/orders`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getAdminControllerGetAllOrdersQueryKey = () => {
-  return [`/admin/orders`] as const;
-};
+    return [`/admin/orders`] as const;
+    }
 
-export const getAdminControllerGetAllOrdersQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-  TError = unknown
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    
+export const getAdminControllerGetAllOrdersQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetAllOrdersQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetAllOrders>>
-  > = ({ signal }) => adminControllerGetAllOrders(requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllOrdersQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetAllOrdersQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetAllOrders>>
->;
-export type AdminControllerGetAllOrdersQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllOrders>>> = ({ signal }) => adminControllerGetAllOrders(requestOptions, signal);
 
-export function useAdminControllerGetAllOrders<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-  TError = unknown
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllOrdersQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllOrders>>>
+export type AdminControllerGetAllOrdersQueryError = unknown
+
+
+export function useAdminControllerGetAllOrders<TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllOrders>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllOrders<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllOrders<TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllOrders>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllOrders<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllOrders<TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get all orders
  */
 
-export function useAdminControllerGetAllOrders<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllOrders>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetAllOrdersQueryOptions(options);
+export function useAdminControllerGetAllOrders<TData = Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllOrders>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetAllOrdersQueryOptions(options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Get order by ID
  */
 export const adminControllerGetOrderById = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<OrderResponseDto>(
-    { url: `/admin/orders/${id}`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<OrderResponseDto>(
+      {url: `/admin/orders/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerGetOrderByIdQueryKey = (id: string) => {
-  return [`/admin/orders/${id}`] as const;
-};
+export const getAdminControllerGetOrderByIdQueryKey = (id: string,) => {
+    return [`/admin/orders/${id}`] as const;
+    }
 
-export const getAdminControllerGetOrderByIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  }
+    
+export const getAdminControllerGetOrderByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetOrderByIdQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetOrderById>>
-  > = ({ signal }) => adminControllerGetOrderById(id, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetOrderByIdQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetOrderByIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetOrderById>>
->;
-export type AdminControllerGetOrderByIdQueryError = void;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetOrderById>>> = ({ signal }) => adminControllerGetOrderById(id, requestOptions, signal);
 
-export function useAdminControllerGetOrderById<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-  TError = void
->(
-  id: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetOrderByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetOrderById>>>
+export type AdminControllerGetOrderByIdQueryError = void
+
+
+export function useAdminControllerGetOrderById<TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetOrderById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetOrderById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetOrderById<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetOrderById<TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetOrderById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetOrderById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetOrderById<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetOrderById<TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get order by ID
  */
 
-export function useAdminControllerGetOrderById<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetOrderByIdQueryOptions(id, options);
+export function useAdminControllerGetOrderById<TData = Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetOrderByIdQueryOptions(id,options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Update order shipping status
  */
 export const adminControllerUpdateShippingStatus = (
-  id: string,
-  updateShippingStatusDto: UpdateShippingStatusDto,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    {
-      url: `/admin/orders/${id}/shipping`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: updateShippingStatusDto,
+    id: string,
+    updateShippingStatusDto: UpdateShippingStatusDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/orders/${id}/shipping`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateShippingStatusDto
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerUpdateShippingStatusMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
-    TError,
-    { id: string; data: UpdateShippingStatusDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
-  TError,
-  { id: string; data: UpdateShippingStatusDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateShippingStatus'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
-    { id: string; data: UpdateShippingStatusDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getAdminControllerUpdateShippingStatusMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>, TError,{id: string;data: UpdateShippingStatusDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>, TError,{id: string;data: UpdateShippingStatusDto}, TContext> => {
 
-    return adminControllerUpdateShippingStatus(id, data, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateShippingStatus'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateShippingStatusMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>
->;
-export type AdminControllerUpdateShippingStatusMutationBody =
-  UpdateShippingStatusDto;
-export type AdminControllerUpdateShippingStatusMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>, {id: string;data: UpdateShippingStatusDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateShippingStatus(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateShippingStatusMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>>
+    export type AdminControllerUpdateShippingStatusMutationBody = UpdateShippingStatusDto
+    export type AdminControllerUpdateShippingStatusMutationError = void
+
+    /**
  * @summary Update order shipping status
  */
-export const useAdminControllerUpdateShippingStatus = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
-      TError,
-      { id: string; data: UpdateShippingStatusDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
-  TError,
-  { id: string; data: UpdateShippingStatusDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateShippingStatusMutationOptions(options);
+export const useAdminControllerUpdateShippingStatus = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>, TError,{id: string;data: UpdateShippingStatusDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateShippingStatus>>,
+        TError,
+        {id: string;data: UpdateShippingStatusDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateShippingStatusMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get shipping updates for an order
  */
 export const adminControllerGetOrderShippingUpdates = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<ShippingUpdateResponseDto[]>(
-    { url: `/admin/orders/${id}/shipping-updates`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<ShippingUpdateResponseDto[]>(
+      {url: `/admin/orders/${id}/shipping-updates`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerGetOrderShippingUpdatesQueryKey = (
-  id: string
+export const getAdminControllerGetOrderShippingUpdatesQueryKey = (id: string,) => {
+    return [`/admin/orders/${id}/shipping-updates`] as const;
+    }
+
+    
+export const getAdminControllerGetOrderShippingUpdatesQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
-  return [`/admin/orders/${id}/shipping-updates`] as const;
-};
 
-export const getAdminControllerGetOrderShippingUpdatesQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  }
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAdminControllerGetOrderShippingUpdatesQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetOrderShippingUpdatesQueryKey(id);
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>
-  > = ({ signal }) =>
-    adminControllerGetOrderShippingUpdates(id, requestOptions, signal);
+  
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>> = ({ signal }) => adminControllerGetOrderShippingUpdates(id, requestOptions, signal);
 
-export type AdminControllerGetOrderShippingUpdatesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>
->;
-export type AdminControllerGetOrderShippingUpdatesQueryError = void;
+      
 
-export function useAdminControllerGetOrderShippingUpdates<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-  TError = void
->(
-  id: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetOrderShippingUpdatesQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>>
+export type AdminControllerGetOrderShippingUpdatesQueryError = void
+
+
+export function useAdminControllerGetOrderShippingUpdates<TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetOrderShippingUpdates<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetOrderShippingUpdates<TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetOrderShippingUpdates<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetOrderShippingUpdates<TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get shipping updates for an order
  */
 
-export function useAdminControllerGetOrderShippingUpdates<
-  TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetOrderShippingUpdatesQueryOptions(
-    id,
-    options
-  );
+export function useAdminControllerGetOrderShippingUpdates<TData = Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetOrderShippingUpdates>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetOrderShippingUpdatesQueryOptions(id,options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Create a new social post
  */
 export const adminControllerCreateSocialPost = (
-  createSocialPostDto: CreateSocialPostDto,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    createSocialPostDto: CreateSocialPostDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<SocialPostResponseDto>(
-    {
-      url: `/admin/social-posts`,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: createSocialPostDto,
-      signal,
+      
+      
+      return customInstance<SocialPostResponseDto>(
+      {url: `/admin/social-posts`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createSocialPostDto, signal
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerCreateSocialPostMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
-    TError,
-    { data: CreateSocialPostDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
-  TError,
-  { data: CreateSocialPostDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerCreateSocialPost'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
-    { data: CreateSocialPostDto }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getAdminControllerCreateSocialPostMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateSocialPost>>, TError,{data: CreateSocialPostDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateSocialPost>>, TError,{data: CreateSocialPostDto}, TContext> => {
 
-    return adminControllerCreateSocialPost(data, requestOptions);
-  };
+const mutationKey = ['adminControllerCreateSocialPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerCreateSocialPostMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerCreateSocialPost>>
->;
-export type AdminControllerCreateSocialPostMutationBody = CreateSocialPostDto;
-export type AdminControllerCreateSocialPostMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateSocialPost>>, {data: CreateSocialPostDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerCreateSocialPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerCreateSocialPostMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateSocialPost>>>
+    export type AdminControllerCreateSocialPostMutationBody = CreateSocialPostDto
+    export type AdminControllerCreateSocialPostMutationError = void
+
+    /**
  * @summary Create a new social post
  */
-export const useAdminControllerCreateSocialPost = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
-      TError,
-      { data: CreateSocialPostDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
-  TError,
-  { data: CreateSocialPostDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerCreateSocialPostMutationOptions(options);
+export const useAdminControllerCreateSocialPost = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateSocialPost>>, TError,{data: CreateSocialPostDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerCreateSocialPost>>,
+        TError,
+        {data: CreateSocialPostDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerCreateSocialPostMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all social posts
  */
 export const adminControllerGetAllSocialPosts = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<SocialPostResponseDto[]>(
-    { url: `/admin/social-posts`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<SocialPostResponseDto[]>(
+      {url: `/admin/social-posts`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getAdminControllerGetAllSocialPostsQueryKey = () => {
-  return [`/admin/social-posts`] as const;
-};
+    return [`/admin/social-posts`] as const;
+    }
 
-export const getAdminControllerGetAllSocialPostsQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-  TError = unknown
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    
+export const getAdminControllerGetAllSocialPostsQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetAllSocialPostsQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>
-  > = ({ signal }) => adminControllerGetAllSocialPosts(requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllSocialPostsQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetAllSocialPostsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>
->;
-export type AdminControllerGetAllSocialPostsQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>> = ({ signal }) => adminControllerGetAllSocialPosts(requestOptions, signal);
 
-export function useAdminControllerGetAllSocialPosts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-  TError = unknown
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllSocialPostsQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>>
+export type AdminControllerGetAllSocialPostsQueryError = unknown
+
+
+export function useAdminControllerGetAllSocialPosts<TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllSocialPosts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllSocialPosts<TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllSocialPosts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllSocialPosts<TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get all social posts
  */
 
-export function useAdminControllerGetAllSocialPosts<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetAllSocialPostsQueryOptions(options);
+export function useAdminControllerGetAllSocialPosts<TData = Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllSocialPosts>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetAllSocialPostsQueryOptions(options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Get social post by ID
  */
 export const adminControllerGetSocialPostById = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<SocialPostResponseDto>(
-    { url: `/admin/social-posts/${id}`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<SocialPostResponseDto>(
+      {url: `/admin/social-posts/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerGetSocialPostByIdQueryKey = (id: string) => {
-  return [`/admin/social-posts/${id}`] as const;
-};
+export const getAdminControllerGetSocialPostByIdQueryKey = (id: string,) => {
+    return [`/admin/social-posts/${id}`] as const;
+    }
 
-export const getAdminControllerGetSocialPostByIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  }
+    
+export const getAdminControllerGetSocialPostByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetSocialPostByIdQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetSocialPostById>>
-  > = ({ signal }) =>
-    adminControllerGetSocialPostById(id, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetSocialPostByIdQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetSocialPostByIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetSocialPostById>>
->;
-export type AdminControllerGetSocialPostByIdQueryError = void;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>> = ({ signal }) => adminControllerGetSocialPostById(id, requestOptions, signal);
 
-export function useAdminControllerGetSocialPostById<
-  TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-  TError = void
->(
-  id: string,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetSocialPostByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>>
+export type AdminControllerGetSocialPostByIdQueryError = void
+
+
+export function useAdminControllerGetSocialPostById<TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetSocialPostById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetSocialPostById<
-  TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetSocialPostById<TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetSocialPostById>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetSocialPostById<
-  TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetSocialPostById<TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get social post by ID
  */
 
-export function useAdminControllerGetSocialPostById<
-  TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-  TError = void
->(
-  id: string,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetSocialPostById>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetSocialPostByIdQueryOptions(
-    id,
-    options
-  );
+export function useAdminControllerGetSocialPostById<TData = Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetSocialPostById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetSocialPostByIdQueryOptions(id,options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Update social post by ID
  */
 export const adminControllerUpdateSocialPost = (
-  id: string,
-  updateSocialPostDto: UpdateSocialPostDto,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<SocialPostResponseDto>(
-    {
-      url: `/admin/social-posts/${id}`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: updateSocialPostDto,
+    id: string,
+    updateSocialPostDto: UpdateSocialPostDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<SocialPostResponseDto>(
+      {url: `/admin/social-posts/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateSocialPostDto
     },
-    options
-  );
-};
+      options);
+    }
+  
 
-export const getAdminControllerUpdateSocialPostMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
-    TError,
-    { id: string; data: UpdateSocialPostDto },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
-  TError,
-  { id: string; data: UpdateSocialPostDto },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUpdateSocialPost'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
-    { id: string; data: UpdateSocialPostDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getAdminControllerUpdateSocialPostMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>, TError,{id: string;data: UpdateSocialPostDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>, TError,{id: string;data: UpdateSocialPostDto}, TContext> => {
 
-    return adminControllerUpdateSocialPost(id, data, requestOptions);
-  };
+const mutationKey = ['adminControllerUpdateSocialPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUpdateSocialPostMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>
->;
-export type AdminControllerUpdateSocialPostMutationBody = UpdateSocialPostDto;
-export type AdminControllerUpdateSocialPostMutationError = void;
 
-/**
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>, {id: string;data: UpdateSocialPostDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateSocialPost(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateSocialPostMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>>
+    export type AdminControllerUpdateSocialPostMutationBody = UpdateSocialPostDto
+    export type AdminControllerUpdateSocialPostMutationError = void
+
+    /**
  * @summary Update social post by ID
  */
-export const useAdminControllerUpdateSocialPost = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
-      TError,
-      { id: string; data: UpdateSocialPostDto },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
-  TError,
-  { id: string; data: UpdateSocialPostDto },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUpdateSocialPostMutationOptions(options);
+export const useAdminControllerUpdateSocialPost = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>, TError,{id: string;data: UpdateSocialPostDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateSocialPost>>,
+        TError,
+        {id: string;data: UpdateSocialPostDto},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUpdateSocialPostMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete social post by ID
  */
 export const adminControllerDeleteSocialPost = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/social-posts/${id}`, method: 'DELETE' },
-    options
-  );
-};
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/social-posts/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteSocialPostMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteSocialPost'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
+export const getAdminControllerDeleteSocialPostMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>, TError,{id: string}, TContext> => {
 
-    return adminControllerDeleteSocialPost(id, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteSocialPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteSocialPostMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>
->;
 
-export type AdminControllerDeleteSocialPostMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
 
-/**
+          return  adminControllerDeleteSocialPost(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteSocialPostMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>>
+    
+    export type AdminControllerDeleteSocialPostMutationError = void
+
+    /**
  * @summary Delete social post by ID
  */
-export const useAdminControllerDeleteSocialPost = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
-      TError,
-      { id: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerDeleteSocialPostMutationOptions(options);
+export const useAdminControllerDeleteSocialPost = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteSocialPost>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerDeleteSocialPostMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all active categories
  */
 export const adminControllerGetAllCategories = (
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<CategoryResponseDto[]>(
-    { url: `/admin/categories`, method: 'GET', signal },
-    options
-  );
-};
+      
+      
+      return customInstance<CategoryResponseDto[]>(
+      {url: `/admin/categories`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getAdminControllerGetAllCategoriesQueryKey = () => {
-  return [`/admin/categories`] as const;
-};
+    return [`/admin/categories`] as const;
+    }
 
-export const getAdminControllerGetAllCategoriesQueryOptions = <
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-  TError = unknown
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-      TError,
-      TData
-    >
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    
+export const getAdminControllerGetAllCategoriesQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAdminControllerGetAllCategoriesQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof adminControllerGetAllCategories>>
-  > = ({ signal }) => adminControllerGetAllCategories(requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllCategoriesQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
-};
+  
 
-export type AdminControllerGetAllCategoriesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerGetAllCategories>>
->;
-export type AdminControllerGetAllCategoriesQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllCategories>>> = ({ signal }) => adminControllerGetAllCategories(requestOptions, signal);
 
-export function useAdminControllerGetAllCategories<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-  TError = unknown
->(
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllCategoriesQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllCategories>>>
+export type AdminControllerGetAllCategoriesQueryError = unknown
+
+
+export function useAdminControllerGetAllCategories<TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllCategories>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllCategories<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCategories<TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
           TError,
           Awaited<ReturnType<typeof adminControllerGetAllCategories>>
-        >,
-        'initialData'
-      >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useAdminControllerGetAllCategories<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCategories<TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get all active categories
  */
 
-export function useAdminControllerGetAllCategories<
-  TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-  TError = unknown
->(
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof adminControllerGetAllCategories>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getAdminControllerGetAllCategoriesQueryOptions(options);
+export function useAdminControllerGetAllCategories<TData = Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategories>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
-    TData,
-    TError
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  const queryOptions = getAdminControllerGetAllCategoriesQueryOptions(options)
 
-  query.queryKey = queryOptions.queryKey;
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
 }
+
+
 
 /**
  * @summary Upload a single image to Supabase Storage
  */
 export const adminControllerUploadImage = (
-  params?: AdminControllerUploadImageParams,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    params?: AdminControllerUploadImageParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<ImageUploadResponseDto>(
-    { url: `/admin/upload/image`, method: 'POST', params, signal },
-    options
-  );
-};
+      
+      
+      return customInstance<ImageUploadResponseDto>(
+      {url: `/admin/upload/image`, method: 'POST',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerUploadImageMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUploadImage>>,
-    TError,
-    { params?: AdminControllerUploadImageParams },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUploadImage>>,
-  TError,
-  { params?: AdminControllerUploadImageParams },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUploadImage'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUploadImage>>,
-    { params?: AdminControllerUploadImageParams }
-  > = (props) => {
-    const { params } = props ?? {};
+export const getAdminControllerUploadImageMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadImage>>, TError,{params?: AdminControllerUploadImageParams}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadImage>>, TError,{params?: AdminControllerUploadImageParams}, TContext> => {
 
-    return adminControllerUploadImage(params, requestOptions);
-  };
+const mutationKey = ['adminControllerUploadImage'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUploadImageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUploadImage>>
->;
 
-export type AdminControllerUploadImageMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUploadImage>>, {params?: AdminControllerUploadImageParams}> = (props) => {
+          const {params} = props ?? {};
 
-/**
+          return  adminControllerUploadImage(params,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUploadImageMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUploadImage>>>
+    
+    export type AdminControllerUploadImageMutationError = void
+
+    /**
  * @summary Upload a single image to Supabase Storage
  */
-export const useAdminControllerUploadImage = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUploadImage>>,
-      TError,
-      { params?: AdminControllerUploadImageParams },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUploadImage>>,
-  TError,
-  { params?: AdminControllerUploadImageParams },
-  TContext
-> => {
-  const mutationOptions = getAdminControllerUploadImageMutationOptions(options);
+export const useAdminControllerUploadImage = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadImage>>, TError,{params?: AdminControllerUploadImageParams}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUploadImage>>,
+        TError,
+        {params?: AdminControllerUploadImageParams},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUploadImageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Upload multiple images to Supabase Storage
  */
 export const adminControllerUploadMultipleImages = (
-  params?: AdminControllerUploadMultipleImagesParams,
-  options?: SecondParameter<typeof customInstance>,
-  signal?: AbortSignal
+    params?: AdminControllerUploadMultipleImagesParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
-  return customInstance<MultipleImageUploadResponseDto>(
-    { url: `/admin/upload/images`, method: 'POST', params, signal },
-    options
-  );
-};
+      
+      
+      return customInstance<MultipleImageUploadResponseDto>(
+      {url: `/admin/upload/images`, method: 'POST',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getAdminControllerUploadMultipleImagesMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
-    TError,
-    { params?: AdminControllerUploadMultipleImagesParams },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
-  TError,
-  { params?: AdminControllerUploadMultipleImagesParams },
-  TContext
-> => {
-  const mutationKey = ['adminControllerUploadMultipleImages'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
-    { params?: AdminControllerUploadMultipleImagesParams }
-  > = (props) => {
-    const { params } = props ?? {};
+export const getAdminControllerUploadMultipleImagesMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>, TError,{params?: AdminControllerUploadMultipleImagesParams}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>, TError,{params?: AdminControllerUploadMultipleImagesParams}, TContext> => {
 
-    return adminControllerUploadMultipleImages(params, requestOptions);
-  };
+const mutationKey = ['adminControllerUploadMultipleImages'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerUploadMultipleImagesMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>
->;
 
-export type AdminControllerUploadMultipleImagesMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>, {params?: AdminControllerUploadMultipleImagesParams}> = (props) => {
+          const {params} = props ?? {};
 
-/**
+          return  adminControllerUploadMultipleImages(params,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUploadMultipleImagesMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>>
+    
+    export type AdminControllerUploadMultipleImagesMutationError = void
+
+    /**
  * @summary Upload multiple images to Supabase Storage
  */
-export const useAdminControllerUploadMultipleImages = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
-      TError,
-      { params?: AdminControllerUploadMultipleImagesParams },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
-  TError,
-  { params?: AdminControllerUploadMultipleImagesParams },
-  TContext
-> => {
-  const mutationOptions =
-    getAdminControllerUploadMultipleImagesMutationOptions(options);
+export const useAdminControllerUploadMultipleImages = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>, TError,{params?: AdminControllerUploadMultipleImagesParams}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUploadMultipleImages>>,
+        TError,
+        {params?: AdminControllerUploadMultipleImagesParams},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
-/**
+      const mutationOptions = getAdminControllerUploadMultipleImagesMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Delete an image from Supabase Storage
  */
 export const adminControllerDeleteImage = (
-  path: string,
-  options?: SecondParameter<typeof customInstance>
-) => {
-  return customInstance<void>(
-    { url: `/admin/upload/${path}`, method: 'DELETE' },
-    options
-  );
-};
+    path: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/upload/${path}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getAdminControllerDeleteImageMutationOptions = <
-  TError = void,
-  TContext = unknown
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof adminControllerDeleteImage>>,
-    TError,
-    { path: string },
-    TContext
-  >;
-  request?: SecondParameter<typeof customInstance>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof adminControllerDeleteImage>>,
-  TError,
-  { path: string },
-  TContext
-> => {
-  const mutationKey = ['adminControllerDeleteImage'];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof adminControllerDeleteImage>>,
-    { path: string }
-  > = (props) => {
-    const { path } = props ?? {};
+export const getAdminControllerDeleteImageMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteImage>>, TError,{path: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteImage>>, TError,{path: string}, TContext> => {
 
-    return adminControllerDeleteImage(path, requestOptions);
-  };
+const mutationKey = ['adminControllerDeleteImage'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type AdminControllerDeleteImageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof adminControllerDeleteImage>>
->;
 
-export type AdminControllerDeleteImageMutationError = void;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteImage>>, {path: string}> = (props) => {
+          const {path} = props ?? {};
 
-/**
+          return  adminControllerDeleteImage(path,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteImageMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteImage>>>
+    
+    export type AdminControllerDeleteImageMutationError = void
+
+    /**
  * @summary Delete an image from Supabase Storage
  */
-export const useAdminControllerDeleteImage = <
-  TError = void,
-  TContext = unknown
->(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof adminControllerDeleteImage>>,
-      TError,
-      { path: string },
-      TContext
-    >;
-    request?: SecondParameter<typeof customInstance>;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof adminControllerDeleteImage>>,
-  TError,
-  { path: string },
-  TContext
-> => {
-  const mutationOptions = getAdminControllerDeleteImageMutationOptions(options);
+export const useAdminControllerDeleteImage = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteImage>>, TError,{path: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteImage>>,
+        TError,
+        {path: string},
+        TContext
+      > => {
 
-  return useMutation(mutationOptions, queryClient);
-};
+      const mutationOptions = getAdminControllerDeleteImageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    

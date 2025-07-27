@@ -12,13 +12,45 @@ export interface SignUpDto {
   lastName: string;
 }
 
+export type UserResponseDtoRole = typeof UserResponseDtoRole[keyof typeof UserResponseDtoRole];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UserResponseDtoRole = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+} as const;
+
+export interface UserResponseDto {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  isEmailVerified: boolean;
+  role: UserResponseDtoRole;
+}
+
+export interface SignUpResponseDto {
+  message: string;
+  user: UserResponseDto;
+}
+
 export interface SignInDto {
   email: string;
   password: string;
 }
 
+export interface AuthResponseDto {
+  access_token: string;
+  user: UserResponseDto;
+}
+
 export interface VerifyEmailDto {
   token: string;
+}
+
+export interface MessageResponseDto {
+  message: string;
 }
 
 export interface ForgotPasswordDto {

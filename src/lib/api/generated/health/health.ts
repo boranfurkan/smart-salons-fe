@@ -20,10 +20,6 @@ import type {
   UseQueryResult
 } from '@tanstack/react-query';
 
-import type {
-  HealthResponseDto
-} from '../smartSalonsAPI.schemas';
-
 import { customInstance } from '../../mutator';
 
 
@@ -127,7 +123,7 @@ export const appControllerGetHealth = (
 ) => {
       
       
-      return customInstance<HealthResponseDto>(
+      return customInstance<void>(
       {url: `/health`, method: 'GET', signal
     },
       options);

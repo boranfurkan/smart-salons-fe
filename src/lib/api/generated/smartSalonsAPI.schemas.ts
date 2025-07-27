@@ -5,13 +5,6 @@
  * API for Smart Salons hair dresser furniture e-commerce platform
  * OpenAPI spec version: 1.0
  */
-export interface HealthResponseDto {
-  status: string;
-  timestamp: string;
-  environment: string;
-  version: string;
-}
-
 export interface SignUpDto {
   email: string;
   password: string;
@@ -19,45 +12,13 @@ export interface SignUpDto {
   lastName: string;
 }
 
-export type UserDtoRole = typeof UserDtoRole[keyof typeof UserDtoRole];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UserDtoRole = {
-  ADMIN: 'ADMIN',
-  USER: 'USER',
-} as const;
-
-export interface UserDto {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  isEmailVerified: boolean;
-  role?: UserDtoRole;
-}
-
-export interface SignUpResponseDto {
-  message: string;
-  user: UserDto;
-}
-
 export interface SignInDto {
   email: string;
   password: string;
 }
 
-export interface SignInResponseDto {
-  access_token: string;
-  user: UserDto;
-}
-
 export interface VerifyEmailDto {
   token: string;
-}
-
-export interface MessageResponseDto {
-  message: string;
 }
 
 export interface ForgotPasswordDto {
@@ -68,4 +29,382 @@ export interface ResetPasswordDto {
   token: string;
   newPassword: string;
 }
+
+export interface CreateColorVariantDto {
+  name: string;
+  hexCode: string;
+  stock: number;
+}
+
+export interface CreateProductImageDto {
+  url: string;
+  altText?: string;
+  isPrimary?: boolean;
+  order?: number;
+}
+
+export interface CreateProductDto {
+  name: string;
+  description: string;
+  slug: string;
+  price: string;
+  discount?: string;
+  stock: number;
+  dimensions?: string;
+  deliveryDescription?: string;
+  categoryId: string;
+  colorVariants?: CreateColorVariantDto[];
+  images?: CreateProductImageDto[];
+  isActive?: boolean;
+}
+
+export interface ColorVariantResponseDto {
+  id: string;
+  name: string;
+  hexCode: string;
+  stock: number;
+  createdAt: string;
+  updatedAt: string;
+  productId: string;
+}
+
+export type ProductImageResponseDtoAltText = { [key: string]: unknown };
+
+export interface ProductImageResponseDto {
+  id: string;
+  url: string;
+  altText?: ProductImageResponseDtoAltText;
+  isPrimary: boolean;
+  order: number;
+  createdAt: string;
+  productId: string;
+}
+
+export type CategoryResponseDtoDescription = { [key: string]: unknown };
+
+export interface CategoryResponseDto {
+  id: string;
+  name: string;
+  description?: CategoryResponseDtoDescription;
+  slug: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductCountResponseDto {
+  orderItems: number;
+  favorites: number;
+}
+
+export type ProductResponseDtoDimensions = { [key: string]: unknown };
+
+export type ProductResponseDtoDeliveryDescription = { [key: string]: unknown };
+
+export interface ProductResponseDto {
+  id: string;
+  name: string;
+  description: string;
+  slug: string;
+  price: string;
+  discount: string;
+  stock: number;
+  dimensions?: ProductResponseDtoDimensions;
+  deliveryDescription?: ProductResponseDtoDeliveryDescription;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  categoryId: string;
+  colorVariants?: ColorVariantResponseDto[];
+  images?: ProductImageResponseDto[];
+  category?: CategoryResponseDto;
+  _count?: ProductCountResponseDto;
+}
+
+export interface CreateProductWithImagesDto {
+  name: string;
+  description: string;
+  slug: string;
+  price: string;
+  discount?: string;
+  stock: number;
+  dimensions?: string;
+  deliveryDescription?: string;
+  categoryId: string;
+  isActive?: boolean;
+  images?: Blob[];
+  /** JSON string of color variants */
+  colorVariants?: string[];
+}
+
+export interface UpdateProductDto {
+  name?: string;
+  description?: string;
+  slug?: string;
+  price?: string;
+  discount?: string;
+  stock?: number;
+  dimensions?: string;
+  deliveryDescription?: string;
+  categoryId?: string;
+  isActive?: boolean;
+}
+
+export interface CreateCarouselItemDto {
+  title: string;
+  description?: string;
+  imageUrl: string;
+  buttonText?: string;
+  buttonLink?: string;
+  order?: number;
+  isActive?: boolean;
+}
+
+export type CarouselItemResponseDtoDescription = { [key: string]: unknown };
+
+export type CarouselItemResponseDtoButtonText = { [key: string]: unknown };
+
+export type CarouselItemResponseDtoButtonLink = { [key: string]: unknown };
+
+export interface CarouselItemResponseDto {
+  id: string;
+  title: string;
+  description?: CarouselItemResponseDtoDescription;
+  imageUrl: string;
+  buttonText?: CarouselItemResponseDtoButtonText;
+  buttonLink?: CarouselItemResponseDtoButtonLink;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpdateCarouselItemDto {
+  title?: string;
+  description?: string;
+  imageUrl?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  order?: number;
+  isActive?: boolean;
+}
+
+export interface UserBasicResponseDto {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export type OrderItemResponseDtoColorVariantId = { [key: string]: unknown };
+
+export type OrderItemResponseDtoProduct = { [key: string]: unknown };
+
+export type OrderItemResponseDtoColorVariant = { [key: string]: unknown };
+
+export interface OrderItemResponseDto {
+  id: string;
+  quantity: number;
+  unitPrice: string;
+  totalPrice: string;
+  createdAt: string;
+  orderId: string;
+  productId: string;
+  colorVariantId?: OrderItemResponseDtoColorVariantId;
+  product?: OrderItemResponseDtoProduct;
+  colorVariant?: OrderItemResponseDtoColorVariant;
+}
+
+export type ShippingUpdateResponseDtoDescription = { [key: string]: unknown };
+
+export type ShippingUpdateResponseDtoLocation = { [key: string]: unknown };
+
+export interface ShippingUpdateResponseDto {
+  id: string;
+  status: string;
+  description?: ShippingUpdateResponseDtoDescription;
+  location?: ShippingUpdateResponseDtoLocation;
+  createdAt: string;
+  orderId: string;
+}
+
+export type OrderResponseDtoStatus = typeof OrderResponseDtoStatus[keyof typeof OrderResponseDtoStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const OrderResponseDtoStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type OrderResponseDtoShippingAddress = { [key: string]: unknown };
+
+export type OrderResponseDtoBillingAddress = { [key: string]: unknown };
+
+export type OrderResponseDtoNotes = { [key: string]: unknown };
+
+export interface OrderResponseDto {
+  id: string;
+  orderNumber: string;
+  status: OrderResponseDtoStatus;
+  totalAmount: string;
+  shippingAddress: OrderResponseDtoShippingAddress;
+  billingAddress?: OrderResponseDtoBillingAddress;
+  notes?: OrderResponseDtoNotes;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user?: UserBasicResponseDto;
+  orderItems?: OrderItemResponseDto[];
+  shippingUpdates?: ShippingUpdateResponseDto[];
+}
+
+export type UpdateShippingStatusDtoStatus = typeof UpdateShippingStatusDtoStatus[keyof typeof UpdateShippingStatusDtoStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateShippingStatusDtoStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export interface UpdateShippingStatusDto {
+  status: UpdateShippingStatusDtoStatus;
+  description?: string;
+  location?: string;
+}
+
+export type CreateSocialPostDtoPlatform = typeof CreateSocialPostDtoPlatform[keyof typeof CreateSocialPostDtoPlatform];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateSocialPostDtoPlatform = {
+  INSTAGRAM: 'INSTAGRAM',
+  TIKTOK: 'TIKTOK',
+  FACEBOOK: 'FACEBOOK',
+  TWITTER: 'TWITTER',
+} as const;
+
+export interface CreateSocialPostDto {
+  platform: CreateSocialPostDtoPlatform;
+  postUrl: string;
+  imageUrl?: string;
+  videoUrl?: string;
+  description?: string;
+  publisher?: string;
+  hashtags?: string[];
+  isActive?: boolean;
+}
+
+export type SocialPostResponseDtoPlatform = typeof SocialPostResponseDtoPlatform[keyof typeof SocialPostResponseDtoPlatform];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SocialPostResponseDtoPlatform = {
+  INSTAGRAM: 'INSTAGRAM',
+  TIKTOK: 'TIKTOK',
+  FACEBOOK: 'FACEBOOK',
+  TWITTER: 'TWITTER',
+} as const;
+
+export type SocialPostResponseDtoImageUrl = { [key: string]: unknown };
+
+export type SocialPostResponseDtoVideoUrl = { [key: string]: unknown };
+
+export type SocialPostResponseDtoDescription = { [key: string]: unknown };
+
+export type SocialPostResponseDtoPublisher = { [key: string]: unknown };
+
+export interface SocialPostResponseDto {
+  id: string;
+  platform: SocialPostResponseDtoPlatform;
+  postUrl: string;
+  imageUrl?: SocialPostResponseDtoImageUrl;
+  videoUrl?: SocialPostResponseDtoVideoUrl;
+  description?: SocialPostResponseDtoDescription;
+  publisher?: SocialPostResponseDtoPublisher;
+  hashtags: string[];
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type UpdateSocialPostDtoPlatform = typeof UpdateSocialPostDtoPlatform[keyof typeof UpdateSocialPostDtoPlatform];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateSocialPostDtoPlatform = {
+  INSTAGRAM: 'INSTAGRAM',
+  TIKTOK: 'TIKTOK',
+  FACEBOOK: 'FACEBOOK',
+  TWITTER: 'TWITTER',
+} as const;
+
+export interface UpdateSocialPostDto {
+  platform?: UpdateSocialPostDtoPlatform;
+  postUrl?: string;
+  imageUrl?: string;
+  videoUrl?: string;
+  description?: string;
+  publisher?: string;
+  hashtags?: string[];
+  isActive?: boolean;
+}
+
+export interface ImageUploadResponseDto {
+  url: string;
+  filename: string;
+  mimetype: string;
+  size: number;
+  path: string;
+}
+
+export interface MultipleImageUploadResponseDto {
+  images: ImageUploadResponseDto[];
+  count: number;
+}
+
+export type AdminControllerUploadImageParams = {
+/**
+ * Upload folder (products, carousel, social-posts, general)
+ */
+folder?: AdminControllerUploadImageFolder;
+};
+
+export type AdminControllerUploadImageFolder = typeof AdminControllerUploadImageFolder[keyof typeof AdminControllerUploadImageFolder];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const AdminControllerUploadImageFolder = {
+  products: 'products',
+  carousel: 'carousel',
+  'social-posts': 'social-posts',
+  general: 'general',
+} as const;
+
+export type AdminControllerUploadMultipleImagesParams = {
+/**
+ * Upload folder (products, carousel, social-posts, general)
+ */
+folder?: AdminControllerUploadMultipleImagesFolder;
+};
+
+export type AdminControllerUploadMultipleImagesFolder = typeof AdminControllerUploadMultipleImagesFolder[keyof typeof AdminControllerUploadMultipleImagesFolder];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const AdminControllerUploadMultipleImagesFolder = {
+  products: 'products',
+  carousel: 'carousel',
+  'social-posts': 'social-posts',
+  general: 'general',
+} as const;
 

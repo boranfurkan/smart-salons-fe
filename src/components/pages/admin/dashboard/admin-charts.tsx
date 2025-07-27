@@ -9,8 +9,7 @@ import {
 } from '@/lib/api/generated/admin/admin';
 import { BarChart3, TrendingUp, PieChart } from 'lucide-react';
 
-// Mock chart components since we don't have a charting library
-function MockBarChart({ title, data }: { title: string; data: any[] }) {
+function MockBarChart({ title }: { title: string }) {
   return (
     <div className="h-64 flex items-center justify-center border rounded-lg bg-gray-50">
       <div className="text-center">
@@ -22,7 +21,7 @@ function MockBarChart({ title, data }: { title: string; data: any[] }) {
   );
 }
 
-function MockPieChart({ title, data }: { title: string; data: any[] }) {
+function MockPieChart({ title }: { title: string }) {
   return (
     <div className="h-64 flex items-center justify-center border rounded-lg bg-gray-50">
       <div className="text-center">
@@ -106,7 +105,7 @@ export function AdminCharts() {
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                <MockBarChart title="Revenue by Month" data={salesData} />
+                <MockBarChart title="Revenue by Month" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-2">Sales Metrics</h3>
@@ -159,10 +158,7 @@ export function AdminCharts() {
                 <h3 className="text-lg font-semibold mb-2">
                   Products by Category
                 </h3>
-                <MockPieChart
-                  title="Category Distribution"
-                  data={categoryData}
-                />
+                <MockPieChart title="Category Distribution" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-2">
@@ -203,7 +199,7 @@ export function AdminCharts() {
                 <h3 className="text-lg font-semibold mb-2">
                   Order Status Distribution
                 </h3>
-                <MockPieChart title="Order Status" data={[]} />
+                <MockPieChart title="Order Status" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-2">

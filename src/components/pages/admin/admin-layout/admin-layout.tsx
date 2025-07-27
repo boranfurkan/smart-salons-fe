@@ -36,7 +36,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col">
-                <AdminSidebar currentPath={pathname} isMobile />
+                <AdminSidebar currentPath={pathname} />
               </SheetContent>
             </Sheet>
             <div className="w-full flex-1">

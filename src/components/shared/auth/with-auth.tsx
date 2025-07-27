@@ -41,7 +41,10 @@ export function withAuth<T extends object>(
       }
 
       // If user is authenticated but accessing auth routes
-      if (isAuthenticated && ROUTES.AUTH.includes(pathname as any)) {
+      if (
+        isAuthenticated &&
+        ROUTES.AUTH.includes(pathname as (typeof ROUTES.AUTH)[number])
+      ) {
         router.push('/dashboard');
         return;
       }

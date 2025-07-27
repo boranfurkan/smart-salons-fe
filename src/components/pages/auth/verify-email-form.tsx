@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, XCircle, Loader2, Mail } from 'lucide-react';
@@ -38,6 +38,12 @@ function VerifyEmailContent() {
     },
   });
 
+  const verifyEmail = useCallback(() => {
+    if (token) {
+      verifyEmailMutation.mutate({ data: { token } });
+    }
+  }, [token, verifyEmailMutation]);
+
   useEffect(() => {
     if (!token) {
       setVerificationState('no-token');
@@ -45,8 +51,8 @@ function VerifyEmailContent() {
     }
 
     // Automatically verify email when component mounts
-    verifyEmailMutation.mutate({ data: { token } });
-  }, [token]); // Removed verifyEmailMutation from dependencies to fix infinite loop
+    verifyEmail();
+  }, [token, verifyEmail]);
 
   // No token provided - user probably visited the page directly
   if (verificationState === 'no-token') {

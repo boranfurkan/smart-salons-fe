@@ -19,7 +19,6 @@ import {
 
 interface AdminSidebarProps {
   currentPath: string;
-  isMobile?: boolean;
 }
 
 const sidebarItems = [
@@ -82,10 +81,7 @@ const sidebarItems = [
   },
 ];
 
-export function AdminSidebar({
-  currentPath,
-  isMobile = false,
-}: AdminSidebarProps) {
+export function AdminSidebar({ currentPath }: AdminSidebarProps) {
   return (
     <div className="flex h-full flex-col gap-2">
       {/* Logo */}

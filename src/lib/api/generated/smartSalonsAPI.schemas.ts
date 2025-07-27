@@ -17,8 +17,8 @@ export type UserResponseDtoRole = typeof UserResponseDtoRole[keyof typeof UserRe
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserResponseDtoRole = {
-  USER: 'USER',
   ADMIN: 'ADMIN',
+  USER: 'USER',
 } as const;
 
 export interface UserResponseDto {
@@ -28,6 +28,8 @@ export interface UserResponseDto {
   lastName: string;
   isEmailVerified: boolean;
   role: UserResponseDtoRole;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SignUpResponseDto {
@@ -388,6 +390,51 @@ export interface UpdateSocialPostDto {
   description?: string;
   publisher?: string;
   hashtags?: string[];
+  isActive?: boolean;
+}
+
+export interface CreateCategoryDto {
+  name: string;
+  description?: string;
+  slug: string;
+  isActive?: boolean;
+}
+
+export interface UpdateCategoryDto {
+  name?: string;
+  description?: string;
+  slug?: string;
+  isActive?: boolean;
+}
+
+export type UpdateUserDtoRole = typeof UpdateUserDtoRole[keyof typeof UpdateUserDtoRole];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateUserDtoRole = {
+  ADMIN: 'ADMIN',
+  USER: 'USER',
+} as const;
+
+export interface UpdateUserDto {
+  firstName?: string;
+  lastName?: string;
+  role?: UpdateUserDtoRole;
+  isEmailVerified?: boolean;
+}
+
+export type NewsletterSubscriptionResponseDtoUserId = { [key: string]: unknown };
+
+export interface NewsletterSubscriptionResponseDto {
+  id: string;
+  email: string;
+  userId?: NewsletterSubscriptionResponseDtoUserId;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpdateNewsletterSubscriptionDto {
   isActive?: boolean;
 }
 

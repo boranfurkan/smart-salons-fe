@@ -29,21 +29,30 @@ import type {
   AdminControllerUploadMultipleImagesParams,
   CarouselItemResponseDto,
   CategoryResponseDto,
+  ColorVariantResponseDto,
   CreateCarouselItemDto,
+  CreateCategoryDto,
   CreateColorVariantDto,
   CreateProductDto,
   CreateProductWithImagesDto,
   CreateSocialPostDto,
   ImageUploadResponseDto,
+  MessageResponseDto,
   MultipleImageUploadResponseDto,
+  NewsletterSubscriptionResponseDto,
   OrderResponseDto,
+  ProductImageResponseDto,
   ProductResponseDto,
   ShippingUpdateResponseDto,
   SocialPostResponseDto,
   UpdateCarouselItemDto,
+  UpdateCategoryDto,
+  UpdateNewsletterSubscriptionDto,
   UpdateProductDto,
   UpdateShippingStatusDto,
-  UpdateSocialPostDto
+  UpdateSocialPostDto,
+  UpdateUserDto,
+  UserResponseDto
 } from '../smartSalonsAPI.schemas';
 
 import { customInstance } from '../../mutator';
@@ -693,6 +702,180 @@ export const useAdminControllerDeleteColorVariant = <TError = unknown,
       return useMutation(mutationOptions , queryClient);
     }
     /**
+ * @summary Get color variant by ID
+ */
+export const adminControllerGetColorVariantById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ColorVariantResponseDto>(
+      {url: `/admin/color-variants/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetColorVariantByIdQueryKey = (id: string,) => {
+    return [`/admin/color-variants/${id}`] as const;
+    }
+
+    
+export const getAdminControllerGetColorVariantByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetColorVariantByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>> = ({ signal }) => adminControllerGetColorVariantById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetColorVariantByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>>
+export type AdminControllerGetColorVariantByIdQueryError = void
+
+
+export function useAdminControllerGetColorVariantById<TData = Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetColorVariantById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetColorVariantById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetColorVariantById<TData = Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetColorVariantById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetColorVariantById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetColorVariantById<TData = Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get color variant by ID
+ */
+
+export function useAdminControllerGetColorVariantById<TData = Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetColorVariantById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetColorVariantByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Get all color variants
+ */
+export const adminControllerGetAllColorVariants = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ColorVariantResponseDto[]>(
+      {url: `/admin/color-variants`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetAllColorVariantsQueryKey = () => {
+    return [`/admin/color-variants`] as const;
+    }
+
+    
+export const getAdminControllerGetAllColorVariantsQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllColorVariantsQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>> = ({ signal }) => adminControllerGetAllColorVariants(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllColorVariantsQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>>
+export type AdminControllerGetAllColorVariantsQueryError = unknown
+
+
+export function useAdminControllerGetAllColorVariants<TData = Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllColorVariants<TData = Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllColorVariants<TData = Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all color variants
+ */
+
+export function useAdminControllerGetAllColorVariants<TData = Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllColorVariants>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetAllColorVariantsQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
  * @summary Add images to product
  */
 export const adminControllerAddProductImages = (
@@ -877,6 +1060,180 @@ export const useAdminControllerDeleteProductImage = <TError = unknown,
       return useMutation(mutationOptions , queryClient);
     }
     /**
+ * @summary Get product image by ID
+ */
+export const adminControllerGetProductImageById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ProductImageResponseDto>(
+      {url: `/admin/product-images/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetProductImageByIdQueryKey = (id: string,) => {
+    return [`/admin/product-images/${id}`] as const;
+    }
+
+    
+export const getAdminControllerGetProductImageByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetProductImageByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetProductImageById>>> = ({ signal }) => adminControllerGetProductImageById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetProductImageByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetProductImageById>>>
+export type AdminControllerGetProductImageByIdQueryError = void
+
+
+export function useAdminControllerGetProductImageById<TData = Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetProductImageById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetProductImageById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetProductImageById<TData = Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetProductImageById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetProductImageById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetProductImageById<TData = Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get product image by ID
+ */
+
+export function useAdminControllerGetProductImageById<TData = Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetProductImageById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetProductImageByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Get all product images
+ */
+export const adminControllerGetAllProductImages = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ProductImageResponseDto[]>(
+      {url: `/admin/product-images`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetAllProductImagesQueryKey = () => {
+    return [`/admin/product-images`] as const;
+    }
+
+    
+export const getAdminControllerGetAllProductImagesQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllProductImagesQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>> = ({ signal }) => adminControllerGetAllProductImages(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllProductImagesQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>>
+export type AdminControllerGetAllProductImagesQueryError = unknown
+
+
+export function useAdminControllerGetAllProductImages<TData = Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllProductImages>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllProductImages>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllProductImages<TData = Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllProductImages>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllProductImages>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllProductImages<TData = Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all product images
+ */
+
+export function useAdminControllerGetAllProductImages<TData = Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllProductImages>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetAllProductImagesQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
  * @summary Create a new carousel item
  */
 export const adminControllerCreateCarouselItem = (
@@ -1928,6 +2285,70 @@ export const useAdminControllerDeleteSocialPost = <TError = void,
       return useMutation(mutationOptions , queryClient);
     }
     /**
+ * @summary Create a new category
+ */
+export const adminControllerCreateCategory = (
+    createCategoryDto: CreateCategoryDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<CategoryResponseDto>(
+      {url: `/admin/categories`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createCategoryDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerCreateCategoryMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCategory>>, TError,{data: CreateCategoryDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCategory>>, TError,{data: CreateCategoryDto}, TContext> => {
+
+const mutationKey = ['adminControllerCreateCategory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateCategory>>, {data: CreateCategoryDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerCreateCategory(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerCreateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateCategory>>>
+    export type AdminControllerCreateCategoryMutationBody = CreateCategoryDto
+    export type AdminControllerCreateCategoryMutationError = void
+
+    /**
+ * @summary Create a new category
+ */
+export const useAdminControllerCreateCategory = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateCategory>>, TError,{data: CreateCategoryDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerCreateCategory>>,
+        TError,
+        {data: CreateCategoryDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerCreateCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Get all active categories
  */
 export const adminControllerGetAllCategories = (
@@ -2015,6 +2436,903 @@ export function useAdminControllerGetAllCategories<TData = Awaited<ReturnType<ty
 
 
 /**
+ * @summary Get all categories including inactive ones
+ */
+export const adminControllerGetAllCategoriesIncludingInactive = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<CategoryResponseDto[]>(
+      {url: `/admin/categories/all`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetAllCategoriesIncludingInactiveQueryKey = () => {
+    return [`/admin/categories/all`] as const;
+    }
+
+    
+export const getAdminControllerGetAllCategoriesIncludingInactiveQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllCategoriesIncludingInactiveQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>> = ({ signal }) => adminControllerGetAllCategoriesIncludingInactive(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllCategoriesIncludingInactiveQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>>
+export type AdminControllerGetAllCategoriesIncludingInactiveQueryError = unknown
+
+
+export function useAdminControllerGetAllCategoriesIncludingInactive<TData = Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCategoriesIncludingInactive<TData = Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllCategoriesIncludingInactive<TData = Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all categories including inactive ones
+ */
+
+export function useAdminControllerGetAllCategoriesIncludingInactive<TData = Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllCategoriesIncludingInactive>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetAllCategoriesIncludingInactiveQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Get category by ID
+ */
+export const adminControllerGetCategoryById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<CategoryResponseDto>(
+      {url: `/admin/categories/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetCategoryByIdQueryKey = (id: string,) => {
+    return [`/admin/categories/${id}`] as const;
+    }
+
+    
+export const getAdminControllerGetCategoryByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetCategoryByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetCategoryById>>> = ({ signal }) => adminControllerGetCategoryById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetCategoryByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetCategoryById>>>
+export type AdminControllerGetCategoryByIdQueryError = void
+
+
+export function useAdminControllerGetCategoryById<TData = Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetCategoryById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetCategoryById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetCategoryById<TData = Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetCategoryById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetCategoryById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetCategoryById<TData = Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get category by ID
+ */
+
+export function useAdminControllerGetCategoryById<TData = Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetCategoryById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetCategoryByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Update category by ID
+ */
+export const adminControllerUpdateCategory = (
+    id: string,
+    updateCategoryDto: UpdateCategoryDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<CategoryResponseDto>(
+      {url: `/admin/categories/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateCategoryDto
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerUpdateCategoryMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCategory>>, TError,{id: string;data: UpdateCategoryDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCategory>>, TError,{id: string;data: UpdateCategoryDto}, TContext> => {
+
+const mutationKey = ['adminControllerUpdateCategory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateCategory>>, {id: string;data: UpdateCategoryDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateCategory(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateCategory>>>
+    export type AdminControllerUpdateCategoryMutationBody = UpdateCategoryDto
+    export type AdminControllerUpdateCategoryMutationError = void
+
+    /**
+ * @summary Update category by ID
+ */
+export const useAdminControllerUpdateCategory = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateCategory>>, TError,{id: string;data: UpdateCategoryDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateCategory>>,
+        TError,
+        {id: string;data: UpdateCategoryDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerUpdateCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Delete category by ID
+ */
+export const adminControllerDeleteCategory = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<MessageResponseDto>(
+      {url: `/admin/categories/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerDeleteCategoryMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCategory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCategory>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['adminControllerDeleteCategory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteCategory>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  adminControllerDeleteCategory(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteCategory>>>
+    
+    export type AdminControllerDeleteCategoryMutationError = void
+
+    /**
+ * @summary Delete category by ID
+ */
+export const useAdminControllerDeleteCategory = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteCategory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteCategory>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerDeleteCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Get all users
+ */
+export const adminControllerGetAllUsers = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<UserResponseDto[]>(
+      {url: `/admin/users`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetAllUsersQueryKey = () => {
+    return [`/admin/users`] as const;
+    }
+
+    
+export const getAdminControllerGetAllUsersQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllUsersQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllUsers>>> = ({ signal }) => adminControllerGetAllUsers(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllUsersQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllUsers>>>
+export type AdminControllerGetAllUsersQueryError = unknown
+
+
+export function useAdminControllerGetAllUsers<TData = Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllUsers>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllUsers>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllUsers<TData = Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllUsers>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllUsers>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllUsers<TData = Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all users
+ */
+
+export function useAdminControllerGetAllUsers<TData = Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllUsers>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetAllUsersQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Get user by ID
+ */
+export const adminControllerGetUserById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<UserResponseDto>(
+      {url: `/admin/users/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetUserByIdQueryKey = (id: string,) => {
+    return [`/admin/users/${id}`] as const;
+    }
+
+    
+export const getAdminControllerGetUserByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetUserById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetUserByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetUserById>>> = ({ signal }) => adminControllerGetUserById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetUserByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetUserById>>>
+export type AdminControllerGetUserByIdQueryError = void
+
+
+export function useAdminControllerGetUserById<TData = Awaited<ReturnType<typeof adminControllerGetUserById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetUserById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetUserById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetUserById<TData = Awaited<ReturnType<typeof adminControllerGetUserById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetUserById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetUserById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetUserById<TData = Awaited<ReturnType<typeof adminControllerGetUserById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get user by ID
+ */
+
+export function useAdminControllerGetUserById<TData = Awaited<ReturnType<typeof adminControllerGetUserById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetUserById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetUserByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Update user by ID
+ */
+export const adminControllerUpdateUser = (
+    id: string,
+    updateUserDto: UpdateUserDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<UserResponseDto>(
+      {url: `/admin/users/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateUserDto
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerUpdateUserMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateUser>>, TError,{id: string;data: UpdateUserDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateUser>>, TError,{id: string;data: UpdateUserDto}, TContext> => {
+
+const mutationKey = ['adminControllerUpdateUser'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateUser>>, {id: string;data: UpdateUserDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateUser(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateUserMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateUser>>>
+    export type AdminControllerUpdateUserMutationBody = UpdateUserDto
+    export type AdminControllerUpdateUserMutationError = void
+
+    /**
+ * @summary Update user by ID
+ */
+export const useAdminControllerUpdateUser = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateUser>>, TError,{id: string;data: UpdateUserDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateUser>>,
+        TError,
+        {id: string;data: UpdateUserDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerUpdateUserMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Delete user by ID
+ */
+export const adminControllerDeleteUser = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<MessageResponseDto>(
+      {url: `/admin/users/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerDeleteUserMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteUser>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteUser>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['adminControllerDeleteUser'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteUser>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  adminControllerDeleteUser(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteUserMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteUser>>>
+    
+    export type AdminControllerDeleteUserMutationError = void
+
+    /**
+ * @summary Delete user by ID
+ */
+export const useAdminControllerDeleteUser = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteUser>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteUser>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerDeleteUserMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Get all newsletter subscriptions
+ */
+export const adminControllerGetAllNewsletterSubscriptions = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<NewsletterSubscriptionResponseDto[]>(
+      {url: `/admin/newsletter-subscriptions`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetAllNewsletterSubscriptionsQueryKey = () => {
+    return [`/admin/newsletter-subscriptions`] as const;
+    }
+
+    
+export const getAdminControllerGetAllNewsletterSubscriptionsQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetAllNewsletterSubscriptionsQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>> = ({ signal }) => adminControllerGetAllNewsletterSubscriptions(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetAllNewsletterSubscriptionsQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>>
+export type AdminControllerGetAllNewsletterSubscriptionsQueryError = unknown
+
+
+export function useAdminControllerGetAllNewsletterSubscriptions<TData = Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllNewsletterSubscriptions<TData = Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetAllNewsletterSubscriptions<TData = Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all newsletter subscriptions
+ */
+
+export function useAdminControllerGetAllNewsletterSubscriptions<TData = Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetAllNewsletterSubscriptions>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetAllNewsletterSubscriptionsQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Get newsletter subscription by ID
+ */
+export const adminControllerGetNewsletterSubscriptionById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<NewsletterSubscriptionResponseDto>(
+      {url: `/admin/newsletter-subscriptions/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getAdminControllerGetNewsletterSubscriptionByIdQueryKey = (id: string,) => {
+    return [`/admin/newsletter-subscriptions/${id}`] as const;
+    }
+
+    
+export const getAdminControllerGetNewsletterSubscriptionByIdQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerGetNewsletterSubscriptionByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>> = ({ signal }) => adminControllerGetNewsletterSubscriptionById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdminControllerGetNewsletterSubscriptionByIdQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>>
+export type AdminControllerGetNewsletterSubscriptionByIdQueryError = void
+
+
+export function useAdminControllerGetNewsletterSubscriptionById<TData = Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetNewsletterSubscriptionById<TData = Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>,
+          TError,
+          Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAdminControllerGetNewsletterSubscriptionById<TData = Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get newsletter subscription by ID
+ */
+
+export function useAdminControllerGetNewsletterSubscriptionById<TData = Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerGetNewsletterSubscriptionById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAdminControllerGetNewsletterSubscriptionByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * @summary Update newsletter subscription by ID
+ */
+export const adminControllerUpdateNewsletterSubscription = (
+    id: string,
+    updateNewsletterSubscriptionDto: UpdateNewsletterSubscriptionDto,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<NewsletterSubscriptionResponseDto>(
+      {url: `/admin/newsletter-subscriptions/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateNewsletterSubscriptionDto
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerUpdateNewsletterSubscriptionMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>, TError,{id: string;data: UpdateNewsletterSubscriptionDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>, TError,{id: string;data: UpdateNewsletterSubscriptionDto}, TContext> => {
+
+const mutationKey = ['adminControllerUpdateNewsletterSubscription'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>, {id: string;data: UpdateNewsletterSubscriptionDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerUpdateNewsletterSubscription(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateNewsletterSubscriptionMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>>
+    export type AdminControllerUpdateNewsletterSubscriptionMutationBody = UpdateNewsletterSubscriptionDto
+    export type AdminControllerUpdateNewsletterSubscriptionMutationError = void
+
+    /**
+ * @summary Update newsletter subscription by ID
+ */
+export const useAdminControllerUpdateNewsletterSubscription = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>, TError,{id: string;data: UpdateNewsletterSubscriptionDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateNewsletterSubscription>>,
+        TError,
+        {id: string;data: UpdateNewsletterSubscriptionDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerUpdateNewsletterSubscriptionMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Delete newsletter subscription by ID
+ */
+export const adminControllerDeleteNewsletterSubscription = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<MessageResponseDto>(
+      {url: `/admin/newsletter-subscriptions/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerDeleteNewsletterSubscriptionMutationOptions = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['adminControllerDeleteNewsletterSubscription'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  adminControllerDeleteNewsletterSubscription(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteNewsletterSubscriptionMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>>
+    
+    export type AdminControllerDeleteNewsletterSubscriptionMutationError = void
+
+    /**
+ * @summary Delete newsletter subscription by ID
+ */
+export const useAdminControllerDeleteNewsletterSubscription = <TError = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteNewsletterSubscription>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerDeleteNewsletterSubscriptionMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
  * @summary Upload a single image to Supabase Storage
  */
 export const adminControllerUploadImage = (

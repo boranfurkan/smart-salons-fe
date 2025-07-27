@@ -1,42 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/auth-context';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Star, Users } from 'lucide-react';
 
 export function HomeWrapper() {
-  const { isAuthenticated, isLoading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.push('/dashboard');
-    }
-  }, [isAuthenticated, isLoading, router]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center p-4">
-        <div className="max-w-md w-full text-center space-y-8">
-          <div className="space-y-4">
-            <Skeleton className="h-12 w-3/4 mx-auto" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-4 w-5/6 mx-auto" />
-          </div>
-          <div className="space-y-4">
-            <Skeleton className="h-11 w-full" />
-            <Skeleton className="h-11 w-full" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

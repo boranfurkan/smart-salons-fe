@@ -64,6 +64,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (newToken: string, newUser: User) => {
     localStorage.setItem('access_token', newToken);
     localStorage.setItem('user', JSON.stringify(newUser));
+
+    // Also set as HTTP-only cookie for middleware
+    document.cookie = `access_token=${newToken}; path=/; secure; samesite=strict`;
+
     setToken(newToken);
     setUser(newUser);
   };
@@ -71,6 +75,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+
+    // Clear cookie
+    document.cookie =
+      'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
     setToken(null);
     setUser(null);
   };
@@ -78,6 +87,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const clearAuth = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+
+    // Clear cookie
+    document.cookie =
+      'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
     setToken(null);
     setUser(null);
   };

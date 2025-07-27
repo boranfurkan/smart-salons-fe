@@ -146,13 +146,10 @@ function ResetPasswordContent() {
             error={!!errors.password}
           />
           <div className="text-xs text-gray-500 space-y-1 mt-2">
-            <p>Password must contain:</p>
-            <ul className="list-disc list-inside pl-2 space-y-1">
-              <li>At least 8 characters</li>
-              <li>One uppercase letter</li>
-              <li>One lowercase letter</li>
-              <li>One number</li>
-            </ul>
+            <p>
+              Password must be at least 8 characters and include uppercase,
+              lowercase, and a number.
+            </p>
           </div>
         </FormField>
 

@@ -31,7 +31,6 @@ const sidebarItems = [
     title: 'Products',
     href: '/admin/products',
     icon: Package,
-    badge: 'New',
   },
   {
     title: 'Categories',

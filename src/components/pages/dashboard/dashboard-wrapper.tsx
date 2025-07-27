@@ -124,6 +124,16 @@ export function DashboardWrapper() {
                   <Activity className="w-4 h-4" />
                   View Orders
                 </Button>
+                {user?.role === 'ADMIN' && (
+                  <Button
+                    className="w-full justify-start gap-2"
+                    variant="outline"
+                    onClick={() => router.push('/admin')}
+                  >
+                    <Settings className="w-4 h-4" />
+                    Admin Panel
+                  </Button>
+                )}
                 <Button
                   className="w-full justify-start gap-2"
                   variant="outline"

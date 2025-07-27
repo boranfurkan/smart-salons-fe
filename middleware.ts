@@ -27,6 +27,8 @@ const protectedRoutes = [
   '/orders',
 ];
 
+const adminRoutes = ['/admin'];
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -52,13 +54,18 @@ export function middleware(request: NextRequest) {
     (route) => pathname === route || pathname.startsWith(route + '/')
   );
 
+  // Check if the current route is an admin route
+  const isAdminRoute = adminRoutes.some(
+    (route) => pathname === route || pathname.startsWith(route + '/')
+  );
+
   // If user is logged in and trying to access auth routes, redirect to dashboard
   if (isLoggedIn && isAuthRoute) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  // If user is not logged in and trying to access protected routes, redirect to signin
-  if (!isLoggedIn && isProtectedRoute) {
+  // If user is not logged in and trying to access protected or admin routes, redirect to signin
+  if (!isLoggedIn && (isProtectedRoute || isAdminRoute)) {
     const signInUrl = new URL('/auth/signin', request.url);
     signInUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(signInUrl);

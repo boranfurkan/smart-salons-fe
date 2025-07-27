@@ -29,7 +29,20 @@ export const ROUTES = {
   ],
 
   // Admin routes - require admin role
-  ADMIN: ['/admin', '/admin/users', '/admin/products', '/admin/orders'],
+  ADMIN: [
+    '/admin',
+    '/admin/dashboard',
+    '/admin/products',
+    '/admin/categories',
+    '/admin/color-variants',
+    '/admin/orders',
+    '/admin/users',
+    '/admin/carousel',
+    '/admin/social-posts',
+    '/admin/newsletter',
+    '/admin/settings',
+    '/admin/upload',
+  ],
 } as const;
 
 export const DEFAULT_REDIRECT_AFTER_LOGIN = '/dashboard';

@@ -6,3 +6,6 @@ export { AdminStats } from './dashboard/admin-stats';
 export { AdminRecentActivity } from './dashboard/admin-recent-activity';
 export { AdminQuickActions } from './dashboard/admin-quick-actions';
 export { AdminCharts } from './dashboard/admin-charts';
+
+// Products
+export * from './products';

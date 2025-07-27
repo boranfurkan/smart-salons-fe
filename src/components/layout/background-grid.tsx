@@ -6,7 +6,7 @@ import BeamsDisplay from '@/components/shared/beam/beams-display';
 
 const BackgroundGrid = () => {
   return (
-    <section className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+    <section className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden">
       <BeamsDisplay />
       <motion.div
         initial={{
@@ -23,7 +23,7 @@ const BackgroundGrid = () => {
       >
         <div
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='rgb(0 0 0 / 0.1)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e")`,
+            backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='rgb(0 0 0 / 0.03)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e")`,
           }}
           className="absolute inset-0 z-0"
         />

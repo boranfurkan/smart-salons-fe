@@ -87,9 +87,9 @@ export function AdminSidebar({
   isMobile = false,
 }: AdminSidebarProps) {
   return (
-    <div className="flex h-full max-h-screen flex-col gap-2">
+    <div className="flex h-full flex-col gap-2">
       {/* Logo */}
-      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6 flex-shrink-0">
         <Link href="/admin" className="flex items-center gap-2 font-semibold">
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">S</span>
@@ -99,7 +99,7 @@ export function AdminSidebar({
       </div>
 
       {/* Navigation */}
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto">
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
           {sidebarItems.map((item) => {
             const isActive = currentPath === item.href;
@@ -129,7 +129,7 @@ export function AdminSidebar({
       </div>
 
       {/* Footer */}
-      <div className="mt-auto p-4">
+      <div className="mt-auto p-4 flex-shrink-0">
         <div className="rounded-lg bg-muted p-3">
           <div className="text-xs text-muted-foreground">
             Smart Salons Admin v1.0

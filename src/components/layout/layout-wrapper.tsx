@@ -11,7 +11,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
     <div className="w-full h-full relative">
       <div className="relative w-full h-full z-10">{children}</div>
       <Toaster />
-      {/*    <BackgroundGrid /> */}
+      <BackgroundGrid />
     </div>
   );
 };

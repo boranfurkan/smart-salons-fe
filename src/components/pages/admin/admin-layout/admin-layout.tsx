@@ -17,15 +17,15 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
-      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="h-screen bg-gray-50/50 overflow-hidden">
+      <div className="flex h-full w-full">
         {/* Desktop Sidebar */}
-        <div className="hidden border-r bg-muted/40 md:block">
+        <div className="hidden w-[220px] lg:w-[280px] border-r bg-muted/40 md:block">
           <AdminSidebar currentPath={pathname} />
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1 min-w-0">
           {/* Mobile Header */}
           <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -45,13 +45,15 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           </header>
 
           {/* Desktop Header */}
-          <header className="hidden md:flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+          <header className="hidden md:flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex-shrink-0">
             <AdminHeader />
           </header>
 
           {/* Main Content Area */}
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-            {children}
+          <main className="flex-1 overflow-y-auto">
+            <div className="flex flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+              {children}
+            </div>
           </main>
         </div>
       </div>

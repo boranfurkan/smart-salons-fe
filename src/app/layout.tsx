@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import '@/styles/globals.css';
 import { ReactQueryProvider } from '@/providers/react-query-provider';
 import { AuthProvider } from '@/context/auth-context';
-import LayoutWrapper from '@/components/pages/layout/layout-wrapper';
+import LayoutWrapper from '@/components/layout/layout-wrapper';
 
 const inter = Inter({
   variable: '--font-inter',

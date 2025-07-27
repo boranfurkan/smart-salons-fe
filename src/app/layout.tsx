@@ -1,21 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
-import '@/styles/globals.css';
-import { ReactQueryProvider } from '@/providers/react-query-provider';
-import { AuthProvider } from '@/context/auth-context';
+
 import LayoutWrapper from '@/components/layout/layout-wrapper';
+import ProvidersWrapper from '@/providers';
 
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const playfairDisplay = Playfair_Display({
-  variable: '--font-playfair-display',
-  subsets: ['latin'],
-  display: 'swap',
-});
+import { FontInter, FontPlayfairDisplay } from '@/assets/fonts';
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Smart Salons - Premium Hair Salon Furniture',
@@ -31,13 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${playfairDisplay.variable} antialiased`}
+        className={`${FontInter.variable} ${FontPlayfairDisplay.variable} antialiased`}
       >
-        <ReactQueryProvider>
-          <AuthProvider>
-            <LayoutWrapper>{children}</LayoutWrapper>
-          </AuthProvider>
-        </ReactQueryProvider>
+        <ProvidersWrapper>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </ProvidersWrapper>
       </body>
     </html>
   );

@@ -32,11 +32,18 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Clear token and redirect to login
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user');
-        window.location.href = '/auth/signin';
+      // Don't redirect if we're already on the sign-in page or it's a sign-in request
+      const isSignInPage =
+        typeof window !== 'undefined' &&
+        window.location.pathname === '/auth/signin';
+      const isSignInRequest = error.config?.url?.includes('/auth/signin');
+
+      if (!isSignInPage && !isSignInRequest) {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('user');
+          window.location.href = '/auth/signin';
+        }
       }
     }
     return Promise.reject(error);

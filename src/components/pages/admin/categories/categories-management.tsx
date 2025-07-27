@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { useAdminControllerGetAllCategoriesIncludingInactive } from '@/lib/api/generated/admin/admin';
 import { CategoriesTable } from './categories-table';
 import { CategoryCreateDialog } from './category-create-dialog';
@@ -15,12 +21,15 @@ export function CategoriesManagement() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<CategoryResponseDto | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryResponseDto | null>(null);
 
-  const { data: categories, refetch } = useAdminControllerGetAllCategoriesIncludingInactive();
+  const { data: categories, refetch } =
+    useAdminControllerGetAllCategoriesIncludingInactive();
 
   const totalCategories = categories?.length || 0;
-  const activeCategories = categories?.filter((c: CategoryResponseDto) => c.isActive).length || 0;
+  const activeCategories =
+    categories?.filter((c: CategoryResponseDto) => c.isActive).length || 0;
   const inactiveCategories = totalCategories - activeCategories;
 
   const handleEditCategory = (category: CategoryResponseDto) => {
@@ -61,7 +70,9 @@ export function CategoriesManagement() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Categories</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Categories
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalCategories}</div>
@@ -73,10 +84,14 @@ export function CategoriesManagement() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Categories</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Categories
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{activeCategories}</div>
+            <div className="text-2xl font-bold text-green-600">
+              {activeCategories}
+            </div>
             <p className="text-xs text-muted-foreground">
               Visible to customers
             </p>
@@ -85,10 +100,14 @@ export function CategoriesManagement() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Inactive Categories</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Inactive Categories
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{inactiveCategories}</div>
+            <div className="text-2xl font-bold text-orange-600">
+              {inactiveCategories}
+            </div>
             <p className="text-xs text-muted-foreground">
               Hidden from customers
             </p>

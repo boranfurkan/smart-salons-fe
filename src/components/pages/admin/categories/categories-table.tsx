@@ -34,20 +34,29 @@ interface CategoriesTableProps {
   onDeleteCategory: (category: CategoryResponseDto) => void;
 }
 
-export function CategoriesTable({ onEditCategory, onDeleteCategory }: CategoriesTableProps) {
+export function CategoriesTable({
+  onEditCategory,
+  onDeleteCategory,
+}: CategoriesTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
+  const [statusFilter, setStatusFilter] = useState<
+    'all' | 'active' | 'inactive'
+  >('all');
 
-  const { data: categories, isLoading } = useAdminControllerGetAllCategoriesIncludingInactive();
+  const { data: categories, isLoading } =
+    useAdminControllerGetAllCategoriesIncludingInactive();
 
   // Filter categories based on search and status
   const filteredCategories = (categories || []).filter((category) => {
-    const matchesSearch = 
+    const matchesSearch =
       category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       category.slug.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (typeof category.description === 'string' && (category.description as string).toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesStatus = 
+      (typeof category.description === 'string' &&
+        (category.description as string)
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()));
+
+    const matchesStatus =
       statusFilter === 'all' ||
       (statusFilter === 'active' && category.isActive) ||
       (statusFilter === 'inactive' && !category.isActive);
@@ -87,12 +96,24 @@ export function CategoriesTable({ onEditCategory, onDeleteCategory }: Categories
             <TableBody>
               {[...Array(5)].map((_, i) => (
                 <TableRow key={i}>
-                  <TableCell><div className="h-4 w-24 bg-muted animate-pulse rounded" /></TableCell>
-                  <TableCell><div className="h-4 w-20 bg-muted animate-pulse rounded" /></TableCell>
-                  <TableCell><div className="h-4 w-32 bg-muted animate-pulse rounded" /></TableCell>
-                  <TableCell><div className="h-4 w-16 bg-muted animate-pulse rounded" /></TableCell>
-                  <TableCell><div className="h-4 w-20 bg-muted animate-pulse rounded" /></TableCell>
-                  <TableCell><div className="h-4 w-8 bg-muted animate-pulse rounded" /></TableCell>
+                  <TableCell>
+                    <div className="h-4 w-24 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="h-4 w-20 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="h-4 w-32 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="h-4 w-16 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="h-4 w-20 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="h-4 w-8 bg-muted animate-pulse rounded" />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -116,7 +137,12 @@ export function CategoriesTable({ onEditCategory, onDeleteCategory }: Categories
               className="pl-8 w-64"
             />
           </div>
-          <Select value={statusFilter} onValueChange={(value: 'all' | 'active' | 'inactive') => setStatusFilter(value)}>
+          <Select
+            value={statusFilter}
+            onValueChange={(value: 'all' | 'active' | 'inactive') =>
+              setStatusFilter(value)
+            }
+          >
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>
@@ -155,7 +181,8 @@ export function CategoriesTable({ onEditCategory, onDeleteCategory }: Categories
                     </div>
                   ) : (
                     <div className="text-muted-foreground">
-                      No categories found. Create your first category to get started.
+                      No categories found. Create your first category to get
+                      started.
                     </div>
                   )}
                 </TableCell>
@@ -164,12 +191,18 @@ export function CategoriesTable({ onEditCategory, onDeleteCategory }: Categories
               filteredCategories.map((category) => (
                 <TableRow key={category.id}>
                   <TableCell className="font-medium">{category.name}</TableCell>
-                  <TableCell className="font-mono text-sm">{category.slug}</TableCell>
+                  <TableCell className="font-mono text-sm">
+                    {category.slug}
+                  </TableCell>
                   <TableCell className="max-w-xs truncate">
-                    {typeof category.description === 'string' ? category.description : 'No description'}
+                    {typeof category.description === 'string'
+                      ? category.description
+                      : 'No description'}
                   </TableCell>
                   <TableCell>
-                    <Badge variant={category.isActive ? 'default' : 'secondary'}>
+                    <Badge
+                      variant={category.isActive ? 'default' : 'secondary'}
+                    >
                       {category.isActive ? 'Active' : 'Inactive'}
                     </Badge>
                   </TableCell>
@@ -185,11 +218,13 @@ export function CategoriesTable({ onEditCategory, onDeleteCategory }: Categories
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => onEditCategory(category)}>
+                        <DropdownMenuItem
+                          onClick={() => onEditCategory(category)}
+                        >
                           <Edit className="mr-2 h-4 w-4" />
                           Edit
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => onDeleteCategory(category)}
                           className="text-destructive"
                         >

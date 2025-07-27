@@ -31,10 +31,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   useAdminControllerCreateProduct,
+  useAdminControllerCreateProductWithImages,
   useAdminControllerGetAllCategories,
 } from '@/lib/api/generated/admin/admin';
 
@@ -65,6 +66,8 @@ export function ProductCreateDialog({
   onSuccess,
 }: ProductCreateDialogProps) {
   const [isGeneratingSlug, setIsGeneratingSlug] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   const form = useForm<CreateProductFormData>({
     resolver: zodResolver(createProductSchema),
@@ -90,6 +93,8 @@ export function ProductCreateDialog({
       onSuccess: () => {
         toast.success('Product created successfully.');
         form.reset();
+        setSelectedImages([]);
+        setImagePreviews([]);
         onSuccess();
       },
       onError: (error: any) => {
@@ -100,8 +105,76 @@ export function ProductCreateDialog({
     },
   });
 
+  const createProductWithImagesMutation =
+    useAdminControllerCreateProductWithImages({
+      mutation: {
+        onSuccess: () => {
+          toast.success('Product created successfully with images.');
+          form.reset();
+          setSelectedImages([]);
+          setImagePreviews([]);
+          onSuccess();
+        },
+        onError: (error: any) => {
+          toast.error(
+            error?.response?.data?.message ||
+              'Failed to create product with images.'
+          );
+        },
+      },
+    });
+
+  // Image handling functions
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length === 0) return;
+
+    // Validate file types
+    const validFiles = files.filter(
+      (file) => file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024 // 5MB limit
+    );
+
+    if (validFiles.length !== files.length) {
+      toast.error('Please select only valid image files under 5MB.');
+      return;
+    }
+
+    const newImages = [...selectedImages, ...validFiles].slice(0, 10); // Max 10 images
+    setSelectedImages(newImages);
+
+    // Generate previews
+    const newPreviews = [...imagePreviews];
+    validFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          newPreviews.push(e.target.result as string);
+          setImagePreviews([...newPreviews]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeImage = (index: number) => {
+    const newImages = selectedImages.filter((_, i) => i !== index);
+    const newPreviews = imagePreviews.filter((_, i) => i !== index);
+    setSelectedImages(newImages);
+    setImagePreviews(newPreviews);
+  };
+
   const handleSubmit = (data: CreateProductFormData) => {
-    createProductMutation.mutate({ data });
+    if (selectedImages.length > 0) {
+      // Use the createProductWithImages endpoint
+      createProductWithImagesMutation.mutate({
+        data: {
+          ...data,
+          images: selectedImages,
+        },
+      });
+    } else {
+      createProductMutation.mutate({ data });
+    }
   };
 
   const generateSlug = (name: string) => {
@@ -122,8 +195,13 @@ export function ProductCreateDialog({
   };
 
   const handleClose = () => {
-    if (!createProductMutation.isPending) {
+    if (
+      !createProductMutation.isPending &&
+      !createProductWithImagesMutation.isPending
+    ) {
       form.reset();
+      setSelectedImages([]);
+      setImagePreviews([]);
       onOpenChange(false);
     }
   };
@@ -330,6 +408,61 @@ export function ProductCreateDialog({
               )}
             />
 
+            {/* Image Upload Section */}
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Product Images</label>
+                <p className="text-sm text-muted-foreground">
+                  Upload product images (max 10 images, 5MB each)
+                </p>
+              </div>
+
+              <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6">
+                <div className="flex flex-col items-center justify-center text-center">
+                  <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Click to upload or drag and drop
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    PNG, JPG, GIF up to 5MB
+                  </p>
+                  <Input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Image Previews */}
+              {imagePreviews.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {imagePreviews.map((preview, index) => (
+                    <div key={index} className="relative group">
+                      <div className="aspect-square rounded-lg overflow-hidden border">
+                        <img
+                          src={preview}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => removeImage(index)}
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <FormField
               control={form.control}
               name="isActive"
@@ -356,12 +489,22 @@ export function ProductCreateDialog({
                 type="button"
                 variant="outline"
                 onClick={handleClose}
-                disabled={createProductMutation.isPending}
+                disabled={
+                  createProductMutation.isPending ||
+                  createProductWithImagesMutation.isPending
+                }
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={createProductMutation.isPending}>
-                {createProductMutation.isPending && (
+              <Button
+                type="submit"
+                disabled={
+                  createProductMutation.isPending ||
+                  createProductWithImagesMutation.isPending
+                }
+              >
+                {(createProductMutation.isPending ||
+                  createProductWithImagesMutation.isPending) && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
                 Create Product

@@ -31,11 +31,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload, X, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   useAdminControllerUpdateProduct,
   useAdminControllerGetAllCategories,
+  useAdminControllerAddProductImages,
+  useAdminControllerDeleteProductImage,
 } from '@/lib/api/generated/admin/admin';
 import { ProductResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 
@@ -68,6 +70,9 @@ export function ProductEditDialog({
   onSuccess,
 }: ProductEditDialogProps) {
   const [isGeneratingSlug, setIsGeneratingSlug] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [deletingImageIds, setDeletingImageIds] = useState<string[]>([]);
 
   const form = useForm<UpdateProductFormData>({
     resolver: zodResolver(updateProductSchema),
@@ -106,6 +111,35 @@ export function ProductEditDialog({
     },
   });
 
+  const addImagesMutation = useAdminControllerAddProductImages({
+    mutation: {
+      onSuccess: () => {
+        toast.success('Images added successfully.');
+        setSelectedImages([]);
+        setImagePreviews([]);
+        onSuccess();
+      },
+      onError: (error: any) => {
+        toast.error(error?.response?.data?.message || 'Failed to add images.');
+      },
+    },
+  });
+
+  const deleteImageMutation = useAdminControllerDeleteProductImage({
+    mutation: {
+      onSuccess: (_, variables) => {
+        toast.success('Image deleted successfully.');
+        setDeletingImageIds((prev) => prev.filter((id) => id !== variables.id));
+        onSuccess();
+      },
+      onError: (error: any) => {
+        toast.error(
+          error?.response?.data?.message || 'Failed to delete image.'
+        );
+      },
+    },
+  });
+
   // Reset form when product changes
   useEffect(() => {
     if (product) {
@@ -127,6 +161,77 @@ export function ProductEditDialog({
       });
     }
   }, [product, form]);
+
+  // Image handling functions
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length === 0) return;
+
+    // Validate file types
+    const validFiles = files.filter(
+      (file) => file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024 // 5MB limit
+    );
+
+    if (validFiles.length !== files.length) {
+      toast.error('Please select only valid image files under 5MB.');
+      return;
+    }
+
+    const newImages = [...selectedImages, ...validFiles].slice(0, 10); // Max 10 images
+    setSelectedImages(newImages);
+
+    // Generate previews
+    const newPreviews = [...imagePreviews];
+    validFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          newPreviews.push(e.target.result as string);
+          setImagePreviews([...newPreviews]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeNewImage = (index: number) => {
+    const newImages = selectedImages.filter((_, i) => i !== index);
+    const newPreviews = imagePreviews.filter((_, i) => i !== index);
+    setSelectedImages(newImages);
+    setImagePreviews(newPreviews);
+  };
+
+  const deleteExistingImage = (imageId: string) => {
+    setDeletingImageIds((prev) => [...prev, imageId]);
+    deleteImageMutation.mutate({ id: imageId });
+  };
+
+  const addNewImages = async () => {
+    if (selectedImages.length === 0) return;
+
+    const formData = new FormData();
+    selectedImages.forEach((image) => {
+      formData.append('images', image);
+    });
+
+    try {
+      const response = await fetch(`/api/admin/products/${product.id}/images`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success('Images added successfully.');
+        setSelectedImages([]);
+        setImagePreviews([]);
+        onSuccess();
+      } else {
+        throw new Error('Failed to upload images');
+      }
+    } catch (error) {
+      toast.error('Failed to add images.');
+    }
+  };
 
   const handleSubmit = (data: UpdateProductFormData) => {
     updateProductMutation.mutate({
@@ -151,7 +256,10 @@ export function ProductEditDialog({
   };
 
   const handleClose = () => {
-    if (!updateProductMutation.isPending) {
+    if (!updateProductMutation.isPending && !deleteImageMutation.isPending) {
+      setSelectedImages([]);
+      setImagePreviews([]);
+      setDeletingImageIds([]);
       onOpenChange(false);
     }
   };
@@ -355,6 +463,60 @@ export function ProductEditDialog({
               )}
             />
 
+            {/* Existing Images Management */}
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">
+                  Current Product Images
+                </label>
+                <p className="text-sm text-muted-foreground">
+                  Manage existing product images
+                </p>
+              </div>
+
+              {product.images && product.images.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {product.images.map((image) => (
+                    <div key={image.id} className="relative group">
+                      <div className="aspect-square rounded-lg overflow-hidden border">
+                        <img
+                          src={image.url}
+                          alt={`Product image ${image.order}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => deleteExistingImage(image.id)}
+                        disabled={
+                          deletingImageIds.includes(image.id) ||
+                          deleteImageMutation.isPending
+                        }
+                      >
+                        {deletingImageIds.includes(image.id) ? (
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                        ) : (
+                          <Trash2 className="h-3 w-3" />
+                        )}
+                      </Button>
+                      {image.isPrimary && (
+                        <div className="absolute bottom-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+                          Primary
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  No images uploaded yet
+                </div>
+              )}
+            </div>
+
             <FormField
               control={form.control}
               name="isActive"
@@ -381,11 +543,20 @@ export function ProductEditDialog({
                 type="button"
                 variant="outline"
                 onClick={handleClose}
-                disabled={updateProductMutation.isPending}
+                disabled={
+                  updateProductMutation.isPending ||
+                  deleteImageMutation.isPending
+                }
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={updateProductMutation.isPending}>
+              <Button
+                type="submit"
+                disabled={
+                  updateProductMutation.isPending ||
+                  deleteImageMutation.isPending
+                }
+              >
                 {updateProductMutation.isPending && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}

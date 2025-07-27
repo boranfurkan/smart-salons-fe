@@ -17,8 +17,9 @@ import { FormField, FormError } from '@/components/shared/auth/form-components';
 import { useAuth } from '@/context/auth-context';
 import { useAuthControllerSignIn } from '@/lib/api/generated/authentication/authentication';
 import { signInSchema, type SignInFormData } from '@/lib/schemas/auth';
-import type { ApiError, AuthSuccessResponse } from '@/types/api';
+import type { ApiError } from '@/types/api';
 import { getErrorMessage } from '@/lib/utils/error';
+import { AuthResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 export function SignInForm() {
   const router = useRouter();
@@ -35,7 +36,7 @@ export function SignInForm() {
 
   const signInMutation = useAuthControllerSignIn({
     mutation: {
-      onSuccess: (data: AuthSuccessResponse) => {
+      onSuccess: (data: AuthResponseDto) => {
         login(data.access_token, data.user);
         router.push('/dashboard');
       },

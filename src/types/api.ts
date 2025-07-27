@@ -20,19 +20,6 @@ export interface ApiError {
   name: string;
 }
 
-// Success response types for mutations
-export interface AuthSuccessResponse {
-  access_token: string;
-  user: {
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    isEmailVerified: boolean;
-    role?: 'ADMIN' | 'USER';
-  };
-}
-
 // Generic success response with message
 export interface MessageSuccessResponse {
   message: string;

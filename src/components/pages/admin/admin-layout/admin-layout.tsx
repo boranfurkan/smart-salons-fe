@@ -27,7 +27,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         {/* Main Content */}
         <div className="flex flex-col flex-1 min-w-0">
           {/* Mobile Header */}
-          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
+          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[70px] lg:px-6 md:hidden">
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="shrink-0">
@@ -45,7 +45,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           </header>
 
           {/* Desktop Header */}
-          <header className="hidden md:flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 flex-shrink-0">
+          <header className="hidden md:flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[70px] lg:px-6 flex-shrink-0">
             <AdminHeader />
           </header>
 

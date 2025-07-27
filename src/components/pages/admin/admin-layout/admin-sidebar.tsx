@@ -85,7 +85,7 @@ export function AdminSidebar({ currentPath }: AdminSidebarProps) {
   return (
     <div className="flex h-full flex-col gap-2">
       {/* Logo */}
-      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6 flex-shrink-0">
+      <div className="flex h-14 items-center border-b px-4 lg:h-[70px] lg:px-6 flex-shrink-0">
         <Link href="/admin" className="flex items-center gap-2 font-semibold">
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">S</span>

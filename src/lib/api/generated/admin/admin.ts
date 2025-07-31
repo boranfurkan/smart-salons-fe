@@ -25,6 +25,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AddImageUrlsDto,
   AdminControllerUploadImageParams,
   AdminControllerUploadMultipleImagesParams,
   CarouselItemResponseDto,
@@ -34,7 +35,6 @@ import type {
   CreateCategoryDto,
   CreateColorVariantDto,
   CreateProductDto,
-  CreateProductWithImagesDto,
   CreateSocialPostDto,
   ImageUploadResponseDto,
   MessageResponseDto,
@@ -214,43 +214,19 @@ export function useAdminControllerGetAllProducts<TData = Awaited<ReturnType<type
 
 
 /**
- * @summary Create a new product with uploaded images
+ * @deprecated
+ * @summary Create a new product with images (DEPRECATED - use POST /products with imageUrls instead)
  */
 export const adminControllerCreateProductWithImages = (
-    createProductWithImagesDto: CreateProductWithImagesDto,
+    createProductDto: CreateProductDto,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
-      const formData = new FormData();
-formData.append(`name`, createProductWithImagesDto.name)
-formData.append(`description`, createProductWithImagesDto.description)
-formData.append(`slug`, createProductWithImagesDto.slug)
-formData.append(`price`, createProductWithImagesDto.price)
-if(createProductWithImagesDto.discount !== undefined) {
- formData.append(`discount`, createProductWithImagesDto.discount)
- }
-formData.append(`stock`, createProductWithImagesDto.stock.toString())
-if(createProductWithImagesDto.dimensions !== undefined) {
- formData.append(`dimensions`, createProductWithImagesDto.dimensions)
- }
-if(createProductWithImagesDto.deliveryDescription !== undefined) {
- formData.append(`deliveryDescription`, createProductWithImagesDto.deliveryDescription)
- }
-formData.append(`categoryId`, createProductWithImagesDto.categoryId)
-if(createProductWithImagesDto.isActive !== undefined) {
- formData.append(`isActive`, createProductWithImagesDto.isActive.toString())
- }
-if(createProductWithImagesDto.images !== undefined) {
- createProductWithImagesDto.images.forEach(value => formData.append(`images`, value));
- }
-if(createProductWithImagesDto.colorVariants !== undefined) {
- createProductWithImagesDto.colorVariants.forEach(value => formData.append(`colorVariants`, value));
- }
-
+      
       return customInstance<ProductResponseDto>(
       {url: `/admin/products/with-images`, method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data', },
-       data: formData, signal
+      headers: {'Content-Type': 'application/json', },
+      data: createProductDto, signal
     },
       options);
     }
@@ -258,8 +234,8 @@ if(createProductWithImagesDto.colorVariants !== undefined) {
 
 
 export const getAdminControllerCreateProductWithImagesMutationOptions = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductDto}, TContext> => {
 
 const mutationKey = ['adminControllerCreateProductWithImages'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -271,7 +247,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, {data: CreateProductWithImagesDto}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, {data: CreateProductDto}> = (props) => {
           const {data} = props ?? {};
 
           return  adminControllerCreateProductWithImages(data,requestOptions)
@@ -283,18 +259,19 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AdminControllerCreateProductWithImagesMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>>
-    export type AdminControllerCreateProductWithImagesMutationBody = CreateProductWithImagesDto
+    export type AdminControllerCreateProductWithImagesMutationBody = CreateProductDto
     export type AdminControllerCreateProductWithImagesMutationError = void
 
     /**
- * @summary Create a new product with uploaded images
+ * @deprecated
+ * @summary Create a new product with images (DEPRECATED - use POST /products with imageUrls instead)
  */
 export const useAdminControllerCreateProductWithImages = <TError = void,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductWithImagesDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>, TError,{data: CreateProductDto}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof adminControllerCreateProductWithImages>>,
         TError,
-        {data: CreateProductWithImagesDto},
+        {data: CreateProductDto},
         TContext
       > => {
 
@@ -524,7 +501,7 @@ export const adminControllerAddColorVariant = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<ColorVariantResponseDto>(
       {url: `/admin/products/${id}/color-variants`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createColorVariantDto, signal
@@ -584,11 +561,14 @@ export const useAdminControllerAddColorVariant = <TError = unknown,
  */
 export const adminControllerUpdateColorVariant = (
     id: string,
+    createColorVariantDto?: CreateColorVariantDto,
  options?: SecondParameter<typeof customInstance>,) => {
       
       
       return customInstance<void>(
-      {url: `/admin/color-variants/${id}`, method: 'PUT'
+      {url: `/admin/color-variants/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: createColorVariantDto
     },
       options);
     }
@@ -596,8 +576,8 @@ export const adminControllerUpdateColorVariant = (
 
 
 export const getAdminControllerUpdateColorVariantMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext> => {
 
 const mutationKey = ['adminControllerUpdateColorVariant'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -609,10 +589,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, {id: string}> = (props) => {
-          const {id} = props ?? {};
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, {id: string;data: CreateColorVariantDto}> = (props) => {
+          const {id,data} = props ?? {};
 
-          return  adminControllerUpdateColorVariant(id,requestOptions)
+          return  adminControllerUpdateColorVariant(id,data,requestOptions)
         }
 
         
@@ -621,18 +601,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type AdminControllerUpdateColorVariantMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>>
-    
+    export type AdminControllerUpdateColorVariantMutationBody = CreateColorVariantDto
     export type AdminControllerUpdateColorVariantMutationError = unknown
 
     /**
  * @summary Update color variant
  */
 export const useAdminControllerUpdateColorVariant = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>, TError,{id: string;data: CreateColorVariantDto}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof adminControllerUpdateColorVariant>>,
         TError,
-        {id: string},
+        {id: string;data: CreateColorVariantDto},
         TContext
       > => {
 
@@ -876,7 +856,196 @@ export function useAdminControllerGetAllColorVariants<TData = Awaited<ReturnType
 
 
 /**
- * @summary Add images to product
+ * @summary Add images to color variant (file upload)
+ */
+export const adminControllerAddColorVariantImages = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/color-variants/${id}/images`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerAddColorVariantImagesMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['adminControllerAddColorVariantImages'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  adminControllerAddColorVariantImages(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerAddColorVariantImagesMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>>
+    
+    export type AdminControllerAddColorVariantImagesMutationError = unknown
+
+    /**
+ * @summary Add images to color variant (file upload)
+ */
+export const useAdminControllerAddColorVariantImages = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerAddColorVariantImages>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerAddColorVariantImagesMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Add images to color variant using URLs
+ */
+export const adminControllerAddColorVariantImagesByUrls = (
+    id: string,
+    addImageUrlsDto: AddImageUrlsDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/color-variants/${id}/images/urls`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: addImageUrlsDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerAddColorVariantImagesByUrlsMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext> => {
+
+const mutationKey = ['adminControllerAddColorVariantImagesByUrls'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>, {id: string;data: AddImageUrlsDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerAddColorVariantImagesByUrls(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerAddColorVariantImagesByUrlsMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>>
+    export type AdminControllerAddColorVariantImagesByUrlsMutationBody = AddImageUrlsDto
+    export type AdminControllerAddColorVariantImagesByUrlsMutationError = unknown
+
+    /**
+ * @summary Add images to color variant using URLs
+ */
+export const useAdminControllerAddColorVariantImagesByUrls = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerAddColorVariantImagesByUrls>>,
+        TError,
+        {id: string;data: AddImageUrlsDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerAddColorVariantImagesByUrlsMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Delete color variant image
+ */
+export const adminControllerDeleteColorVariantImage = (
+    variantId: string,
+    imageId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/color-variants/${variantId}/images/${imageId}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerDeleteColorVariantImageMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>, TError,{variantId: string;imageId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>, TError,{variantId: string;imageId: string}, TContext> => {
+
+const mutationKey = ['adminControllerDeleteColorVariantImage'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>, {variantId: string;imageId: string}> = (props) => {
+          const {variantId,imageId} = props ?? {};
+
+          return  adminControllerDeleteColorVariantImage(variantId,imageId,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerDeleteColorVariantImageMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>>
+    
+    export type AdminControllerDeleteColorVariantImageMutationError = unknown
+
+    /**
+ * @summary Delete color variant image
+ */
+export const useAdminControllerDeleteColorVariantImage = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>, TError,{variantId: string;imageId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerDeleteColorVariantImage>>,
+        TError,
+        {variantId: string;imageId: string},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerDeleteColorVariantImageMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Add images to product (file upload)
  */
 export const adminControllerAddProductImages = (
     id: string,
@@ -922,7 +1091,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AdminControllerAddProductImagesMutationError = unknown
 
     /**
- * @summary Add images to product
+ * @summary Add images to product (file upload)
  */
 export const useAdminControllerAddProductImages = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImages>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
@@ -934,6 +1103,71 @@ export const useAdminControllerAddProductImages = <TError = unknown,
       > => {
 
       const mutationOptions = getAdminControllerAddProductImagesMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Add images to product using URLs
+ */
+export const adminControllerAddProductImagesByUrls = (
+    id: string,
+    addImageUrlsDto: AddImageUrlsDto,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<void>(
+      {url: `/admin/products/${id}/images/urls`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: addImageUrlsDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerAddProductImagesByUrlsMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext> => {
+
+const mutationKey = ['adminControllerAddProductImagesByUrls'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>, {id: string;data: AddImageUrlsDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  adminControllerAddProductImagesByUrls(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerAddProductImagesByUrlsMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>>
+    export type AdminControllerAddProductImagesByUrlsMutationBody = AddImageUrlsDto
+    export type AdminControllerAddProductImagesByUrlsMutationError = unknown
+
+    /**
+ * @summary Add images to product using URLs
+ */
+export const useAdminControllerAddProductImagesByUrls = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>, TError,{id: string;data: AddImageUrlsDto}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerAddProductImagesByUrls>>,
+        TError,
+        {id: string;data: AddImageUrlsDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerAddProductImagesByUrlsMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }

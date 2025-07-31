@@ -33,10 +33,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Upload, X, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useImageUpload } from '@/hooks/useImageUpload';
 import {
   useAdminControllerUpdateProduct,
   useAdminControllerGetAllCategories,
   useAdminControllerAddProductImages,
+  useAdminControllerAddProductImagesByUrls,
   useAdminControllerDeleteProductImage,
 } from '@/lib/api/generated/admin/admin';
 import { ProductResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
@@ -73,6 +75,21 @@ export function ProductEditDialog({
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [deletingImageIds, setDeletingImageIds] = useState<string[]>([]);
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
+
+  const { upload, isUploading } = useImageUpload({
+    folder: 'products',
+    maxFiles: 10,
+    onSuccess: (result) => {
+      let urls: string[];
+      if ('images' in result) {
+        urls = result.images.map((r) => r.url);
+      } else {
+        urls = [result.url];
+      }
+      setUploadedImageUrls((prev) => [...prev, ...urls]);
+    },
+  });
 
   const form = useForm<UpdateProductFormData>({
     resolver: zodResolver(updateProductSchema),
@@ -107,6 +124,19 @@ export function ProductEditDialog({
         toast.error(
           error?.response?.data?.message || 'Failed to update product.'
         );
+      },
+    },
+  });
+
+  const addImagesByUrlsMutation = useAdminControllerAddProductImagesByUrls({
+    mutation: {
+      onSuccess: () => {
+        toast.success('Images added successfully.');
+        setUploadedImageUrls([]);
+        onSuccess();
+      },
+      onError: (error: any) => {
+        toast.error(error?.response?.data?.message || 'Failed to add images.');
       },
     },
   });
@@ -163,11 +193,13 @@ export function ProductEditDialog({
   }, [product, form]);
 
   // Image handling functions
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = Array.from(event.target.files || []);
     if (files.length === 0) return;
 
-    // Validate file types
+    // First add to preview (for immediate feedback)
     const validFiles = files.filter(
       (file) => file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024 // 5MB limit
     );
@@ -192,6 +224,9 @@ export function ProductEditDialog({
       };
       reader.readAsDataURL(file);
     });
+
+    // Clear the file input
+    event.target.value = '';
   };
 
   const removeNewImage = (index: number) => {
@@ -201,36 +236,38 @@ export function ProductEditDialog({
     setImagePreviews(newPreviews);
   };
 
+  const removeUploadedImage = (indexToRemove: number) => {
+    setUploadedImageUrls((prev) =>
+      prev.filter((_, index) => index !== indexToRemove)
+    );
+  };
+
   const deleteExistingImage = (imageId: string) => {
     setDeletingImageIds((prev) => [...prev, imageId]);
     deleteImageMutation.mutate({ id: imageId });
   };
 
-  const addNewImages = async () => {
+  const uploadSelectedImages = async () => {
     if (selectedImages.length === 0) return;
 
-    const formData = new FormData();
-    selectedImages.forEach((image) => {
-      formData.append('images', image);
-    });
-
     try {
-      const response = await fetch(`/api/admin/products/${product.id}/images`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        toast.success('Images added successfully.');
-        setSelectedImages([]);
-        setImagePreviews([]);
-        onSuccess();
-      } else {
-        throw new Error('Failed to upload images');
-      }
+      await upload(selectedImages);
+      setSelectedImages([]);
+      setImagePreviews([]);
     } catch (error) {
-      toast.error('Failed to add images.');
+      // Error is already handled by the hook
     }
+  };
+
+  const addUploadedImagesToProduct = () => {
+    if (uploadedImageUrls.length === 0) return;
+
+    addImagesByUrlsMutation.mutate({
+      id: product.id,
+      data: {
+        imageUrls: uploadedImageUrls,
+      },
+    });
   };
 
   const handleSubmit = (data: UpdateProductFormData) => {
@@ -462,6 +499,124 @@ export function ProductEditDialog({
                 </FormItem>
               )}
             />
+
+            {/* Image Upload Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <label className="text-sm font-medium">Add New Images</label>
+                  <p className="text-sm text-muted-foreground">
+                    Upload new product images (max 10 images, 5MB each)
+                  </p>
+                </div>
+                {selectedImages.length > 0 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={uploadSelectedImages}
+                    disabled={isUploading}
+                  >
+                    {isUploading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    Upload {selectedImages.length} Image
+                    {selectedImages.length > 1 ? 's' : ''}
+                  </Button>
+                )}
+              </div>
+
+              <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 relative">
+                <div className="flex flex-col items-center justify-center text-center">
+                  <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Click to upload or drag and drop
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    PNG, JPG, GIF up to 5MB
+                  </p>
+                  <Input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* New Image Previews and Uploaded Images */}
+              {(imagePreviews.length > 0 || uploadedImageUrls.length > 0) && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {/* Uploaded Images (ready to be added to product) */}
+                  {uploadedImageUrls.map((url, index) => (
+                    <div key={`uploaded-${index}`} className="relative group">
+                      <div className="aspect-square rounded-lg overflow-hidden border border-green-200">
+                        <img
+                          src={url}
+                          alt={`Uploaded ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => removeUploadedImage(index)}
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
+                      <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                        Uploaded
+                      </div>
+                    </div>
+                  ))}
+                  {/* Preview Images (not yet uploaded) */}
+                  {imagePreviews.map((preview, index) => (
+                    <div key={`preview-${index}`} className="relative group">
+                      <div className="aspect-square rounded-lg overflow-hidden border">
+                        <img
+                          src={preview}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => removeNewImage(index)}
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
+                      <div className="absolute bottom-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                        Preview
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Add uploaded images to product button */}
+              {uploadedImageUrls.length > 0 && (
+                <div className="flex justify-center">
+                  <Button
+                    type="button"
+                    onClick={addUploadedImagesToProduct}
+                    disabled={addImagesByUrlsMutation.isPending}
+                    className="w-full"
+                  >
+                    {addImagesByUrlsMutation.isPending && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    Add {uploadedImageUrls.length} Image
+                    {uploadedImageUrls.length > 1 ? 's' : ''} to Product
+                  </Button>
+                </div>
+              )}
+            </div>
 
             {/* Existing Images Management */}
             <div className="space-y-4">

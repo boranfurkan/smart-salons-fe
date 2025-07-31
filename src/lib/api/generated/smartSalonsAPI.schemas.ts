@@ -68,13 +68,12 @@ export interface CreateColorVariantDto {
   name: string;
   hexCode: string;
   stock: number;
-}
-
-export interface CreateProductImageDto {
-  url: string;
-  altText?: string;
-  isPrimary?: boolean;
-  order?: number;
+  price?: string;
+  discount?: string;
+  sku?: string;
+  isActive?: boolean;
+  /** Array of image URLs (upload images first using /admin/upload/images endpoint) */
+  imageUrls?: string[];
 }
 
 export interface CreateProductDto {
@@ -88,8 +87,25 @@ export interface CreateProductDto {
   deliveryDescription?: string;
   categoryId: string;
   colorVariants?: CreateColorVariantDto[];
-  images?: CreateProductImageDto[];
+  /** Array of image URLs (upload images first using /admin/upload/images endpoint) */
+  imageUrls?: string[];
   isActive?: boolean;
+}
+
+export interface ProductReferenceDto {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface ColorVariantImageResponseDto {
+  id: string;
+  url: string;
+  altText?: string;
+  isPrimary: boolean;
+  order: number;
+  createdAt: string;
+  colorVariantId: string;
 }
 
 export interface ColorVariantResponseDto {
@@ -97,9 +113,15 @@ export interface ColorVariantResponseDto {
   name: string;
   hexCode: string;
   stock: number;
+  price?: string;
+  discount?: string;
+  sku?: string;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
   productId: string;
+  product?: ProductReferenceDto;
+  images?: ColorVariantImageResponseDto[];
 }
 
 export type ProductImageResponseDtoAltText = { [key: string]: unknown };
@@ -155,22 +177,6 @@ export interface ProductResponseDto {
   _count?: ProductCountResponseDto;
 }
 
-export interface CreateProductWithImagesDto {
-  name: string;
-  description: string;
-  slug: string;
-  price: string;
-  discount?: string;
-  stock: number;
-  dimensions?: string;
-  deliveryDescription?: string;
-  categoryId: string;
-  isActive?: boolean;
-  images?: Blob[];
-  /** JSON string of color variants */
-  colorVariants?: string[];
-}
-
 export interface UpdateProductDto {
   name?: string;
   description?: string;
@@ -182,6 +188,11 @@ export interface UpdateProductDto {
   deliveryDescription?: string;
   categoryId?: string;
   isActive?: boolean;
+}
+
+export interface AddImageUrlsDto {
+  /** Array of image URLs to add */
+  imageUrls: string[];
 }
 
 export interface CreateCarouselItemDto {

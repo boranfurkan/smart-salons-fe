@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,7 +36,6 @@ import { useImageUpload } from '@/hooks/useImageUpload';
 import {
   useAdminControllerAddColorVariant,
   useAdminControllerGetAllProducts,
-  useAdminControllerAddColorVariantImagesByUrls,
 } from '@/lib/api/generated/admin/admin';
 
 const createColorVariantSchema = z.object({
@@ -106,32 +106,19 @@ export function ColorVariantCreateDialog({
 
   const createColorVariantMutation = useAdminControllerAddColorVariant({
     mutation: {
-      onSuccess: (response) => {
+      onSuccess: () => {
         toast.success('Color variant created successfully.');
         handleReset();
         onSuccess();
       },
-      onError: (error: Error) => {
+      onError: (error: unknown) => {
         toast.error(
-          (error as any)?.response?.data?.message ||
-            'Failed to create color variant.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to create color variant.'
         );
       },
     },
   });
-
-  const addImagesByUrlsMutation = useAdminControllerAddColorVariantImagesByUrls(
-    {
-      mutation: {
-        onError: (error: any) => {
-          toast.error(
-            error?.response?.data?.message ||
-              'Failed to add images to color variant.'
-          );
-        },
-      },
-    }
-  );
 
   const handleSubmit = async (data: CreateColorVariantFormData) => {
     let allImageUrls = [...uploadedImageUrls]; // Start with already uploaded images
@@ -154,7 +141,7 @@ export function ColorVariantCreateDialog({
         allImageUrls = [...allImageUrls, ...newUrls];
         setSelectedFiles([]);
         setUploadPreviews([]);
-      } catch (error) {
+      } catch {
         toast.error('Failed to upload images. Please try again.');
         return; // Don't create variant if image upload fails
       }
@@ -178,7 +165,7 @@ export function ColorVariantCreateDialog({
       await upload(selectedFiles);
       setSelectedFiles([]);
       setUploadPreviews([]);
-    } catch (error) {
+    } catch {
       // Error is already handled by the hook
     }
   };
@@ -494,8 +481,10 @@ export function ColorVariantCreateDialog({
                           key={`uploaded-${index}`}
                           className="relative group"
                         >
-                          <img
+                          <Image
                             src={url}
+                            width={100}
+                            height={100}
                             alt={`Uploaded ${index + 1}`}
                             className="w-full h-20 object-cover rounded border border-green-200"
                           />
@@ -527,8 +516,10 @@ export function ColorVariantCreateDialog({
                           key={`preview-${index}`}
                           className="relative group"
                         >
-                          <img
+                          <Image
                             src={preview}
+                            width={100}
+                            height={100}
                             alt={`Upload preview ${index + 1}`}
                             className="w-full h-20 object-cover rounded border"
                           />

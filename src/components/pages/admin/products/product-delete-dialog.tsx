@@ -10,7 +10,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAdminControllerDeleteProduct } from '@/lib/api/generated/admin/admin';
@@ -35,9 +34,10 @@ export function ProductDeleteDialog({
         toast.success(`Product "${product.name}" deleted successfully.`);
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to delete product.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to delete product.'
         );
       },
     },
@@ -59,8 +59,9 @@ export function ProductDeleteDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Product</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete "{product.name}"? This action cannot
-            be undone and will permanently remove the product from your catalog.
+            Are you sure you want to delete &quot;{product.name}&quot;? This
+            action cannot be undone and will permanently remove the product from
+            your catalog.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

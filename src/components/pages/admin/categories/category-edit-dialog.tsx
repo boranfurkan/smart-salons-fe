@@ -69,9 +69,10 @@ export function CategoryEditDialog({
         toast.success('Category updated successfully.');
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to update category.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to update category.'
         );
       },
     },

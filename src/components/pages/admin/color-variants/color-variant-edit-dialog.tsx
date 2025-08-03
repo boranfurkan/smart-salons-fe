@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -110,10 +111,10 @@ export function ColorVariantEditDialog({
         toast.success('Color variant updated successfully.');
         onSuccess();
       },
-      onError: (error: Error) => {
+      onError: (error: unknown) => {
         toast.error(
-          (error as any)?.response?.data?.message ||
-            'Failed to update color variant.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to update color variant.'
         );
       },
     },
@@ -126,9 +127,10 @@ export function ColorVariantEditDialog({
         setDeletingImageId(null);
         onSuccess(); // Refresh the data
       },
-      onError: (error: Error) => {
+      onError: (error: unknown) => {
         toast.error(
-          (error as any)?.response?.data?.message || 'Failed to delete image.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to delete image.'
         );
         setDeletingImageId(null);
       },
@@ -145,10 +147,10 @@ export function ColorVariantEditDialog({
           setUploadPreviews([]);
           onSuccess(); // Refresh the data
         },
-        onError: (error: any) => {
+        onError: (error: unknown) => {
           toast.error(
-            error?.response?.data?.message ||
-              'Failed to add images to color variant.'
+            (error as { response?: { data?: { message?: string } } })?.response
+              ?.data?.message || 'Failed to add images to color variant.'
           );
         },
       },
@@ -273,7 +275,7 @@ export function ColorVariantEditDialog({
         allImageUrls = [...allImageUrls, ...newUrls];
         setSelectedFiles([]);
         setUploadPreviews([]);
-      } catch (error) {
+      } catch {
         toast.error('Failed to upload images. Please try again.');
         return; // Don't add images if upload fails
       }
@@ -497,8 +499,10 @@ export function ColorVariantEditDialog({
                     <div className="grid grid-cols-3 gap-2">
                       {colorVariant.images.map((image) => (
                         <div key={image.id} className="relative group">
-                          <img
+                          <Image
                             src={image.url}
+                            width={100}
+                            height={100}
                             alt={image.altText || colorVariant.name}
                             className="w-full h-20 object-cover rounded border"
                           />
@@ -604,8 +608,10 @@ export function ColorVariantEditDialog({
                             key={`uploaded-${index}`}
                             className="relative group"
                           >
-                            <img
+                            <Image
                               src={url}
+                              width={100}
+                              height={100}
                               alt={`Uploaded ${index + 1}`}
                               className="w-full h-20 object-cover rounded border border-green-200"
                             />
@@ -637,7 +643,9 @@ export function ColorVariantEditDialog({
                             key={`preview-${index}`}
                             className="relative group"
                           >
-                            <img
+                            <Image
+                              width={100}
+                              height={100}
                               src={preview}
                               alt={`Upload preview ${index + 1}`}
                               className="w-full h-20 object-cover rounded border"

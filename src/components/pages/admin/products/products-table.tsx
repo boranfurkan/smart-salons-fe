@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import {
   Table,
@@ -23,7 +24,6 @@ import {
   Edit,
   Trash2,
   Search,
-  Eye,
   Package,
   Loader2,
 } from 'lucide-react';
@@ -170,9 +170,11 @@ export function ProductsTable({
                       <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0">
                           {product.images && product.images.length > 0 ? (
-                            <img
+                            <Image
                               src={product.images[0].url}
                               alt={product.name}
+                              width={40}
+                              height={40}
                               className="h-10 w-10 rounded-md object-cover"
                             />
                           ) : (

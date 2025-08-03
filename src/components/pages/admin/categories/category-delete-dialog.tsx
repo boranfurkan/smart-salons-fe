@@ -34,9 +34,10 @@ export function CategoryDeleteDialog({
         toast.success('Category deleted successfully.');
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to delete category.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to delete category.'
         );
       },
     },

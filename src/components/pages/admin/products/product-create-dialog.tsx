@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -31,17 +32,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { useImageUpload, useImageUrls } from '@/hooks/useImageUpload';
+import { useImageUpload } from '@/hooks/useImageUpload';
 import {
   useAdminControllerCreateProduct,
   useAdminControllerGetAllCategories,
 } from '@/lib/api/generated/admin/admin';
-import type {
-  ImageUploadResponseDto,
-  MultipleImageUploadResponseDto,
-} from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 const createProductSchema = z.object({
   name: z.string().min(1, 'Product name is required'),
@@ -90,8 +87,6 @@ export function ProductCreateDialog({
     },
   });
 
-  const { extractUrls } = useImageUrls();
-
   const form = useForm<CreateProductFormData>({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
@@ -121,9 +116,10 @@ export function ProductCreateDialog({
         setUploadedImageUrls([]);
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to create product.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to create product.'
         );
       },
     },
@@ -173,7 +169,7 @@ export function ProductCreateDialog({
       await upload(selectedImages);
       setSelectedImages([]);
       setImagePreviews([]);
-    } catch (error) {
+    } catch {
       // Error is already handled by the hook
     }
   };
@@ -216,7 +212,7 @@ export function ProductCreateDialog({
         allImageUrls = [...allImageUrls, ...newUrls];
         setSelectedImages([]);
         setImagePreviews([]);
-      } catch (error) {
+      } catch {
         toast.error('Failed to upload images. Please try again.');
         return; // Don't create product if image upload fails
       }
@@ -512,8 +508,10 @@ export function ProductCreateDialog({
                   {uploadedImageUrls.map((url, index) => (
                     <div key={`uploaded-${index}`} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border border-green-200">
-                        <img
+                        <Image
                           src={url}
+                          width={100}
+                          height={100}
                           alt={`Uploaded ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -536,8 +534,10 @@ export function ProductCreateDialog({
                   {imagePreviews.map((preview, index) => (
                     <div key={`preview-${index}`} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border">
-                        <img
+                        <Image
                           src={preview}
+                          width={100}
+                          height={100}
                           alt={`Preview ${index + 1}`}
                           className="w-full h-full object-cover"
                         />

@@ -34,9 +34,10 @@ export function ColorVariantDeleteDialog({
         toast.success('Color variant deleted successfully.');
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to delete color variant.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to delete color variant.'
         );
       },
     },
@@ -59,8 +60,8 @@ export function ColorVariantDeleteDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Color Variant</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete the color variant "
-            {colorVariant?.name}" ({colorVariant?.hexCode})?
+            Are you sure you want to delete the color variant &quot;
+            {colorVariant?.name}&quot; ({colorVariant?.hexCode})?
             <br />
             <br />
             <strong className="text-destructive">

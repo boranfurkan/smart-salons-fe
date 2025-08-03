@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { MoreHorizontal, Edit, Trash2, Search, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -217,7 +218,9 @@ export function ColorVariantsTable({
                     <TableCell>
                       {variant.images?.find((img) => img.isPrimary) ||
                       variant.images?.[0] ? (
-                        <img
+                        <Image
+                          width={40}
+                          height={40}
                           src={
                             (
                               variant.images?.find((img) => img.isPrimary) ||

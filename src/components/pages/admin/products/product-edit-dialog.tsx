@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -120,9 +121,10 @@ export function ProductEditDialog({
         toast.success('Product updated successfully.');
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to update product.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to update product.'
         );
       },
     },
@@ -135,22 +137,11 @@ export function ProductEditDialog({
         setUploadedImageUrls([]);
         onSuccess();
       },
-      onError: (error: any) => {
-        toast.error(error?.response?.data?.message || 'Failed to add images.');
-      },
-    },
-  });
-
-  const addImagesMutation = useAdminControllerAddProductImages({
-    mutation: {
-      onSuccess: () => {
-        toast.success('Images added successfully.');
-        setSelectedImages([]);
-        setImagePreviews([]);
-        onSuccess();
-      },
-      onError: (error: any) => {
-        toast.error(error?.response?.data?.message || 'Failed to add images.');
+      onError: (error: unknown) => {
+        toast.error(
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to add images.'
+        );
       },
     },
   });
@@ -162,9 +153,10 @@ export function ProductEditDialog({
         setDeletingImageIds((prev) => prev.filter((id) => id !== variables.id));
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to delete image.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to delete image.'
         );
       },
     },
@@ -254,7 +246,7 @@ export function ProductEditDialog({
       await upload(selectedImages);
       setSelectedImages([]);
       setImagePreviews([]);
-    } catch (error) {
+    } catch {
       // Error is already handled by the hook
     }
   };
@@ -280,7 +272,7 @@ export function ProductEditDialog({
         allImageUrls = [...allImageUrls, ...newUrls];
         setSelectedImages([]);
         setImagePreviews([]);
-      } catch (error) {
+      } catch {
         toast.error('Failed to upload images. Please try again.');
         return; // Don't add images if upload fails
       }
@@ -578,8 +570,10 @@ export function ProductEditDialog({
                   {uploadedImageUrls.map((url, index) => (
                     <div key={`uploaded-${index}`} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border border-green-200">
-                        <img
+                        <Image
                           src={url}
+                          width={100}
+                          height={100}
                           alt={`Uploaded ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -602,8 +596,10 @@ export function ProductEditDialog({
                   {imagePreviews.map((preview, index) => (
                     <div key={`preview-${index}`} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border">
-                        <img
+                        <Image
                           src={preview}
+                          width={100}
+                          height={100}
                           alt={`Preview ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -667,8 +663,10 @@ export function ProductEditDialog({
                   {product.images.map((image) => (
                     <div key={image.id} className="relative group">
                       <div className="aspect-square rounded-lg overflow-hidden border">
-                        <img
+                        <Image
                           src={image.url}
+                          width={100}
+                          height={100}
                           alt={`Product image ${image.order}`}
                           className="w-full h-full object-cover"
                         />

@@ -67,9 +67,10 @@ export function CategoryCreateDialog({
         form.reset();
         onSuccess();
       },
-      onError: (error: any) => {
+      onError: (error: unknown) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to create category.'
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message || 'Failed to create category.'
         );
       },
     },

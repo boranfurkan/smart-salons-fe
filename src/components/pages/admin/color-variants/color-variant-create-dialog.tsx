@@ -37,10 +37,6 @@ import {
   useAdminControllerGetAllProducts,
   useAdminControllerAddColorVariantImagesByUrls,
 } from '@/lib/api/generated/admin/admin';
-import type {
-  ImageUploadResponseDto,
-  MultipleImageUploadResponseDto,
-} from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 const createColorVariantSchema = z.object({
   productId: z.string().min(1, 'Please select a product'),

@@ -59,7 +59,8 @@ export function CategoryDeleteDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Category</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete the category "{category?.name}"?
+            Are you sure you want to delete the category &quot;{category?.name}
+            &quot;?
             <br />
             <br />
             <strong className="text-destructive">

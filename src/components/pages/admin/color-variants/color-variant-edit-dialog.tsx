@@ -38,10 +38,6 @@ import {
   useAdminControllerAddColorVariantImagesByUrls,
 } from '@/lib/api/generated/admin/admin';
 import { ColorVariantResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
-import type {
-  ImageUploadResponseDto,
-  MultipleImageUploadResponseDto,
-} from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 const editColorVariantSchema = z.object({
   name: z.string().min(1, 'Color name is required'),

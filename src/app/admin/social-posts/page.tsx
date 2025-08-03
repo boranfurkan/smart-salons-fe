@@ -19,54 +19,6 @@ export default function SocialPostsPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto py-10">
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold">Social Posts</h1>
-              <p className="text-muted-foreground">
-                Manage your social media posts and content
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center space-y-2">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-              <p className="text-muted-foreground">Loading social posts...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="container mx-auto py-10">
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold">Social Posts</h1>
-              <p className="text-muted-foreground">
-                Manage your social media posts and content
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center space-y-2">
-              <p className="text-destructive">Failed to load social posts</p>
-              <Button onClick={() => refetch()} variant="outline">
-                Retry
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container mx-auto py-10">
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
@@ -75,21 +27,63 @@ export default function SocialPostsPage() {
               Manage your social media posts and content
             </p>
           </div>
-          <Button onClick={() => setIsCreateDialogOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Social Post
-          </Button>
         </div>
-
-        <SocialPostsTable socialPosts={socialPosts || []} onRefetch={refetch} />
-
-        <SocialPostCreateDialog
-          open={isCreateDialogOpen}
-          onOpenChange={setIsCreateDialogOpen}
-          onClose={() => setIsCreateDialogOpen(false)}
-          onRefetch={refetch}
-        />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center space-y-2">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+            <p className="text-muted-foreground">Loading social posts...</p>
+          </div>
+        </div>
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold">Social Posts</h1>
+            <p className="text-muted-foreground">
+              Manage your social media posts and content
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center space-y-2">
+            <p className="text-destructive">Failed to load social posts</p>
+            <Button onClick={() => refetch()} variant="outline">
+              Retry
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold">Social Posts</h1>
+          <p className="text-muted-foreground">
+            Manage your social media posts and content
+          </p>
+        </div>
+        <Button onClick={() => setIsCreateDialogOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Social Post
+        </Button>
+      </div>
+
+      <SocialPostsTable socialPosts={socialPosts || []} onRefetch={refetch} />
+
+      <SocialPostCreateDialog
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+        onClose={() => setIsCreateDialogOpen(false)}
+        onRefetch={refetch}
+      />
     </div>
   );
 }

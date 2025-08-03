@@ -19,13 +19,7 @@ const authRoutes = [
   '/verify-email',
 ];
 
-const protectedRoutes = [
-  '/dashboard',
-  '/profile',
-  '/settings',
-  '/products',
-  '/orders',
-];
+const protectedRoutes = ['/dashboard', '/profile', '/products', '/orders'];
 
 const adminRoutes = ['/admin'];
 

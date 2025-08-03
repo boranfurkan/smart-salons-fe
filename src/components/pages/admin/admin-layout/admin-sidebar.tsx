@@ -68,11 +68,6 @@ const sidebarItems = [
     href: '/admin/newsletter',
     icon: Mail,
   },
-  {
-    title: 'Settings',
-    href: '/admin/settings',
-    icon: Settings,
-  },
 ];
 
 export function AdminSidebar({ currentPath }: AdminSidebarProps) {

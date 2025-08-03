@@ -26,51 +26,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useAdminControllerGetAllOrders } from '@/lib/api/generated/admin/admin';
 import { OrderResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 import { OrderDetailsDialog } from './order-details-dialog';
 import { UpdateShippingStatusDialog } from './update-shipping-status-dialog';
-
-const getStatusBadgeVariant = (status: string) => {
-  switch (status) {
-    case 'PENDING':
-      return 'secondary';
-    case 'CONFIRMED':
-      return 'default';
-    case 'PROCESSING':
-      return 'default';
-    case 'SHIPPED':
-      return 'default';
-    case 'DELIVERED':
-      return 'default';
-    case 'CANCELLED':
-      return 'destructive';
-    default:
-      return 'secondary';
-  }
-};
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'PENDING':
-      return 'text-yellow-600';
-    case 'CONFIRMED':
-      return 'text-blue-600';
-    case 'PROCESSING':
-      return 'text-purple-600';
-    case 'SHIPPED':
-      return 'text-orange-600';
-    case 'DELIVERED':
-      return 'text-green-600';
-    case 'CANCELLED':
-      return 'text-red-600';
-    default:
-      return 'text-gray-600';
-  }
-};
+import { OrderStatusBadge } from './order-status-badge';
 
 export function OrdersTable() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -212,12 +174,7 @@ export function OrdersTable() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge
-                          variant={getStatusBadgeVariant(order.status)}
-                          className={getStatusColor(order.status)}
-                        >
-                          {order.status}
-                        </Badge>
+                        <OrderStatusBadge status={order.status} />
                       </TableCell>
                       <TableCell className="font-medium">
                         ${parseFloat(order.totalAmount).toFixed(2)}

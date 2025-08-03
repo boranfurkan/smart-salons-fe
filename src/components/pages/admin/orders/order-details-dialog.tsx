@@ -6,9 +6,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { OrderResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
+import { OrderStatusBadge } from './order-status-badge';
 
 interface OrderDetailsDialogProps {
   order: OrderResponseDto;
@@ -16,44 +16,6 @@ interface OrderDetailsDialogProps {
   onOpenChange: (open: boolean) => void;
   onClose: () => void;
 }
-
-const getStatusBadgeVariant = (status: string) => {
-  switch (status) {
-    case 'PENDING':
-      return 'secondary';
-    case 'CONFIRMED':
-      return 'default';
-    case 'PROCESSING':
-      return 'default';
-    case 'SHIPPED':
-      return 'default';
-    case 'DELIVERED':
-      return 'default';
-    case 'CANCELLED':
-      return 'destructive';
-    default:
-      return 'secondary';
-  }
-};
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'PENDING':
-      return 'text-yellow-600';
-    case 'CONFIRMED':
-      return 'text-blue-600';
-    case 'PROCESSING':
-      return 'text-purple-600';
-    case 'SHIPPED':
-      return 'text-orange-600';
-    case 'DELIVERED':
-      return 'text-green-600';
-    case 'CANCELLED':
-      return 'text-red-600';
-    default:
-      return 'text-gray-600';
-  }
-};
 
 export function OrderDetailsDialog({
   order,
@@ -72,12 +34,7 @@ export function OrderDetailsDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             Order Details - {order.orderNumber}
-            <Badge
-              variant={getStatusBadgeVariant(order.status)}
-              className={getStatusColor(order.status)}
-            >
-              {order.status}
-            </Badge>
+            <OrderStatusBadge status={order.status} />
           </DialogTitle>
         </DialogHeader>
 
@@ -107,12 +64,7 @@ export function OrderDetailsDialog({
                   <p className="text-sm font-medium text-muted-foreground">
                     Status
                   </p>
-                  <Badge
-                    variant={getStatusBadgeVariant(order.status)}
-                    className={getStatusColor(order.status)}
-                  >
-                    {order.status}
-                  </Badge>
+                  <OrderStatusBadge status={order.status} />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">

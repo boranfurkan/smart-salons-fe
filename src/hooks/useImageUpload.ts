@@ -128,9 +128,16 @@ export function useImageUpload(options: UseImageUploadOptions = {}) {
         toast.success(`${result.count} images uploaded successfully`);
         return result.images;
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage =
-        error?.response?.data?.message || error?.message || 'Upload failed';
+        (
+          error as {
+            response?: { data?: { message?: string } };
+            message?: string;
+          }
+        )?.response?.data?.message ||
+        (error as { message?: string })?.message ||
+        'Upload failed';
       onError?.(errorMessage);
       toast.error(errorMessage);
       throw error;

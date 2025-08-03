@@ -38,7 +38,6 @@ import { useImageUpload } from '@/hooks/useImageUpload';
 import {
   useAdminControllerUpdateProduct,
   useAdminControllerGetAllCategories,
-  useAdminControllerAddProductImages,
   useAdminControllerAddProductImagesByUrls,
   useAdminControllerDeleteProductImage,
 } from '@/lib/api/generated/admin/admin';

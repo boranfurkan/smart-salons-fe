@@ -69,11 +69,6 @@ const sidebarItems = [
     icon: Mail,
   },
   {
-    title: 'Upload Files',
-    href: '/admin/upload',
-    icon: Upload,
-  },
-  {
     title: 'Settings',
     href: '/admin/settings',
     icon: Settings,

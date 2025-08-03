@@ -36,13 +36,6 @@ const quickActions = [
     color: 'bg-purple-50 text-purple-600 border-purple-200',
   },
   {
-    title: 'Upload Images',
-    description: 'Upload product and carousel images',
-    icon: Upload,
-    href: '/admin/upload',
-    color: 'bg-orange-50 text-orange-600 border-orange-200',
-  },
-  {
     title: 'Carousel Items',
     description: 'Manage homepage carousel',
     icon: Image,

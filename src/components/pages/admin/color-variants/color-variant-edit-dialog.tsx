@@ -38,6 +38,10 @@ import {
   useAdminControllerAddColorVariantImagesByUrls,
 } from '@/lib/api/generated/admin/admin';
 import { ColorVariantResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
+import type {
+  ImageUploadResponseDto,
+  MultipleImageUploadResponseDto,
+} from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 const editColorVariantSchema = z.object({
   name: z.string().min(1, 'Color name is required'),
@@ -251,12 +255,40 @@ export function ColorVariantEditDialog({
   };
 
   const addUploadedImagesToVariant = async () => {
-    if (!colorVariant?.id || uploadedImageUrls.length === 0) return;
+    if (!colorVariant?.id) return;
+
+    let allImageUrls = [...uploadedImageUrls]; // Start with already uploaded images
+
+    // Upload any selected images that haven't been uploaded yet
+    if (selectedFiles.length > 0) {
+      try {
+        const uploadResult = await upload(selectedFiles);
+
+        // Extract URLs from upload result
+        let newUrls: string[];
+        if (Array.isArray(uploadResult)) {
+          // Multiple images result (ImageUploadResponseDto[])
+          newUrls = uploadResult.map((r) => r.url);
+        } else {
+          // Single image result (ImageUploadResponseDto)
+          newUrls = [uploadResult.url];
+        }
+
+        allImageUrls = [...allImageUrls, ...newUrls];
+        setSelectedFiles([]);
+        setUploadPreviews([]);
+      } catch (error) {
+        toast.error('Failed to upload images. Please try again.');
+        return; // Don't add images if upload fails
+      }
+    }
+
+    if (allImageUrls.length === 0) return;
 
     addImagesByUrlsMutation.mutate({
       id: colorVariant.id,
       data: {
-        imageUrls: uploadedImageUrls,
+        imageUrls: allImageUrls,
       },
     });
   };
@@ -530,17 +562,24 @@ export function ColorVariantEditDialog({
                         {selectedFiles.length > 1 ? 's' : ''}
                       </Button>
                     )}
-                    {uploadedImageUrls.length > 0 && (
+                    {(uploadedImageUrls.length > 0 ||
+                      selectedFiles.length > 0) && (
                       <Button
                         type="button"
                         size="sm"
                         onClick={addUploadedImagesToVariant}
-                        disabled={addImagesByUrlsMutation.isPending}
+                        disabled={
+                          addImagesByUrlsMutation.isPending || isUploading
+                        }
                       >
-                        {addImagesByUrlsMutation.isPending && (
+                        {(addImagesByUrlsMutation.isPending || isUploading) && (
                           <Loader2 className="mr-2 h-3 w-3 animate-spin" />
                         )}
-                        Add {uploadedImageUrls.length} to Variant
+                        {isUploading
+                          ? 'Uploading...'
+                          : `Add ${
+                              uploadedImageUrls.length + selectedFiles.length
+                            } to Variant`}
                       </Button>
                     )}
                     <span className="text-xs text-muted-foreground">

@@ -37,6 +37,10 @@ import {
   useAdminControllerGetAllProducts,
   useAdminControllerAddColorVariantImagesByUrls,
 } from '@/lib/api/generated/admin/admin';
+import type {
+  ImageUploadResponseDto,
+  MultipleImageUploadResponseDto,
+} from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 const createColorVariantSchema = z.object({
   productId: z.string().min(1, 'Please select a product'),
@@ -106,24 +110,8 @@ export function ColorVariantCreateDialog({
 
   const createColorVariantMutation = useAdminControllerAddColorVariant({
     mutation: {
-      onSuccess: async (response) => {
+      onSuccess: (response) => {
         toast.success('Color variant created successfully.');
-
-        // If we have uploaded images, add them to the color variant
-        if (uploadedImageUrls.length > 0) {
-          try {
-            await addImagesByUrlsMutation.mutateAsync({
-              id: response.id,
-              data: {
-                imageUrls: uploadedImageUrls,
-              },
-            });
-            toast.success('Images added to color variant successfully.');
-          } catch (error) {
-            toast.error('Color variant created but failed to add images.');
-          }
-        }
-
         handleReset();
         onSuccess();
       },
@@ -150,9 +138,30 @@ export function ColorVariantCreateDialog({
   );
 
   const handleSubmit = async (data: CreateColorVariantFormData) => {
-    // First upload any selected images that haven't been uploaded yet
+    let allImageUrls = [...uploadedImageUrls]; // Start with already uploaded images
+
+    // Upload any selected images that haven't been uploaded yet
     if (selectedFiles.length > 0) {
-      await uploadSelectedImages();
+      try {
+        const uploadResult = await upload(selectedFiles);
+
+        // Extract URLs from upload result
+        let newUrls: string[];
+        if (Array.isArray(uploadResult)) {
+          // Multiple images result (ImageUploadResponseDto[])
+          newUrls = uploadResult.map((r) => r.url);
+        } else {
+          // Single image result (ImageUploadResponseDto)
+          newUrls = [uploadResult.url];
+        }
+
+        allImageUrls = [...allImageUrls, ...newUrls];
+        setSelectedFiles([]);
+        setUploadPreviews([]);
+      } catch (error) {
+        toast.error('Failed to upload images. Please try again.');
+        return; // Don't create variant if image upload fails
+      }
     }
 
     // Extract productId from form data and create color variant
@@ -161,7 +170,7 @@ export function ColorVariantCreateDialog({
       id: productId,
       data: {
         ...colorVariantData,
-        ...(uploadedImageUrls.length > 0 && { imageUrls: uploadedImageUrls }),
+        ...(allImageUrls.length > 0 && { imageUrls: allImageUrls }),
       },
     });
   };

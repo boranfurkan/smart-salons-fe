@@ -259,13 +259,39 @@ export function ProductEditDialog({
     }
   };
 
-  const addUploadedImagesToProduct = () => {
-    if (uploadedImageUrls.length === 0) return;
+  const addUploadedImagesToProduct = async () => {
+    let allImageUrls = [...uploadedImageUrls]; // Start with already uploaded images
+
+    // Upload any selected images that haven't been uploaded yet
+    if (selectedImages.length > 0) {
+      try {
+        const uploadResult = await upload(selectedImages);
+
+        // Extract URLs from upload result
+        let newUrls: string[];
+        if (Array.isArray(uploadResult)) {
+          // Multiple images result (ImageUploadResponseDto[])
+          newUrls = uploadResult.map((r) => r.url);
+        } else {
+          // Single image result (ImageUploadResponseDto)
+          newUrls = [uploadResult.url];
+        }
+
+        allImageUrls = [...allImageUrls, ...newUrls];
+        setSelectedImages([]);
+        setImagePreviews([]);
+      } catch (error) {
+        toast.error('Failed to upload images. Please try again.');
+        return; // Don't add images if upload fails
+      }
+    }
+
+    if (allImageUrls.length === 0) return;
 
     addImagesByUrlsMutation.mutate({
       id: product.id,
       data: {
-        imageUrls: uploadedImageUrls,
+        imageUrls: allImageUrls,
       },
     });
   };
@@ -600,19 +626,26 @@ export function ProductEditDialog({
               )}
 
               {/* Add uploaded images to product button */}
-              {uploadedImageUrls.length > 0 && (
+              {(uploadedImageUrls.length > 0 || selectedImages.length > 0) && (
                 <div className="flex justify-center">
                   <Button
                     type="button"
                     onClick={addUploadedImagesToProduct}
-                    disabled={addImagesByUrlsMutation.isPending}
+                    disabled={addImagesByUrlsMutation.isPending || isUploading}
                     className="w-full"
                   >
-                    {addImagesByUrlsMutation.isPending && (
+                    {(addImagesByUrlsMutation.isPending || isUploading) && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
-                    Add {uploadedImageUrls.length} Image
-                    {uploadedImageUrls.length > 1 ? 's' : ''} to Product
+                    {isUploading
+                      ? 'Uploading...'
+                      : `Add ${
+                          uploadedImageUrls.length + selectedImages.length
+                        } Image${
+                          uploadedImageUrls.length + selectedImages.length > 1
+                            ? 's'
+                            : ''
+                        } to Product`}
                   </Button>
                 </div>
               )}

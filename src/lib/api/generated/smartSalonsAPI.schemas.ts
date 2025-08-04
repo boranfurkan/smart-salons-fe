@@ -462,6 +462,106 @@ export interface MultipleImageUploadResponseDto {
   count: number;
 }
 
+export interface CarouselItemDto {
+  /** Unique identifier */
+  id: string;
+  /** Carousel item title */
+  title: string;
+  /** Carousel item description */
+  description?: string;
+  /** Image URL */
+  imageUrl: string;
+  /** Button text */
+  buttonText?: string;
+  /** Button link */
+  buttonLink?: string;
+  /** Display order */
+  order: number;
+  /** Is item active */
+  isActive: boolean;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+}
+
+export interface CategoryDto {
+  /** Unique identifier */
+  id: string;
+  /** Category name */
+  name: string;
+  /** Category description */
+  description?: string;
+  /** URL slug */
+  slug: string;
+  /** Is category active */
+  isActive: boolean;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+  /** Number of products in this category */
+  productCount: number;
+}
+
+export type ColorVariantDtoImagesItem = { [key: string]: unknown };
+
+export interface ColorVariantDto {
+  /** Unique identifier */
+  id: string;
+  /** Color name */
+  name: string;
+  /** Hex color code */
+  hexCode: string;
+  /** Stock quantity */
+  stock: number;
+  /** Price for this color variant */
+  price?: string;
+  /** Discount percentage for this color variant */
+  discount?: string;
+  /** Stock keeping unit */
+  sku?: string;
+  /** Is variant active */
+  isActive: boolean;
+  /** Images for this color variant */
+  images: ColorVariantDtoImagesItem[];
+}
+
+export type ProductDtoImagesItem = { [key: string]: unknown };
+
+export interface ProductDto {
+  /** Unique identifier */
+  id: string;
+  /** Product name */
+  name: string;
+  /** Product description */
+  description: string;
+  /** URL slug */
+  slug: string;
+  /** Base price */
+  price: string;
+  /** Discount percentage */
+  discount: string;
+  /** Stock quantity */
+  stock: number;
+  /** Product dimensions */
+  dimensions?: string;
+  /** Delivery description */
+  deliveryDescription?: string;
+  /** Is product active */
+  isActive: boolean;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+  /** Product category */
+  category: CategoryDto;
+  /** Available color variants */
+  colorVariants: ColorVariantDto[];
+  /** Product images */
+  images: ProductDtoImagesItem[];
+}
+
 export type AdminControllerUploadImageParams = {
 /**
  * Upload folder (products, carousel, social-posts, general)
@@ -497,4 +597,159 @@ export const AdminControllerUploadMultipleImagesFolder = {
   'social-posts': 'social-posts',
   general: 'general',
 } as const;
+
+export type PublicControllerGetFeaturedProductsParams = {
+/**
+ * Number of products to return
+ */
+limit?: number;
+};
+
+export type PublicControllerGetProductsParams = {
+/**
+ * Category ID to filter by
+ */
+categoryId?: string;
+/**
+ * Number of products to return
+ */
+limit?: number;
+/**
+ * Number of products to skip
+ */
+offset?: number;
+/**
+ * Sort by field
+ */
+sortBy?: PublicControllerGetProductsSortBy;
+/**
+ * Sort order
+ */
+sortOrder?: PublicControllerGetProductsSortOrder;
+/**
+ * Only return featured products
+ */
+featured?: boolean;
+};
+
+export type PublicControllerGetProductsSortBy = typeof PublicControllerGetProductsSortBy[keyof typeof PublicControllerGetProductsSortBy];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PublicControllerGetProductsSortBy = {
+  createdAt: 'createdAt',
+  name: 'name',
+  price: 'price',
+} as const;
+
+export type PublicControllerGetProductsSortOrder = typeof PublicControllerGetProductsSortOrder[keyof typeof PublicControllerGetProductsSortOrder];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PublicControllerGetProductsSortOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type PublicControllerGetProducts200 = {
+  products?: ProductDto[];
+  total?: number;
+  hasMore?: boolean;
+};
+
+export type PublicControllerGetProductsByCategoryParams = {
+/**
+ * Category ID to filter by
+ */
+categoryId?: string;
+/**
+ * Number of products to return
+ */
+limit?: number;
+/**
+ * Number of products to skip
+ */
+offset?: number;
+/**
+ * Sort by field
+ */
+sortBy?: PublicControllerGetProductsByCategorySortBy;
+/**
+ * Sort order
+ */
+sortOrder?: PublicControllerGetProductsByCategorySortOrder;
+/**
+ * Only return featured products
+ */
+featured?: boolean;
+};
+
+export type PublicControllerGetProductsByCategorySortBy = typeof PublicControllerGetProductsByCategorySortBy[keyof typeof PublicControllerGetProductsByCategorySortBy];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PublicControllerGetProductsByCategorySortBy = {
+  createdAt: 'createdAt',
+  name: 'name',
+  price: 'price',
+} as const;
+
+export type PublicControllerGetProductsByCategorySortOrder = typeof PublicControllerGetProductsByCategorySortOrder[keyof typeof PublicControllerGetProductsByCategorySortOrder];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PublicControllerGetProductsByCategorySortOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type PublicControllerGetProductsByCategory200 = {
+  products?: ProductDto[];
+  total?: number;
+  hasMore?: boolean;
+  category?: CategoryDto;
+};
+
+export type PublicControllerGetSocialPostsParams = {
+/**
+ * Platform to filter by
+ */
+platform?: PublicControllerGetSocialPostsPlatform;
+/**
+ * Number of posts to return
+ */
+limit?: number;
+/**
+ * Number of posts to skip
+ */
+offset?: number;
+};
+
+export type PublicControllerGetSocialPostsPlatform = typeof PublicControllerGetSocialPostsPlatform[keyof typeof PublicControllerGetSocialPostsPlatform];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PublicControllerGetSocialPostsPlatform = {
+  INSTAGRAM: 'INSTAGRAM',
+  TIKTOK: 'TIKTOK',
+  FACEBOOK: 'FACEBOOK',
+  TWITTER: 'TWITTER',
+} as const;
+
+export type PublicControllerGetSocialPosts200 = {
+  posts?: SocialPostDto[];
+  total?: number;
+  hasMore?: boolean;
+};
+
+export type PublicControllerSearchProductsParams = {
+/**
+ * Search term
+ */
+q: string;
+/**
+ * Number of results to return
+ */
+limit?: number;
+};
 

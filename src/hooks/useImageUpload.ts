@@ -9,7 +9,7 @@ import type {
 interface UseImageUploadOptions {
   maxFiles?: number;
   maxSizeMB?: number;
-  folder?: 'products' | 'carousel' | 'social-posts' | 'general';
+  folder?: 'products' | 'carousel' | 'social-posts' | 'categories' | 'general';
   onSuccess?: (
     result: ImageUploadResponseDto | MultipleImageUploadResponseDto
   ) => void;

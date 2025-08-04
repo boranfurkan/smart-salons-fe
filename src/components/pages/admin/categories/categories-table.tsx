@@ -85,6 +85,7 @@ export function CategoriesTable({
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-16">Image</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Slug</TableHead>
                 <TableHead>Description</TableHead>
@@ -96,6 +97,9 @@ export function CategoriesTable({
             <TableBody>
               {[...Array(5)].map((_, i) => (
                 <TableRow key={i}>
+                  <TableCell>
+                    <div className="h-10 w-10 bg-muted animate-pulse rounded" />
+                  </TableCell>
                   <TableCell>
                     <div className="h-4 w-24 bg-muted animate-pulse rounded" />
                   </TableCell>
@@ -163,6 +167,7 @@ export function CategoriesTable({
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-16">Image</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Slug</TableHead>
               <TableHead>Description</TableHead>
@@ -174,7 +179,7 @@ export function CategoriesTable({
           <TableBody>
             {filteredCategories.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="h-24 text-center">
+                <TableCell colSpan={7} className="h-24 text-center">
                   {searchTerm || statusFilter !== 'all' ? (
                     <div className="text-muted-foreground">
                       No categories found matching your filters.
@@ -188,54 +193,75 @@ export function CategoriesTable({
                 </TableCell>
               </TableRow>
             ) : (
-              filteredCategories.map((category) => (
-                <TableRow key={category.id}>
-                  <TableCell className="font-medium">{category.name}</TableCell>
-                  <TableCell className="font-mono text-sm">
-                    {category.slug}
-                  </TableCell>
-                  <TableCell className="max-w-xs truncate">
-                    {typeof category.description === 'string'
-                      ? category.description
-                      : 'No description'}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={category.isActive ? 'default' : 'secondary'}
-                    >
-                      {category.isActive ? 'Active' : 'Inactive'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {formatDate(category.createdAt)}
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => onEditCategory(category)}
-                        >
-                          <Edit className="mr-2 h-4 w-4" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => onDeleteCategory(category)}
-                          className="text-destructive"
-                        >
-                          <Trash2 className="mr-2 h-4 w-4" />
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
+              filteredCategories.map((category) => {
+                const imageUrl =
+                  typeof category.imageUrl === 'string'
+                    ? category.imageUrl
+                    : '';
+                return (
+                  <TableRow key={category.id}>
+                    <TableCell>
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={category.name}
+                          className="h-10 w-10 object-cover rounded border"
+                        />
+                      ) : (
+                        <div className="h-10 w-10 bg-gray-100 rounded border flex items-center justify-center">
+                          <span className="text-xs text-gray-400">No img</span>
+                        </div>
+                      )}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {category.name}
+                    </TableCell>
+                    <TableCell className="font-mono text-sm">
+                      {category.slug}
+                    </TableCell>
+                    <TableCell className="max-w-xs truncate">
+                      {typeof category.description === 'string'
+                        ? category.description
+                        : 'No description'}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={category.isActive ? 'default' : 'secondary'}
+                      >
+                        {category.isActive ? 'Active' : 'Inactive'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {formatDate(category.createdAt)}
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem
+                            onClick={() => onEditCategory(category)}
+                          >
+                            <Edit className="mr-2 h-4 w-4" />
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => onDeleteCategory(category)}
+                            className="text-destructive"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
             )}
           </TableBody>
         </Table>

@@ -138,11 +138,14 @@ export interface ProductImageResponseDto {
 
 export type CategoryResponseDtoDescription = { [key: string]: unknown };
 
+export type CategoryResponseDtoImageUrl = { [key: string]: unknown };
+
 export interface CategoryResponseDto {
   id: string;
   name: string;
   description?: CategoryResponseDtoDescription;
   slug: string;
+  imageUrl?: CategoryResponseDtoImageUrl;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -408,6 +411,8 @@ export interface CreateCategoryDto {
   name: string;
   description?: string;
   slug: string;
+  /** URL of the category image (upload image first using /admin/upload/image endpoint with folder=categories) */
+  imageUrl?: string;
   isActive?: boolean;
 }
 
@@ -415,6 +420,8 @@ export interface UpdateCategoryDto {
   name?: string;
   description?: string;
   slug?: string;
+  /** URL of the category image (upload image first using /admin/upload/image endpoint with folder=categories) */
+  imageUrl?: string;
   isActive?: boolean;
 }
 
@@ -577,6 +584,7 @@ export const AdminControllerUploadImageFolder = {
   products: 'products',
   carousel: 'carousel',
   'social-posts': 'social-posts',
+  categories: 'categories',
   general: 'general',
 } as const;
 
@@ -595,6 +603,7 @@ export const AdminControllerUploadMultipleImagesFolder = {
   products: 'products',
   carousel: 'carousel',
   'social-posts': 'social-posts',
+  categories: 'categories',
   general: 'general',
 } as const;
 

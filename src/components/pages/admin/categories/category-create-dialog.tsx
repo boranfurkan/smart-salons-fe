@@ -24,14 +24,16 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAdminControllerCreateCategory } from '@/lib/api/generated/admin/admin';
+import { useImageUpload } from '@/hooks/useImageUpload';
 
 const createCategorySchema = z.object({
   name: z.string().min(1, 'Category name is required'),
   description: z.string().optional(),
   slug: z.string().min(1, 'Slug is required'),
+  imageUrl: z.string().optional(),
   isActive: z.boolean(),
 });
 
@@ -49,6 +51,7 @@ export function CategoryCreateDialog({
   onSuccess,
 }: CategoryCreateDialogProps) {
   const [isGeneratingSlug, setIsGeneratingSlug] = useState(false);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
   const form = useForm<CreateCategoryFormData>({
     resolver: zodResolver(createCategorySchema),
@@ -56,7 +59,23 @@ export function CategoryCreateDialog({
       name: '',
       description: '',
       slug: '',
+      imageUrl: '',
       isActive: true,
+    },
+  });
+
+  const { upload, isUploading } = useImageUpload({
+    folder: 'categories',
+    maxFiles: 1,
+    onSuccess: (result) => {
+      if ('url' in result) {
+        setUploadedImageUrl(result.url);
+        form.setValue('imageUrl', result.url);
+        toast.success('Image uploaded successfully');
+      }
+    },
+    onError: (error) => {
+      toast.error(error);
     },
   });
 
@@ -65,6 +84,7 @@ export function CategoryCreateDialog({
       onSuccess: () => {
         toast.success('Category created successfully.');
         form.reset();
+        setUploadedImageUrl('');
         onSuccess();
       },
       onError: (error: unknown) => {
@@ -75,6 +95,20 @@ export function CategoryCreateDialog({
       },
     },
   });
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      await upload(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setUploadedImageUrl('');
+    form.setValue('imageUrl', '');
+  };
 
   const handleSubmit = (data: CreateCategoryFormData) => {
     createCategoryMutation.mutate({ data });
@@ -100,6 +134,7 @@ export function CategoryCreateDialog({
   const handleClose = () => {
     if (!createCategoryMutation.isPending) {
       form.reset();
+      setUploadedImageUrl('');
       onOpenChange(false);
     }
   };
@@ -175,6 +210,59 @@ export function CategoryCreateDialog({
                 </FormItem>
               )}
             />
+
+            {/* Image Upload Section */}
+            <div className="space-y-2">
+              <FormLabel>Category Image (Optional)</FormLabel>
+              {uploadedImageUrl ? (
+                <div className="relative">
+                  <img
+                    src={uploadedImageUrl}
+                    alt="Category preview"
+                    className="w-full h-40 object-cover rounded-lg border"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-2 right-2"
+                    onClick={handleRemoveImage}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="mt-2">
+                    <label htmlFor="category-image" className="cursor-pointer">
+                      <span className="mt-2 block text-sm font-medium text-gray-900">
+                        Upload category image
+                      </span>
+                      <span className="mt-1 block text-xs text-gray-500">
+                        PNG, JPG up to 5MB
+                      </span>
+                    </label>
+                    <input
+                      id="category-image"
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={isUploading}
+                    />
+                  </div>
+                  {isUploading && (
+                    <div className="mt-2">
+                      <Loader2 className="h-4 w-4 animate-spin mx-auto" />
+                      <span className="text-xs text-gray-500">
+                        Uploading...
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             <FormField
               control={form.control}

@@ -74,13 +74,17 @@ interface CategoryCardProps {
     name: string;
     description?: string;
     slug: string;
+    imageUrl?: any; // Due to API generation issues, we'll handle this as any and cast
     productCount: number;
   };
 }
 
 function CategoryCard({ category }: CategoryCardProps) {
-  // Generate a consistent image for each category using a seed
-  const categoryImage = `https://picsum.photos/400/300?random=${category.id}`;
+  // Use actual imageUrl or fallback to placeholder
+  const imageUrl =
+    typeof category.imageUrl === 'string' && category.imageUrl
+      ? category.imageUrl
+      : `https://picsum.photos/400/300?random=${category.id}`;
 
   return (
     <Link href={`/categories/${category.slug}`}>
@@ -92,7 +96,7 @@ function CategoryCard({ category }: CategoryCardProps) {
         {/* Category Image */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
-            src={categoryImage}
+            src={imageUrl}
             alt={category.name}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-110"

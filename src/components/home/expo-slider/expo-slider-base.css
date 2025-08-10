@@ -1,0 +1,163 @@
+/* Expo slider base styles - mirrored from premium demo for pixel parity */
+:root {
+  --expo-image-border-radius: 16px;
+}
+@media (min-width: 768px) {
+  :root {
+    --expo-image-border-radius: 32px;
+  }
+}
+
+/* Reset box sizing inside slider */
+.swiper-expo,
+.swiper-expo * {
+  box-sizing: border-box;
+}
+
+/* Scope only to expo instances */
+.swiper-expo {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.swiper-expo.swiper-horizontal {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: auto 0;
+}
+.swiper-expo.swiper-vertical {
+  height: 100%;
+  aspect-ratio: 9 / 16;
+}
+/* Unified bottom overlay content styling */
+.swiper-expo .expo-container {
+  display: flex;
+  position: relative;
+  border-radius: var(--expo-image-border-radius, 16px);
+}
+.swiper-expo .expo-image {
+  border-radius: inherit;
+  display: block;
+}
+.swiper-expo .expo-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0;
+  visibility: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+.swiper-expo .expo-content-inner {
+  margin: 0 0 3.5% 3.5%;
+  max-width: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 2rem);
+  pointer-events: auto;
+  transform: translateY(5%);
+}
+@media (min-width: 1024px) {
+  .swiper-expo .expo-content-inner {
+    margin: 0 0 4.5% 4.5%;
+  }
+}
+@media (max-width: 767px) {
+  .swiper-expo.swiper-vertical .expo-content-inner {
+    max-width: 88%;
+    transform: translateY(0);
+    padding: 0.75rem 1rem 1.25rem;
+  }
+}
+.swiper-expo .expo-content-title {
+  font-family: var(--font-playfair-display, serif);
+  font-weight: 600;
+  line-height: 1.05;
+  font-size: clamp(1.5rem, 3.4vw, 3.25rem);
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
+}
+.swiper-expo .expo-content-desc {
+  font-family: var(--font-inter, system-ui);
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: clamp(0.85rem, 1.2vw, 1.15rem);
+  opacity: 0.92;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  max-width: 52ch;
+}
+.swiper-expo .expo-content-cta-wrap {
+  margin-top: 0.25rem;
+}
+.swiper-expo .expo-btn-cta {
+  --btn-color: #fff;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.05)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.65rem 1.35rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.025em;
+  backdrop-filter: blur(6px) saturate(140%);
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.swiper-expo .expo-btn-cta:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.1)
+  );
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+.swiper-expo .expo-btn-cta:active {
+  transform: translateY(0);
+}
+
+/* Wrapper lets parent control outer height */
+.expo-slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+/* Gradient overlay at bottom */
+.swiper-expo .expo-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 75%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  z-index: 1;
+  opacity: 0.95;
+}
+@media (max-width: 767px) {
+  .swiper-expo .expo-container::after {
+    height: 30%;
+  }
+}
+
+/* (previous variant-specific blocks removed; unified style above) */

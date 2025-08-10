@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'swiper/css';
+@import 'swiper/css';
+@import '../components/home/expo-slider/effect-expo.css';
+@import '../components/home/expo-slider/expo-slider-base.css';
 
 @custom-variant dark (&:is(.dark *));
 

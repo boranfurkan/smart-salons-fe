@@ -200,7 +200,9 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
                     <div className="expo-content text-white">
                       <div className="expo-content-inner">
                         {slide.title && (
-                          <h2 className="expo-content-title">{slide.title}</h2>
+                          <h2 className="expo-content-title uppercase">
+                            {slide.title}
+                          </h2>
                         )}
                         {slide.description && (
                           <p className="expo-content-desc">

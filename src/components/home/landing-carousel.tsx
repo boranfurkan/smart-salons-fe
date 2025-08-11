@@ -16,7 +16,6 @@ export function LandingCarousel() {
 
   return (
     <div className="w-full">
-      {/* Use responsive aspect ratio: 9/16 on small (vertical) and 16/9 on md+ */}
       <div className="w-full aspect-[9/16] md:aspect-[16/9]">
         <ExpoSlider slides={slides} />
       </div>

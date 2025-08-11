@@ -1,4 +1,4 @@
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 
 export const FontInter = Inter({
   variable: '--font-inter',
@@ -6,8 +6,9 @@ export const FontInter = Inter({
   display: 'swap',
 });
 
-export const FontPlayfairDisplay = Playfair_Display({
-  variable: '--font-playfair-display',
+export const FontSpace = Space_Grotesk({
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-space',
   subsets: ['latin'],
   display: 'swap',
 });

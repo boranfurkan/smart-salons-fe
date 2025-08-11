@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import LayoutWrapper from '@/components/layout/layout-wrapper';
 import ProvidersWrapper from '@/providers';
 
-import { FontInter, FontPlayfairDisplay } from '@/assets/fonts';
+import { FontInter, FontSpace } from '@/assets/fonts';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${FontInter.variable} ${FontPlayfairDisplay.variable} antialiased`}
+        className={`${FontInter.variable} ${FontSpace.variable} antialiased`}
       >
         <ProvidersWrapper>
           <LayoutWrapper>{children}</LayoutWrapper>

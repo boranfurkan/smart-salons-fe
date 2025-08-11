@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SwiperCore from 'swiper';
 import type { Swiper as SwiperType, SwiperOptions } from 'swiper';
+import { Autoplay } from 'swiper/modules';
 import EffectExpo from './effect-expo';
 // global Swiper CSS imported in globals.css
 import './expo-slider-base.css';
@@ -62,9 +63,14 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
 
     const options: SwiperOptions & { [key: string]: any } = {
       direction: initialDir,
-      modules: [EffectExpo as any],
+      modules: [EffectExpo as any, Autoplay],
       effect: 'expo',
       slidesPerView: 1.5,
+      initialSlide: 1,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
       expoEffect: {
         imageScale: 1.125,
         imageOffset: 1.25,
@@ -151,7 +157,9 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
       swiperRef.current.update();
       swiperRef.current.updateProgress();
       swiperRef.current.updateSlidesClasses();
-      swiperRef.current.slideTo(swiperRef.current.activeIndex || 0, 0);
+      // Go to slide 1 (second slide) if we have enough slides, otherwise go to 0
+      const targetSlide = slides.length > 1 ? 1 : 0;
+      swiperRef.current.slideTo(targetSlide, 0);
       swiperRef.current.emit('resize');
       // compute shift after layout
       requestAnimationFrame(() => {

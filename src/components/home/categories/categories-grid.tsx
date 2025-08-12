@@ -3,6 +3,10 @@
 import { motion } from 'framer-motion';
 import { CategoriesSectionSkeleton } from '@/components/shared/skeletons/landing-skeletons';
 import { usePublicControllerGetCategories } from '@/lib/api/generated/public/public';
+import {
+  AnimatedTextWrapper,
+  HighlightedText,
+} from '@/components/ui/animated-text';
 import { CategoryCard } from './category-card';
 import { TitleCard } from './title-card';
 
@@ -35,21 +39,21 @@ export const CategoriesGrid = () => {
     <section id="categories" className="py-16 bg-neutral-900 text-neutral-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Shop by Category
-          </h2>
-          <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <AnimatedTextWrapper className="mb-4 text-white">
+            Shop by <HighlightedText color="#f59e0b">Category</HighlightedText>
+          </AnimatedTextWrapper>
+          <motion.p
+            className="text-lg text-neutral-300 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Explore our comprehensive range of professional hair care equipment
             and accessories
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Categories Grid */}
         <motion.div

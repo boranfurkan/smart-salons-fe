@@ -6,6 +6,10 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/products/product-card';
 import { ProductsSectionSkeleton } from '@/components/shared/skeletons/landing-skeletons';
+import {
+  AnimatedTextWrapper,
+  HighlightedText,
+} from '@/components/ui/animated-text';
 import { usePublicControllerGetFeaturedProducts } from '@/lib/api/generated/public/public';
 
 interface FeaturedProductsProps {
@@ -33,21 +37,21 @@ export function FeaturedProducts({ limit = 8 }: FeaturedProductsProps) {
     <section className="py-16">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Featured Products
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <AnimatedTextWrapper className="mb-4">
+            <HighlightedText color="#10b981">Featured</HighlightedText> Products
+          </AnimatedTextWrapper>
+          <motion.p
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Discover our latest and most popular hair care equipment trusted by
             professionals worldwide
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Products Grid */}
         <motion.div

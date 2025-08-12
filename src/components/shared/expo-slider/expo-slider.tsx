@@ -223,7 +223,7 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
                               variant="outline"
                               size="sm"
                               asChild
-                              className="text-black"
+                              className="text-white hover:text-black"
                             >
                               <Link
                                 href={slide.buttonLink}
@@ -232,7 +232,7 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
                                 className="group"
                               >
                                 {slide.buttonText}
-                                <ExternalLink className="ml-2 w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" />
+                                <ExternalLink className="ml-2 w-3 h-3" />
                               </Link>
                             </Button>
                           </div>

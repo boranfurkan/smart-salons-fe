@@ -9,11 +9,6 @@ export interface MobileNavLinkProps {
   onClick?: () => void;
 }
 
-export interface JoinButtonProps {
-  href: string;
-  children: React.ReactNode;
-}
-
 export interface CartButtonProps {
   count?: number;
 }

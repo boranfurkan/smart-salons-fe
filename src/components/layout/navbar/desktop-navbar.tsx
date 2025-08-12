@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { Logo } from './logo';
 import { NavLink } from './nav-link';
-import { JoinButton } from './join-button';
+import { Button } from '@/components/ui/button';
 import { CartButton } from './cart-button';
 import { CategoriesDropdown } from './categories-dropdown';
 
@@ -67,10 +67,14 @@ export function DesktopNavbar({
             <span className="text-xs font-semibold">{userInitial}</span>
           </Link>
         ) : (
-          <JoinButton href="/auth/signin">Login</JoinButton>
+          <Button asChild variant="default" theme="light" size="sm">
+            <Link href="/auth/signin">Login</Link>
+          </Button>
         )}
 
-        <JoinButton href="/products">Shop</JoinButton>
+        <Button asChild variant="default" theme="light" size="sm">
+          <Link href="/products">Shop</Link>
+        </Button>
       </div>
     </nav>
   );

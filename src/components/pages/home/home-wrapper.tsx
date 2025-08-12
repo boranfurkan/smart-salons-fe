@@ -22,9 +22,6 @@ export function HomeWrapper() {
 
       {/* Social Posts */}
       <SocialPostsSection limit={10} />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

@@ -1,15 +1,15 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import SwiperCore from "swiper";
-import type { Swiper as SwiperType, SwiperOptions } from "swiper";
-import { Autoplay } from "swiper/modules";
-import EffectExpo from "./effect-expo";
-import { Skeleton } from "@/components/ui/skeleton";
-import "./expo-slider-base.css";
-import "./effect-expo.css";
-import "./expo-slider-skeleton.css";
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import SwiperCore from 'swiper';
+import type { Swiper as SwiperType, SwiperOptions } from 'swiper';
+import { Autoplay } from 'swiper/modules';
+import EffectExpo from './effect-expo';
+import { Skeleton } from '@/components/ui/skeleton';
+import './expo-slider-base.css';
+import './effect-expo.css';
+import './expo-slider-skeleton.css';
 
-type ExpoDirection = "horizontal" | "vertical";
+type ExpoDirection = 'horizontal' | 'vertical';
 
 interface ExpoSliderSkeletonProps {
   className?: string;
@@ -17,10 +17,16 @@ interface ExpoSliderSkeletonProps {
   slides?: number; // number of placeholder slides
 }
 
-export function ExpoSliderSkeleton({ className, direction: directionProp, slides = 3 }: ExpoSliderSkeletonProps) {
+export function ExpoSliderSkeleton({
+  className,
+  direction: directionProp,
+  slides = 3,
+}: ExpoSliderSkeletonProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
-  const [direction, setDirection] = useState<ExpoDirection>(directionProp || "horizontal");
+  const [direction, setDirection] = useState<ExpoDirection>(
+    directionProp || 'horizontal'
+  );
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -28,7 +34,7 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
 
     const calcDir = (): ExpoDirection => {
       if (directionProp) return directionProp;
-      return window.innerWidth < 768 ? "vertical" : "horizontal";
+      return window.innerWidth < 768 ? 'vertical' : 'horizontal';
     };
 
     const initialDir = calcDir();
@@ -37,7 +43,7 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
     const options: SwiperOptions & { [key: string]: any } = {
       direction: initialDir,
       modules: [EffectExpo as any, Autoplay],
-      effect: "expo",
+      effect: 'expo',
       slidesPerView: 1.5,
       initialSlide: 1,
       autoplay: false, // no auto move while loading
@@ -60,11 +66,11 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
           sw.updateSlidesClasses();
           requestAnimationFrame(() => {
             sw.update();
-            sw.emit("resize");
+            sw.emit('resize');
           });
           setTimeout(() => {
             sw.update();
-            sw.emit("resize");
+            sw.emit('resize');
           }, 120);
           setReady(true);
         },
@@ -76,7 +82,11 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
     const handleResize = () => {
       if (directionProp) return;
       const newDir = calcDir();
-      if (swiperRef.current && swiperRef.current.params && swiperRef.current.params.direction !== newDir) {
+      if (
+        swiperRef.current &&
+        swiperRef.current.params &&
+        swiperRef.current.params.direction !== newDir
+      ) {
         setDirection(newDir);
         swiperRef.current.changeDirection(newDir, false);
         swiperRef.current.update();
@@ -89,19 +99,25 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
       requestAnimationFrame(() => {
         if (!swiperRef.current) return;
         const root = swiperRef.current.el as HTMLElement;
-        const active = root.querySelector(".swiper-slide-active .expo-container") as HTMLElement | null;
+        const active = root.querySelector(
+          '.swiper-slide-active .expo-container'
+        ) as HTMLElement | null;
         if (active) {
           const rect = active.getBoundingClientRect();
           const rootRect = root.getBoundingClientRect();
-          const centerDiff = (rootRect.left + rootRect.right) / 2 - (rect.left + rect.right) / 2;
-          root.style.setProperty("--expo-image-center-shift", `${centerDiff}px`);
+          const centerDiff =
+            (rootRect.left + rootRect.right) / 2 - (rect.left + rect.right) / 2;
+          root.style.setProperty(
+            '--expo-image-center-shift',
+            `${centerDiff}px`
+          );
         }
       });
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
       swiperRef.current?.destroy(true, true);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -112,12 +128,15 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
     requestAnimationFrame(() => {
       const root = swiperRef.current?.el as HTMLElement | undefined;
       if (!root) return;
-      const active = root.querySelector(".swiper-slide-active .expo-container") as HTMLElement | null;
+      const active = root.querySelector(
+        '.swiper-slide-active .expo-container'
+      ) as HTMLElement | null;
       if (active) {
         const rect = active.getBoundingClientRect();
         const rootRect = root.getBoundingClientRect();
-        const centerDiff = (rootRect.left + rootRect.right) / 2 - (rect.left + rect.right) / 2;
-        root.style.setProperty("--expo-image-center-shift", `${centerDiff}px`);
+        const centerDiff =
+          (rootRect.left + rootRect.right) / 2 - (rect.left + rect.right) / 2;
+        root.style.setProperty('--expo-image-center-shift', `${centerDiff}px`);
       }
     });
   }, [ready]);
@@ -127,8 +146,10 @@ export function ExpoSliderSkeleton({ className, direction: directionProp, slides
       <div className="expo-slider-wrapper">
         <div
           ref={containerRef}
-          className={`swiper swiper-expo ${direction === "vertical" ? "swiper-vertical" : "swiper-horizontal"} ${
-            ready ? "opacity-100" : "opacity-0"
+          className={`swiper swiper-expo ${
+            direction === 'vertical' ? 'swiper-vertical' : 'swiper-horizontal'
+          } ${
+            ready ? 'opacity-100' : 'opacity-0'
           } transition-opacity duration-300 expo-show-content`}
         >
           <div className="swiper-wrapper">

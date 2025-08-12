@@ -1,6 +1,5 @@
 'use client';
 
-import { LandingNavbar } from '@/components/layout/landing-navbar';
 import { LandingCarousel } from '@/components/home/landing-carousel';
 import { FeaturedProducts } from '@/components/home/featured-products';
 import { CategoriesSection } from '@/components/home/categories-section';
@@ -10,9 +9,6 @@ import { Footer } from '@/components/layout/footer';
 export function HomeWrapper() {
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
-      <LandingNavbar />
-
       {/* Hero Carousel */}
       <LandingCarousel />
 

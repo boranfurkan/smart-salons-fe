@@ -4,7 +4,6 @@ import LayoutWrapper from '@/components/layout/layout-wrapper';
 import ProvidersWrapper from '@/providers';
 
 import { FontInter, FontSpace } from '@/assets/fonts';
-import 'lenis/dist/lenis.css';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {

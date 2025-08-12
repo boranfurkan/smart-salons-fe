@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { CategoriesSectionSkeleton } from '@/components/shared/skeletons/landing-skeletons';
 import { usePublicControllerGetCategories } from '@/lib/api/generated/public/public';
 

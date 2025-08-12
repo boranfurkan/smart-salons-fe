@@ -73,7 +73,9 @@ export function Newsletter() {
 
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              className="w-full"
+              theme="light"
+              variant="secondary"
               disabled={isSubscribed}
             >
               {isSubscribed ? (

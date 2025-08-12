@@ -32,27 +32,32 @@ const buttonVariants = cva(
       {
         variant: 'default',
         theme: 'light',
-        className: 'border border-neutral-300 text-neutral-600 hover:border-neutral-900 hover:text-white focus-visible:ring-neutral-900/20 before:bg-neutral-900 hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-300 text-neutral-600 hover:border-neutral-900 hover:text-white focus-visible:ring-neutral-900/20 before:bg-neutral-900 hover:before:translate-y-[0%]',
       },
       {
         variant: 'destructive',
         theme: 'light',
-        className: 'border border-red-300 text-red-600 hover:border-red-600 hover:text-white focus-visible:ring-red-600/20 before:bg-red-600 hover:before:translate-y-[0%]',
+        className:
+          'border border-red-300 text-red-600 hover:border-red-600 hover:text-white focus-visible:ring-red-600/20 before:bg-red-600 hover:before:translate-y-[0%]',
       },
       {
         variant: 'outline',
         theme: 'light',
-        className: 'border border-neutral-300 bg-transparent text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400 focus-visible:ring-neutral-900/20 before:bg-neutral-50 hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-300 bg-transparent text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400 focus-visible:ring-neutral-900/20 before:bg-neutral-50 hover:before:translate-y-[0%]',
       },
       {
         variant: 'secondary',
         theme: 'light',
-        className: 'border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 focus-visible:ring-neutral-900/20 before:bg-neutral-100 hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-200 text-white hover:border-neutral-300 hover:text-neutral-900 focus-visible:ring-neutral-900/20 before:bg-neutral-100 hover:before:translate-y-[0%]',
       },
       {
         variant: 'ghost',
         theme: 'light',
-        className: 'border border-transparent text-neutral-600 hover:border-neutral-200 hover:text-neutral-900 focus-visible:ring-neutral-900/20 before:bg-neutral-100 hover:before:translate-y-[0%]',
+        className:
+          'border border-transparent text-neutral-600 hover:border-neutral-200 hover:text-neutral-900 focus-visible:ring-neutral-900/20 before:bg-neutral-100 hover:before:translate-y-[0%]',
       },
       {
         variant: 'link',
@@ -63,27 +68,32 @@ const buttonVariants = cva(
       {
         variant: 'default',
         theme: 'dark',
-        className: 'border border-neutral-700 text-neutral-400 hover:border-neutral-50 hover:text-black focus-visible:ring-neutral-50/20 before:bg-white hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-700 text-neutral-400 hover:border-neutral-50 hover:text-black focus-visible:ring-neutral-50/20 before:bg-white hover:before:translate-y-[0%]',
       },
       {
         variant: 'destructive',
         theme: 'dark',
-        className: 'border border-red-400 text-red-400 hover:border-red-300 hover:text-black focus-visible:ring-red-400/20 before:bg-red-300 hover:before:translate-y-[0%]',
+        className:
+          'border border-red-400 text-red-400 hover:border-red-300 hover:text-black focus-visible:ring-red-400/20 before:bg-red-300 hover:before:translate-y-[0%]',
       },
       {
         variant: 'outline',
         theme: 'dark',
-        className: 'border border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-800 hover:border-neutral-600 focus-visible:ring-neutral-50/20 before:bg-neutral-800 hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-800 hover:border-neutral-600 focus-visible:ring-neutral-50/20 before:bg-neutral-800 hover:before:translate-y-[0%]',
       },
       {
         variant: 'secondary',
         theme: 'dark',
-        className: 'border border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-neutral-100 focus-visible:ring-neutral-50/20 before:bg-neutral-700 hover:before:translate-y-[0%]',
+        className:
+          'border border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-neutral-100 focus-visible:ring-neutral-50/20 before:bg-neutral-700 hover:before:translate-y-[0%]',
       },
       {
         variant: 'ghost',
         theme: 'dark',
-        className: 'border border-transparent text-neutral-400 hover:border-neutral-800 hover:text-neutral-100 focus-visible:ring-neutral-50/20 before:bg-neutral-800 hover:before:translate-y-[0%]',
+        className:
+          'border border-transparent text-neutral-400 hover:border-neutral-800 hover:text-neutral-100 focus-visible:ring-neutral-50/20 before:bg-neutral-800 hover:before:translate-y-[0%]',
       },
       {
         variant: 'link',
@@ -102,7 +112,6 @@ const buttonVariants = cva(
 function Button({
   className,
   variant,
-  theme,
   size,
   asChild = false,
   ...props
@@ -115,7 +124,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, theme, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   );

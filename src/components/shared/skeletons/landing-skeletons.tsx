@@ -1,21 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function CarouselSkeleton() {
-  return (
-    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px]">
-      <Skeleton className="w-full h-full rounded-lg" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center space-y-4 max-w-2xl px-4">
-          <Skeleton className="h-12 w-3/4 mx-auto" />
-          <Skeleton className="h-6 w-full" />
-          <Skeleton className="h-4 w-2/3 mx-auto" />
-          <Skeleton className="h-12 w-40 mx-auto" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function ProductCardSkeleton() {
   return (
     <div className="group cursor-pointer">

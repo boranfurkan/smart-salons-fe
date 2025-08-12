@@ -1,0 +1,30 @@
+/* Skeleton-specific tweaks to approximate Swiper layout without JS */
+.swiper-expo .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Horizontal: show ~1.5 slides like the real slider */
+.swiper-expo.swiper-horizontal .swiper-wrapper {
+  display: flex;
+}
+.swiper-expo.swiper-horizontal .swiper-slide {
+  width: 66.6667%;
+}
+
+/* Vertical: stack slides and let height mimic real proportions */
+.swiper-expo.swiper-vertical .swiper-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.swiper-expo.swiper-vertical .swiper-slide {
+  height: 66.6667%;
+}
+
+/* Make sure skeletons fill */
+.swiper-expo .expo-image > .skeleton,
+.swiper-expo .expo-image > .Skeleton,
+.swiper-expo .expo-image > div {
+  width: 100% !important;
+  height: 100% !important;
+}

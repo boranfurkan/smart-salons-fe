@@ -1,7 +1,8 @@
 'use client';
 import { usePublicControllerGetCarouselItems } from '@/lib/api/generated/public/public';
-import { CarouselSkeleton } from '@/components/shared/skeletons/landing-skeletons';
+
 import { ExpoSlider } from './expo-slider/expo-slider';
+import { ExpoSliderSkeleton } from './expo-slider/expo-slider-skeleton';
 
 export function LandingCarousel() {
   const {
@@ -11,7 +12,14 @@ export function LandingCarousel() {
   } = usePublicControllerGetCarouselItems();
   const slides = carouselItems || [];
 
-  if (isLoading) return <CarouselSkeleton />;
+  if (isLoading)
+    return (
+      <div className="w-full">
+        <div className="w-full aspect-[9/16] md:aspect-[16/9]">
+          <ExpoSliderSkeleton />
+        </div>
+      </div>
+    );
   if (error || !slides.length) return null;
 
   return (

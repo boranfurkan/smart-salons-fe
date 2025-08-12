@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Toaster } from '../ui/sonner';
 import { LandingNavbar } from './navbar';
-import BackgroundAnimations from './background-animations';
+import BackgroundGrid from './background-grid';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
         {children}
       </div>
       <Toaster />
-      <BackgroundAnimations />
+      <BackgroundGrid />
     </div>
   );
 };

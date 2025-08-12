@@ -59,7 +59,7 @@ export function SocialPostsCarousel({ posts }: SocialPostsCarouselProps) {
   }
 
   return (
-    <section className="bg-white py-16" ref={ref}>
+    <section className="py-16" ref={ref}>
       <div className="container mx-auto px-4">
         <SocialPostsHeader />
 

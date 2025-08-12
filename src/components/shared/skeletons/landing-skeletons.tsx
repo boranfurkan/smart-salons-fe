@@ -180,7 +180,7 @@ export function CategoriesSectionSkeleton() {
 
 export function SocialPostsSectionSkeleton() {
   return (
-    <section className="bg-white py-16">
+    <section className="py-16">
       <div className="container mx-auto px-4">
         {/* Header Skeleton */}
         <div className="text-center mb-12">

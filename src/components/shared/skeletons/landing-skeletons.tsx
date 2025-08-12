@@ -82,14 +82,36 @@ export function CategoryGridTitleCardSkeleton() {
 
 export function SocialPostSkeleton() {
   return (
-    <div className="group cursor-pointer">
-      <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+    <div
+      className="shrink-0"
+      style={{ width: 280, height: 350, marginRight: 16 }}
+    >
+      <div className="relative w-full h-full rounded-2xl bg-gray-100 overflow-hidden">
         <Skeleton className="w-full h-full" />
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-16 bg-white/20" />
-            <Skeleton className="h-3 w-3/4 bg-white/20" />
+
+        {/* Platform Badge Skeleton */}
+        <div className="absolute top-4 left-4">
+          <Skeleton className="h-6 w-20 rounded-full bg-white/20" />
+        </div>
+
+        {/* Content Skeleton */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+          <div className="space-y-3">
+            <Skeleton className="h-4 w-24 bg-white/20" />
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-full bg-white/20" />
+              <Skeleton className="h-5 w-3/4 bg-white/20" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-6 w-16 rounded-full bg-white/20" />
+              <Skeleton className="h-6 w-12 rounded-full bg-white/20" />
+            </div>
           </div>
+        </div>
+
+        {/* External Link Skeleton */}
+        <div className="absolute top-4 right-4">
+          <Skeleton className="w-8 h-8 rounded-full bg-white/20" />
         </div>
       </div>
     </div>
@@ -158,16 +180,42 @@ export function CategoriesSectionSkeleton() {
 
 export function SocialPostsSectionSkeleton() {
   return (
-    <section className="py-16">
+    <section className="bg-white py-16">
       <div className="container mx-auto px-4">
+        {/* Header Skeleton */}
         <div className="text-center mb-12">
-          <Skeleton className="h-8 w-64 mx-auto mb-4" />
-          <Skeleton className="h-4 w-96 mx-auto" />
+          <div className="space-y-4">
+            <Skeleton className="h-10 w-80 mx-auto" />
+            <Skeleton className="h-4 w-16 mx-auto" />
+          </div>
+          <Skeleton className="h-5 w-96 mx-auto mt-4" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {[...Array(6)].map((_, i) => (
-            <SocialPostSkeleton key={i} />
-          ))}
+
+        {/* Carousel Skeleton */}
+        <div className="relative overflow-hidden">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex">
+              {[...Array(4)].map((_, i) => (
+                <SocialPostSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+
+          {/* Navigation Button Skeletons */}
+          <div className="absolute left-2 top-1/2 -translate-y-1/2">
+            <Skeleton className="w-12 h-12 rounded-r-xl" />
+          </div>
+          <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <Skeleton className="w-12 h-12 rounded-l-xl" />
+          </div>
+        </div>
+
+        {/* Action Buttons Skeleton */}
+        <div className="text-center mt-12">
+          <div className="flex flex-wrap justify-center gap-4">
+            <Skeleton className="h-11 w-44 rounded-md" />
+            <Skeleton className="h-11 w-36 rounded-md" />
+          </div>
         </div>
       </div>
     </section>

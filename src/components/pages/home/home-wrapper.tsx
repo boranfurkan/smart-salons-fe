@@ -5,8 +5,10 @@ import { FeaturedProducts } from '@/components/home/featured-products';
 import { SocialPostsSection } from '@/components/home/social-posts-section';
 import { Footer } from '@/components/layout/footer';
 import CategoriesWrapper from '@/components/home/categories/categories-wrapper';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export function HomeWrapper() {
+  useSmoothScroll();
   return (
     <div className="min-h-screen">
       {/* Hero Carousel */}

@@ -7,12 +7,21 @@ import { NavLink } from './nav-link';
 import { Button } from '@/components/ui/button';
 import { CartButton } from './cart-button';
 import { CategoriesDropdown } from './categories-dropdown';
+import type { User } from '@/context/auth-context';
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  imageUrl?: string | null;
+  productCount: number;
+}
 
 interface DesktopNavbarProps {
-  user: any;
+  user: User | null;
   isAuthenticated: boolean;
   userInitial: string;
-  categories: any[];
+  categories: Category[];
   categoriesLoading: boolean;
   catOpen: boolean;
   setCatOpen: (open: boolean) => void;

@@ -1,13 +1,6 @@
-export interface SocialPost {
-  id: string;
-  platform: string;
-  postUrl: string;
-  imageUrl?: string;
-  videoUrl?: string;
-  description?: string;
-  publisher?: string;
-  hashtags: string[];
-}
+import type { SocialPostResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
+
+export type SocialPost = SocialPostResponseDto;
 
 export interface SocialPostCardProps {
   post: SocialPost;

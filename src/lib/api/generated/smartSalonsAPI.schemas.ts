@@ -12,8 +12,8 @@ export interface SignUpDto {
   lastName: string;
 }
 
-export type UserResponseDtoRole = typeof UserResponseDtoRole[keyof typeof UserResponseDtoRole];
-
+export type UserResponseDtoRole =
+  (typeof UserResponseDtoRole)[keyof typeof UserResponseDtoRole];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserResponseDtoRole = {
@@ -276,8 +276,8 @@ export interface ShippingUpdateResponseDto {
   orderId: string;
 }
 
-export type OrderResponseDtoStatus = typeof OrderResponseDtoStatus[keyof typeof OrderResponseDtoStatus];
-
+export type OrderResponseDtoStatus =
+  (typeof OrderResponseDtoStatus)[keyof typeof OrderResponseDtoStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const OrderResponseDtoStatus = {
@@ -311,8 +311,8 @@ export interface OrderResponseDto {
   shippingUpdates?: ShippingUpdateResponseDto[];
 }
 
-export type UpdateShippingStatusDtoStatus = typeof UpdateShippingStatusDtoStatus[keyof typeof UpdateShippingStatusDtoStatus];
-
+export type UpdateShippingStatusDtoStatus =
+  (typeof UpdateShippingStatusDtoStatus)[keyof typeof UpdateShippingStatusDtoStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UpdateShippingStatusDtoStatus = {
@@ -330,8 +330,8 @@ export interface UpdateShippingStatusDto {
   location?: string;
 }
 
-export type CreateSocialPostDtoPlatform = typeof CreateSocialPostDtoPlatform[keyof typeof CreateSocialPostDtoPlatform];
-
+export type CreateSocialPostDtoPlatform =
+  (typeof CreateSocialPostDtoPlatform)[keyof typeof CreateSocialPostDtoPlatform];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateSocialPostDtoPlatform = {
@@ -352,8 +352,8 @@ export interface CreateSocialPostDto {
   isActive?: boolean;
 }
 
-export type SocialPostResponseDtoPlatform = typeof SocialPostResponseDtoPlatform[keyof typeof SocialPostResponseDtoPlatform];
-
+export type SocialPostResponseDtoPlatform =
+  (typeof SocialPostResponseDtoPlatform)[keyof typeof SocialPostResponseDtoPlatform];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SocialPostResponseDtoPlatform = {
@@ -385,8 +385,8 @@ export interface SocialPostResponseDto {
   updatedAt: string;
 }
 
-export type UpdateSocialPostDtoPlatform = typeof UpdateSocialPostDtoPlatform[keyof typeof UpdateSocialPostDtoPlatform];
-
+export type UpdateSocialPostDtoPlatform =
+  (typeof UpdateSocialPostDtoPlatform)[keyof typeof UpdateSocialPostDtoPlatform];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UpdateSocialPostDtoPlatform = {
@@ -425,8 +425,8 @@ export interface UpdateCategoryDto {
   isActive?: boolean;
 }
 
-export type UpdateUserDtoRole = typeof UpdateUserDtoRole[keyof typeof UpdateUserDtoRole];
-
+export type UpdateUserDtoRole =
+  (typeof UpdateUserDtoRole)[keyof typeof UpdateUserDtoRole];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UpdateUserDtoRole = {
@@ -441,7 +441,9 @@ export interface UpdateUserDto {
   isEmailVerified?: boolean;
 }
 
-export type NewsletterSubscriptionResponseDtoUserId = { [key: string]: unknown };
+export type NewsletterSubscriptionResponseDtoUserId = {
+  [key: string]: unknown;
+};
 
 export interface NewsletterSubscriptionResponseDto {
   id: string;
@@ -570,14 +572,14 @@ export interface ProductDto {
 }
 
 export type AdminControllerUploadImageParams = {
-/**
- * Upload folder (products, carousel, social-posts, general)
- */
-folder?: AdminControllerUploadImageFolder;
+  /**
+   * Upload folder (products, carousel, social-posts, general)
+   */
+  folder?: AdminControllerUploadImageFolder;
 };
 
-export type AdminControllerUploadImageFolder = typeof AdminControllerUploadImageFolder[keyof typeof AdminControllerUploadImageFolder];
-
+export type AdminControllerUploadImageFolder =
+  (typeof AdminControllerUploadImageFolder)[keyof typeof AdminControllerUploadImageFolder];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdminControllerUploadImageFolder = {
@@ -589,14 +591,14 @@ export const AdminControllerUploadImageFolder = {
 } as const;
 
 export type AdminControllerUploadMultipleImagesParams = {
-/**
- * Upload folder (products, carousel, social-posts, general)
- */
-folder?: AdminControllerUploadMultipleImagesFolder;
+  /**
+   * Upload folder (products, carousel, social-posts, general)
+   */
+  folder?: AdminControllerUploadMultipleImagesFolder;
 };
 
-export type AdminControllerUploadMultipleImagesFolder = typeof AdminControllerUploadMultipleImagesFolder[keyof typeof AdminControllerUploadMultipleImagesFolder];
-
+export type AdminControllerUploadMultipleImagesFolder =
+  (typeof AdminControllerUploadMultipleImagesFolder)[keyof typeof AdminControllerUploadMultipleImagesFolder];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdminControllerUploadMultipleImagesFolder = {
@@ -608,41 +610,41 @@ export const AdminControllerUploadMultipleImagesFolder = {
 } as const;
 
 export type PublicControllerGetFeaturedProductsParams = {
-/**
- * Number of products to return
- */
-limit?: number;
+  /**
+   * Number of products to return
+   */
+  limit?: number;
 };
 
 export type PublicControllerGetProductsParams = {
-/**
- * Category ID to filter by
- */
-categoryId?: string;
-/**
- * Number of products to return
- */
-limit?: number;
-/**
- * Number of products to skip
- */
-offset?: number;
-/**
- * Sort by field
- */
-sortBy?: PublicControllerGetProductsSortBy;
-/**
- * Sort order
- */
-sortOrder?: PublicControllerGetProductsSortOrder;
-/**
- * Only return featured products
- */
-featured?: boolean;
+  /**
+   * Category ID to filter by
+   */
+  categoryId?: string;
+  /**
+   * Number of products to return
+   */
+  limit?: number;
+  /**
+   * Number of products to skip
+   */
+  offset?: number;
+  /**
+   * Sort by field
+   */
+  sortBy?: PublicControllerGetProductsSortBy;
+  /**
+   * Sort order
+   */
+  sortOrder?: PublicControllerGetProductsSortOrder;
+  /**
+   * Only return featured products
+   */
+  featured?: boolean;
 };
 
-export type PublicControllerGetProductsSortBy = typeof PublicControllerGetProductsSortBy[keyof typeof PublicControllerGetProductsSortBy];
-
+export type PublicControllerGetProductsSortBy =
+  (typeof PublicControllerGetProductsSortBy)[keyof typeof PublicControllerGetProductsSortBy];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicControllerGetProductsSortBy = {
@@ -651,8 +653,8 @@ export const PublicControllerGetProductsSortBy = {
   price: 'price',
 } as const;
 
-export type PublicControllerGetProductsSortOrder = typeof PublicControllerGetProductsSortOrder[keyof typeof PublicControllerGetProductsSortOrder];
-
+export type PublicControllerGetProductsSortOrder =
+  (typeof PublicControllerGetProductsSortOrder)[keyof typeof PublicControllerGetProductsSortOrder];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicControllerGetProductsSortOrder = {
@@ -667,34 +669,34 @@ export type PublicControllerGetProducts200 = {
 };
 
 export type PublicControllerGetProductsByCategoryParams = {
-/**
- * Category ID to filter by
- */
-categoryId?: string;
-/**
- * Number of products to return
- */
-limit?: number;
-/**
- * Number of products to skip
- */
-offset?: number;
-/**
- * Sort by field
- */
-sortBy?: PublicControllerGetProductsByCategorySortBy;
-/**
- * Sort order
- */
-sortOrder?: PublicControllerGetProductsByCategorySortOrder;
-/**
- * Only return featured products
- */
-featured?: boolean;
+  /**
+   * Category ID to filter by
+   */
+  categoryId?: string;
+  /**
+   * Number of products to return
+   */
+  limit?: number;
+  /**
+   * Number of products to skip
+   */
+  offset?: number;
+  /**
+   * Sort by field
+   */
+  sortBy?: PublicControllerGetProductsByCategorySortBy;
+  /**
+   * Sort order
+   */
+  sortOrder?: PublicControllerGetProductsByCategorySortOrder;
+  /**
+   * Only return featured products
+   */
+  featured?: boolean;
 };
 
-export type PublicControllerGetProductsByCategorySortBy = typeof PublicControllerGetProductsByCategorySortBy[keyof typeof PublicControllerGetProductsByCategorySortBy];
-
+export type PublicControllerGetProductsByCategorySortBy =
+  (typeof PublicControllerGetProductsByCategorySortBy)[keyof typeof PublicControllerGetProductsByCategorySortBy];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicControllerGetProductsByCategorySortBy = {
@@ -703,8 +705,8 @@ export const PublicControllerGetProductsByCategorySortBy = {
   price: 'price',
 } as const;
 
-export type PublicControllerGetProductsByCategorySortOrder = typeof PublicControllerGetProductsByCategorySortOrder[keyof typeof PublicControllerGetProductsByCategorySortOrder];
-
+export type PublicControllerGetProductsByCategorySortOrder =
+  (typeof PublicControllerGetProductsByCategorySortOrder)[keyof typeof PublicControllerGetProductsByCategorySortOrder];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicControllerGetProductsByCategorySortOrder = {
@@ -720,22 +722,22 @@ export type PublicControllerGetProductsByCategory200 = {
 };
 
 export type PublicControllerGetSocialPostsParams = {
-/**
- * Platform to filter by
- */
-platform?: PublicControllerGetSocialPostsPlatform;
-/**
- * Number of posts to return
- */
-limit?: number;
-/**
- * Number of posts to skip
- */
-offset?: number;
+  /**
+   * Platform to filter by
+   */
+  platform?: PublicControllerGetSocialPostsPlatform;
+  /**
+   * Number of posts to return
+   */
+  limit?: number;
+  /**
+   * Number of posts to skip
+   */
+  offset?: number;
 };
 
-export type PublicControllerGetSocialPostsPlatform = typeof PublicControllerGetSocialPostsPlatform[keyof typeof PublicControllerGetSocialPostsPlatform];
-
+export type PublicControllerGetSocialPostsPlatform =
+  (typeof PublicControllerGetSocialPostsPlatform)[keyof typeof PublicControllerGetSocialPostsPlatform];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicControllerGetSocialPostsPlatform = {
@@ -746,19 +748,18 @@ export const PublicControllerGetSocialPostsPlatform = {
 } as const;
 
 export type PublicControllerGetSocialPosts200 = {
-  posts?: SocialPostDto[];
+  posts?: SocialPostResponseDto[];
   total?: number;
   hasMore?: boolean;
 };
 
 export type PublicControllerSearchProductsParams = {
-/**
- * Search term
- */
-q: string;
-/**
- * Number of results to return
- */
-limit?: number;
+  /**
+   * Search term
+   */
+  q: string;
+  /**
+   * Number of results to return
+   */
+  limit?: number;
 };
-

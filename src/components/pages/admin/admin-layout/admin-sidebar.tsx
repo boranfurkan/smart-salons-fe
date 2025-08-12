@@ -9,8 +9,6 @@ import {
   ShoppingCart,
   Users,
   Image,
-  Settings,
-  Upload,
   Tags,
   Palette,
   MessageSquare,

@@ -12,12 +12,21 @@ import {
 import { Logo } from './logo';
 import { CartButton } from './cart-button';
 import { MobileNavLink } from './mobile-nav-link';
+import type { User } from '@/context/auth-context';
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  imageUrl?: string | null;
+  productCount: number;
+}
 
 interface MobileNavbarProps {
-  user: any;
+  user: User | null;
   isAuthenticated: boolean;
   userInitial: string;
-  categories: any[];
+  categories: Category[];
   categoriesLoading: boolean;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;

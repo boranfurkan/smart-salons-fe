@@ -8,7 +8,7 @@ interface CategoryCardProps {
     name: string;
     description?: string;
     slug: string;
-    imageUrl?: any;
+    imageUrl?: string | null;
     productCount: number;
   };
 }

@@ -1,10 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  AnimatedTextWrapper,
-  HighlightedText,
-} from '@/components/ui/animated-text';
+import { AnimatedTextWrapper } from '@/components/ui/animated-text';
 
 export function FooterHeader() {
   return (

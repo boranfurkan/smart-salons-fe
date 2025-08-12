@@ -9,7 +9,21 @@ interface ExpoEffectParams {
   grayscale: boolean;
 }
 
-export default function EffectExpo({ swiper, on, extendParams }: any) {
+interface SwiperSlide extends HTMLElement {
+  progress: number;
+}
+
+export default function EffectExpo({
+  swiper,
+  on,
+  extendParams,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  swiper: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  on: any;
+  extendParams: (params: Record<string, unknown>) => void;
+}) {
   extendParams({
     expoEffect: {
       imageScale: 1.125,
@@ -21,13 +35,11 @@ export default function EffectExpo({ swiper, on, extendParams }: any) {
   });
 
   const setTranslate = () => {
-    const { slides, rtlTranslate: rtl } = swiper as Swiper & {
-      rtlTranslate: boolean;
-    };
-    const spv = swiper.params.slidesPerView as number;
+    const { slides, rtlTranslate: rtl } = swiper;
+    const spv = swiper.params.slidesPerView;
     const isHorizontal = swiper.isHorizontal();
     let translateOffset = 0.5;
-    const params: ExpoEffectParams = swiper.params.expoEffect;
+    const params = swiper.params.expoEffect;
     const imageOffset = Math.max(1.25, params.imageOffset);
     if (spv > 1.5) {
       const minTranslateOffset = (imageOffset - 1) / 2 / imageOffset;
@@ -38,7 +50,7 @@ export default function EffectExpo({ swiper, on, extendParams }: any) {
     const rtlMultiplier = rtl ? -1 : 1;
 
     for (let i = 0; i < slides.length; i += 1) {
-      const slideEl = slides[i] as HTMLElement;
+      const slideEl = slides[i] as SwiperSlide;
       const contentWrapEl = slideEl.querySelector(
         '.expo-container'
       ) as HTMLElement | null;
@@ -48,7 +60,7 @@ export default function EffectExpo({ swiper, on, extendParams }: any) {
       const imageEl = slideEl.querySelector(
         '.expo-image'
       ) as HTMLElement | null;
-      const progress = (slideEl as any).progress as number;
+      const progress = slideEl.progress;
       const progressLimited = Math.max(Math.min(progress, 1), -1);
 
       if (imageEl) {
@@ -100,6 +112,7 @@ export default function EffectExpo({ swiper, on, extendParams }: any) {
         ...slideEl.querySelectorAll(
           '.expo-container, .expo-image, .expo-content'
         ),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ].forEach((el: any) => {
         (el as HTMLElement).style.transitionDuration = `${duration}ms`;
       });
@@ -108,7 +121,8 @@ export default function EffectExpo({ swiper, on, extendParams }: any) {
   const setSize = () => {
     const box = (swiper.el as HTMLElement).getBoundingClientRect();
     const size = swiper.isHorizontal() ? box.height : box.width;
-    const { rotate, scale, imageOffset } = swiper.params
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { rotate, scale, imageOffset } = (swiper.params as any)
       .expoEffect as ExpoEffectParams;
     (swiper.el as HTMLElement).style.setProperty(
       '--expo-image-offset',

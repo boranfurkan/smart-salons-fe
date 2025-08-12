@@ -4,9 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Package } from 'lucide-react';
 
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  imageUrl?: string | null;
+  productCount: number;
+}
+
 interface CategoriesDropdownProps {
   catOpen: boolean;
-  categories: any[];
+  categories: Category[];
   categoriesLoading: boolean;
 }
 
@@ -36,7 +44,7 @@ export function CategoriesDropdown({
               <div className="p-6 text-sm text-neutral-500">Loading...</div>
             ) : categories && categories.length > 0 ? (
               <div className="grid grid-cols-3 divide-x divide-neutral-200">
-                {categories.slice(0, 6).map((category, index) => (
+                {categories.slice(0, 6).map((category) => (
                   <CategoryDropdownCard key={category.id} category={category} />
                 ))}
               </div>
@@ -75,7 +83,7 @@ export function CategoriesDropdown({
   );
 }
 
-function CategoryDropdownCard({ category }: { category: any }) {
+function CategoryDropdownCard({ category }: { category: Category }) {
   const imageUrl =
     typeof category.imageUrl === 'string' && category.imageUrl
       ? category.imageUrl

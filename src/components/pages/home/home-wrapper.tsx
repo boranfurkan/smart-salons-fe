@@ -3,7 +3,6 @@
 import { LandingCarousel } from '@/components/home/landing-carousel';
 import { FeaturedProducts } from '@/components/home/featured-products';
 
-import { Footer } from '@/components/layout/footer';
 import CategoriesWrapper from '@/components/home/categories/categories-wrapper';
 
 import { SocialPostsSection } from '@/components/home/social-posts';

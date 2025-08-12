@@ -7,6 +7,14 @@ import { ExternalLink, Facebook, Instagram, Play, Twitter } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { SocialPostCardProps } from './types';
 
+const getStringValue = (value: unknown): string => {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object' && 'url' in value) {
+    return (value as { url: string }).url;
+  }
+  return '';
+};
+
 export function SocialPostCard({
   post,
   width,
@@ -14,10 +22,15 @@ export function SocialPostCard({
   margin,
 }: SocialPostCardProps) {
   const displayImage =
-    post.imageUrl || `https://picsum.photos/400/400?random=${post.id}`;
+    getStringValue(post.imageUrl) ||
+    `https://picsum.photos/400/400?random=${post.id}`;
+
+  const platform = getStringValue(post.platform);
+  const description = getStringValue(post.description);
+  const publisher = getStringValue(post.publisher);
 
   const getPlatformIcon = () => {
-    switch (post.platform.toLowerCase()) {
+    switch (platform.toLowerCase()) {
       case 'instagram':
         return <Instagram className="w-4 h-4" />;
       case 'tiktok':
@@ -32,7 +45,7 @@ export function SocialPostCard({
   };
 
   const getPlatformColor = () => {
-    switch (post.platform.toLowerCase()) {
+    switch (platform.toLowerCase()) {
       case 'instagram':
         return 'bg-gradient-to-r from-purple-500 to-pink-500';
       case 'tiktok':
@@ -72,7 +85,7 @@ export function SocialPostCard({
         <div className="absolute inset-0">
           <Image
             src={displayImage}
-            alt={post.description || `${post.platform} post`}
+            alt={description || `${platform} post`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
@@ -89,32 +102,32 @@ export function SocialPostCard({
           >
             {getPlatformIcon()}
             <span className="ml-1.5 text-xs font-medium uppercase tracking-wide">
-              {post.platform}
+              {platform}
             </span>
           </Badge>
         </div>
 
         {/* Content */}
         <div className="absolute inset-0 z-20 p-6 text-white flex flex-col justify-end">
-          {post.publisher && (
+          {publisher && (
             <motion.p
               className="text-sm font-semibold text-purple-300 mb-2"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              {post.publisher}
+              {publisher}
             </motion.p>
           )}
 
-          {post.description && (
+          {description && (
             <motion.p
               className="text-lg font-bold mb-3 line-clamp-3 leading-tight"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              {post.description}
+              {description}
             </motion.p>
           )}
 

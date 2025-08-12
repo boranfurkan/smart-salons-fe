@@ -24,7 +24,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Loader2, X, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAdminControllerUpdateCategory } from '@/lib/api/generated/admin/admin';
 import { CategoryResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';

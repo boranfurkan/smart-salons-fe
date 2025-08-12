@@ -40,8 +40,10 @@ export function ExpoSliderSkeleton({
     const initialDir = calcDir();
     setDirection(initialDir);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const options: SwiperOptions & { [key: string]: any } = {
       direction: initialDir,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: [EffectExpo as any, Autoplay],
       effect: 'expo',
       slidesPerView: 1.5,
@@ -60,6 +62,7 @@ export function ExpoSliderSkeleton({
         768: { spaceBetween: 32 },
       },
       on: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         init: (sw: any) => {
           sw.updateSlides();
           sw.updateProgress();
@@ -75,8 +78,10 @@ export function ExpoSliderSkeleton({
           setReady(true);
         },
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     swiperRef.current = new (SwiperCore as any)(containerRef.current, options);
 
     const handleResize = () => {

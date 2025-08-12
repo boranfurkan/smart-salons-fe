@@ -61,8 +61,10 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
     const initialDir = calcDir();
     setDirection(initialDir);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const options: SwiperOptions & { [key: string]: any } = {
       direction: initialDir,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: [EffectExpo as any, Autoplay],
       effect: 'expo',
       slidesPerView: 1.5,
@@ -86,6 +88,7 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
         },
       },
       on: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         init: (sw: any) => {
           sw.updateSlides();
           sw.updateProgress();
@@ -102,8 +105,10 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
           setReady(true);
         },
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any; // custom effect not in official types
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     swiperRef.current = new (SwiperCore as any)(containerRef.current, options);
 
     const handleResize = () => {

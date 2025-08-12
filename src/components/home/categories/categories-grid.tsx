@@ -32,7 +32,7 @@ export const CategoriesGrid = () => {
   }
 
   return (
-    <section className="py-16 bg-neutral-900 text-neutral-50">
+    <section id="categories" className="py-16 bg-neutral-900 text-neutral-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div

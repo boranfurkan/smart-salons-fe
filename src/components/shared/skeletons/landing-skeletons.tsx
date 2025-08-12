@@ -25,18 +25,56 @@ export function ProductCardSkeleton() {
   );
 }
 
-export function CategoryCardSkeleton() {
+export function CategoryGridCardSkeleton() {
   return (
-    <div className="group cursor-pointer">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-100">
-        <Skeleton className="w-full h-full" />
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center space-y-2">
-            <Skeleton className="h-8 w-32 mx-auto bg-white/20" />
-            <Skeleton className="h-4 w-20 mx-auto bg-white/20" />
+    <div className="group relative flex h-56 flex-col justify-end overflow-hidden p-6 md:h-80 md:p-9">
+      {/* Product Count Badge Skeleton */}
+      <div className="absolute left-3 top-5 z-10 flex items-center gap-1.5">
+        <Skeleton className="w-4 h-4 bg-neutral-600" />
+        <Skeleton className="w-16 h-3 bg-neutral-600" />
+      </div>
+
+      {/* Content Container - Fixed positioning from bottom */}
+      <div className="relative z-10 space-y-2">
+        {/* Category Title Skeleton */}
+        <div className="h-16 md:h-20 flex items-end">
+          <div className="space-y-2">
+            <Skeleton className="h-8 w-32 bg-neutral-600" />
+            <Skeleton className="h-6 w-24 bg-neutral-600" />
           </div>
         </div>
+
+        {/* Description Skeleton */}
+        <div className="h-10 md:h-12 space-y-1">
+          <Skeleton className="h-3 w-full bg-neutral-700" />
+          <Skeleton className="h-3 w-3/4 bg-neutral-700" />
+        </div>
+      </div>
+
+      {/* Background overlay for dark theme */}
+      <div className="absolute inset-0 bg-neutral-800/50" />
+    </div>
+  );
+}
+
+export function CategoryGridTitleCardSkeleton() {
+  return (
+    <div className="group relative flex h-56 flex-col justify-between bg-neutral-800 p-6 md:h-80 md:p-9">
+      {/* Title skeleton */}
+      <div className="space-y-2">
+        <Skeleton className="h-8 w-24 bg-neutral-600" />
+        <Skeleton className="h-10 w-32 bg-neutral-600" />
+      </div>
+
+      {/* Bottom text skeleton */}
+      <div className="flex items-center gap-1.5">
+        <Skeleton className="w-4 h-4 bg-neutral-600" />
+        <Skeleton className="w-28 h-3 bg-neutral-600" />
+      </div>
+
+      {/* Arrow icon skeleton */}
+      <div className="absolute right-3 top-4">
+        <Skeleton className="w-6 h-6 bg-neutral-600" />
       </div>
     </div>
   );
@@ -77,16 +115,40 @@ export function ProductsSectionSkeleton() {
 }
 
 export function CategoriesSectionSkeleton() {
+  // Create skeleton data similar to the real component
+  const skeletonRows = [
+    [null, {}, {}, {}], // First row with title card
+    [{}, {}, {}, {}], // Second row
+  ];
+
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-neutral-900 text-neutral-50">
       <div className="container mx-auto px-4">
+        {/* Section Header Skeleton */}
         <div className="text-center mb-12">
-          <Skeleton className="h-8 w-64 mx-auto mb-4" />
-          <Skeleton className="h-4 w-96 mx-auto" />
+          <Skeleton className="h-10 w-64 mx-auto mb-4 bg-neutral-700" />
+          <Skeleton className="h-5 w-96 mx-auto bg-neutral-700" />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[...Array(6)].map((_, i) => (
-            <CategoryCardSkeleton key={i} />
+
+        {/* Categories Grid Skeleton */}
+        <div className="mx-auto max-w-7xl">
+          {skeletonRows.map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`grid grid-cols-1 divide-y divide-neutral-700 border border-neutral-700 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:divide-x sm:divide-y-0 ${
+                rowIndex > 0 ? 'border-t-0' : ''
+              }`}
+            >
+              {row.map((item, colIndex) => (
+                <div key={`skeleton-${rowIndex}-${colIndex}`}>
+                  {item === null ? (
+                    <CategoryGridTitleCardSkeleton />
+                  ) : (
+                    <CategoryGridCardSkeleton />
+                  )}
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>

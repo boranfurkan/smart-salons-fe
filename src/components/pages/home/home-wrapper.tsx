@@ -1,11 +1,11 @@
 'use client';
 
-import { LandingCarousel } from '@/components/home/landing-carousel';
-import { FeaturedProducts } from '@/components/home/featured-products';
+import { LandingCarousel } from '@/components/pages/home/landing-carousel';
+import { FeaturedProducts } from '@/components/pages/home/featured-products';
 
-import CategoriesWrapper from '@/components/home/categories/categories-wrapper';
+import CategoriesWrapper from '@/components/pages/home/categories/categories-wrapper';
 
-import { SocialPostsSection } from '@/components/home/social-posts';
+import { SocialPostsSection } from '@/components/pages/home/social-posts';
 
 export function HomeWrapper() {
   return (

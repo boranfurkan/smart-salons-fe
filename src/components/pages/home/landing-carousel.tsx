@@ -1,8 +1,8 @@
 'use client';
 import { usePublicControllerGetCarouselItems } from '@/lib/api/generated/public/public';
 
-import { ExpoSlider } from '../shared/expo-slider/expo-slider';
-import { ExpoSliderSkeleton } from '../shared/expo-slider/expo-slider-skeleton';
+import { ExpoSlider } from '../../shared/expo-slider/expo-slider';
+import { ExpoSliderSkeleton } from '../../shared/expo-slider/expo-slider-skeleton';
 
 export function LandingCarousel() {
   const {

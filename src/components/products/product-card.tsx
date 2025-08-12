@@ -114,18 +114,6 @@ export function ProductCard({
             <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
               <Button
                 size="icon"
-                variant="secondary"
-                className="w-8 h-8 rounded-full bg-white/90 hover:bg-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // TODO: Add to wishlist functionality
-                }}
-              >
-                <Heart className="w-4 h-4" />
-              </Button>
-              <Button
-                size="icon"
-                variant="secondary"
                 className="w-8 h-8 rounded-full bg-white/90 hover:bg-white"
                 onClick={(e) => {
                   e.preventDefault();

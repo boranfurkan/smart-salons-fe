@@ -11,8 +11,7 @@ export function FooterHeader() {
     <div className="pt-16 pb-8 border-b border-neutral-700">
       <div className="text-center">
         <AnimatedTextWrapper className="text-white mb-4">
-          Ready to Transform Your{' '}
-          <HighlightedText color="#60a5fa">Salon</HighlightedText>?
+          Ready to Transform Your Salon?
         </AnimatedTextWrapper>
         <motion.p
           className="text-lg text-neutral-300 max-w-3xl mx-auto"

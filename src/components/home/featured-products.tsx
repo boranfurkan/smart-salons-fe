@@ -30,7 +30,7 @@ export function FeaturedProducts({ limit = 8 }: FeaturedProductsProps) {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div

@@ -40,17 +40,22 @@ export function ProductCard({
   className = '',
   priority = false,
 }: ProductCardProps) {
-  const [selectedVariantId, setSelectedVariantId] = useState(
-    (product.colorVariants as unknown as ColorVariantData[])?.[0]?.id || null
-  );
-  const [imageLoading, setImageLoading] = useState(true);
-
   const colorVariants = product.colorVariants as unknown as ColorVariantData[];
   const productImages = product.images as unknown as ImageData[];
 
-  const selectedVariant = colorVariants?.find(
-    (variant) => variant.id === selectedVariantId
+  // If there are color variants, include a "default" option along with variants
+  // If no color variants, just show the product images
+  const hasColorVariants = colorVariants && colorVariants.length > 0;
+
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
+    hasColorVariants ? 'default' : null
   );
+  const [imageLoading, setImageLoading] = useState(true);
+
+  const selectedVariant =
+    selectedVariantId && selectedVariantId !== 'default'
+      ? colorVariants?.find((variant) => variant.id === selectedVariantId)
+      : null;
 
   const primaryImage: string =
     selectedVariant?.images?.find((img) => img.isPrimary)?.url ||
@@ -61,6 +66,8 @@ export function ProductCard({
 
   const basePrice = parseFloat(product.price);
   const discount = parseFloat(product.discount);
+
+  // Use variant price/discount if a specific variant is selected, otherwise use base price
   const variantPrice = selectedVariant?.price
     ? parseFloat(selectedVariant.price)
     : basePrice;
@@ -68,8 +75,14 @@ export function ProductCard({
     ? parseFloat(selectedVariant.discount)
     : discount;
 
-  const finalPrice = variantPrice * (1 - variantDiscount / 100);
+  // Discount is an amount, not a percentage
+  const finalPrice = variantPrice - variantDiscount;
   const hasDiscount = variantDiscount > 0;
+  const discountPercentage =
+    variantPrice > 0 ? (variantDiscount / variantPrice) * 100 : 0;
+
+  // Use variant stock if a specific variant is selected, otherwise use base stock
+  const currentStock = selectedVariant?.stock ?? product.stock;
 
   return (
     <motion.div
@@ -103,15 +116,34 @@ export function ProductCard({
                 variant="destructive"
                 className="absolute top-3 left-3 z-10"
               >
-                -{Math.round(variantDiscount)}%
+                -${variantDiscount.toFixed(2)}
               </Badge>
             )}
 
             {/* Color Variants */}
-            {colorVariants && colorVariants.length > 1 && (
+            {hasColorVariants && (
               <div className="absolute bottom-3 left-3 right-3">
                 <div className="flex gap-2 flex-wrap">
-                  {colorVariants.slice(0, 5).map((variant) => (
+                  {/* Default option - show product's main image */}
+                  <button
+                    className={`w-6 h-6 rounded-full border-2 transition-all duration-200 bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center ${
+                      selectedVariantId === 'default'
+                        ? 'border-white shadow-lg scale-110'
+                        : 'border-white/60 hover:border-white hover:scale-105'
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedVariantId('default');
+                    }}
+                    title="Default"
+                  >
+                    <span className="text-[8px] text-gray-600 font-bold">
+                      D
+                    </span>
+                  </button>
+
+                  {/* Color variants */}
+                  {colorVariants.slice(0, 4).map((variant) => (
                     <button
                       key={variant.id}
                       className={`w-6 h-6 rounded-full border-2 transition-all duration-200 ${
@@ -127,10 +159,10 @@ export function ProductCard({
                       title={variant.name}
                     />
                   ))}
-                  {colorVariants.length > 5 && (
+                  {colorVariants.length > 4 && (
                     <div className="w-6 h-6 rounded-full bg-gray-600 border-2 border-white/60 flex items-center justify-center">
                       <span className="text-xs text-white font-semibold">
-                        +{colorVariants.length - 5}
+                        +{colorVariants.length - 4}
                       </span>
                     </div>
                   )}
@@ -139,7 +171,7 @@ export function ProductCard({
             )}
 
             {/* Stock Status */}
-            {selectedVariant && selectedVariant.stock === 0 && (
+            {currentStock === 0 && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                 <Badge variant="secondary" className="bg-red-500 text-white">
                   Out of Stock
@@ -176,33 +208,31 @@ export function ProductCard({
                   {hasDiscount && (
                     <div className="flex items-center gap-2 mt-1">
                       <Badge variant="destructive" className="text-xs">
-                        Save ${(variantPrice - finalPrice).toFixed(2)}
+                        Save ${variantDiscount.toFixed(2)}
                       </Badge>
                       <span className="text-xs text-gray-600">
-                        ({Math.round(variantDiscount)}% off)
+                        ({Math.round(discountPercentage)}% off)
                       </span>
                     </div>
                   )}
                 </div>
 
-                {selectedVariant && (
-                  <div className="text-right">
-                    {selectedVariant.stock > 0 ? (
-                      <div className="text-xs">
-                        <span className="text-green-600 font-semibold">
-                          ✓ In Stock
-                        </span>
-                        <div className="text-gray-500">
-                          {selectedVariant.stock} available
-                        </div>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-red-600 font-semibold">
-                        Out of stock
+                <div className="text-right">
+                  {currentStock > 0 ? (
+                    <div className="text-xs">
+                      <span className="text-green-600 font-semibold">
+                        ✓ In Stock
                       </span>
-                    )}
-                  </div>
-                )}
+                      <div className="text-gray-500">
+                        {currentStock} available
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-xs text-red-600 font-semibold">
+                      Out of stock
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Add to Cart Button */}
@@ -214,13 +244,13 @@ export function ProductCard({
                   e.preventDefault();
                   // TODO: Add to cart functionality
                 }}
-                disabled={selectedVariant?.stock === 0}
+                disabled={currentStock === 0}
               >
                 <ShoppingBag className="w-4 h-4 mr-2" />
-                {selectedVariant?.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                {currentStock === 0 ? 'Out of Stock' : 'Add to Cart'}
               </Button>
 
-              {/* Category */}
+              {/* Category and Variant */}
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="text-xs">
                   {product.category.name}
@@ -229,6 +259,9 @@ export function ProductCard({
                   <span className="text-xs text-gray-500">
                     {selectedVariant.name}
                   </span>
+                )}
+                {selectedVariantId === 'default' && hasColorVariants && (
+                  <span className="text-xs text-gray-500">Default</span>
                 )}
               </div>
             </div>

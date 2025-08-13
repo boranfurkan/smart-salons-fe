@@ -15,6 +15,7 @@ const buttonVariants = cva(
         secondary: '',
         ghost: '',
         link: 'border-0 underline-offset-4 hover:underline hover:scale-100 before:hidden',
+        green: '',
       },
       theme: {
         light: '',
@@ -64,6 +65,12 @@ const buttonVariants = cva(
         theme: 'light',
         className: 'text-neutral-900 focus-visible:ring-neutral-900/20',
       },
+      {
+        variant: 'green',
+        theme: 'light',
+        className:
+          'border border-green-600 bg-green-600 text-white hover:border-green-700 hover:text-white focus-visible:ring-green-600/20 before:bg-green-700 hover:before:translate-y-[0%] disabled:bg-green-400 disabled:border-green-400',
+      },
       // Dark theme variants
       {
         variant: 'default',
@@ -99,6 +106,12 @@ const buttonVariants = cva(
         variant: 'link',
         theme: 'dark',
         className: 'text-neutral-100 focus-visible:ring-neutral-50/20',
+      },
+      {
+        variant: 'green',
+        theme: 'dark',
+        className:
+          'border border-green-500 bg-green-600 text-white hover:border-green-400 hover:text-white focus-visible:ring-green-500/20 before:bg-green-500 hover:before:translate-y-[0%] disabled:bg-green-700 disabled:border-green-700',
       },
     ],
     defaultVariants: {

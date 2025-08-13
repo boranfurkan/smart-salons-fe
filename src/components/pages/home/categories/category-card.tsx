@@ -22,10 +22,11 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <Link href={`/categories/${category.slug}`}>
       <div className="group relative flex h-56 flex-col justify-end overflow-hidden p-6 transition-colors hover:bg-neutral-800 md:h-80 md:p-9">
-        {/* Product Count Badge */}
-        <div className="absolute left-3 top-5 z-10 flex items-center gap-1.5 text-xs uppercase text-neutral-400 transition-colors duration-500 group-hover:text-neutral-50">
-          <Package className="text-base" />
-          <span>{category.productCount} items</span>
+        <div className="absolute left-3 top-5 z-10 flex flex-col gap-2">
+          <div className="flex items-center gap-1.5 text-xs uppercase text-neutral-400 transition-colors duration-500 group-hover:text-neutral-50">
+            <Package className="text-base" />
+            <span>{category.productCount} items</span>
+          </div>
         </div>
 
         {/* Content Container - Fixed positioning from bottom */}
@@ -41,7 +42,7 @@ export const CategoryCard = ({ category }: CategoryCardProps) => {
           <div className="h-10 md:h-12">
             <p className="relative z-10 text-sm text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 overflow-hidden">
               {category.description ||
-                'Professional salon equipment for your business needs.'}
+                'Professional salon equipment for your business needs. Shop now with free shipping and 2-year warranty.'}
             </p>
           </div>
         </div>

@@ -39,18 +39,41 @@ export function FeaturedProducts({ limit = 8 }: FeaturedProductsProps) {
         {/* Section Header */}
         <div className="text-center mb-12">
           <AnimatedTextWrapper className="mb-4">
-            <HighlightedText color="#10b981">Featured</HighlightedText> Products
+            <HighlightedText color="#10b981">Bestselling</HighlightedText>{' '}
+            Professional Equipment
           </AnimatedTextWrapper>
           <motion.p
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Discover our latest and most popular hair care equipment trusted by
-            professionals worldwide
+            Discover our most popular salon equipment trusted by over 15,000
+            professionals worldwide. All products come with free shipping,
+            2-year warranty, and 30-day money-back guarantee.
           </motion.p>
+
+          <motion.div
+            className="flex justify-center items-center gap-6 text-sm text-gray-600"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+              Free shipping on all orders
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+              2-year warranty included
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+              30-day returns
+            </div>
+          </motion.div>
         </div>
 
         {/* Products Grid */}
@@ -82,12 +105,15 @@ export function FeaturedProducts({ limit = 8 }: FeaturedProductsProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <Button asChild size="lg" className="group">
+          <Button asChild size="lg" variant="green">
             <Link href="/products">
-              View All Products
+              Shop All Products - Over 200+ Items
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
+          <p className="text-sm text-gray-500 mt-2">
+            All orders ship within 24 hours • Free shipping over $200
+          </p>
         </motion.div>
       </div>
     </section>

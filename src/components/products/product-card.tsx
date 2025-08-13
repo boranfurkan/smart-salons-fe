@@ -76,12 +76,12 @@ export function ProductCard({
 
   return (
     <motion.div
-      className={`group cursor-pointer ${className}`}
+      className={`group cursor-pointer h-full ${className}`}
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3 }}
     >
-      <Link href={`/products/${product.slug}`}>
-        <div className="relative">
+      <Link href={`/products/${product.slug}`} className="h-full">
+        <div className="relative h-full flex flex-col">
           {/* Product Image */}
           <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
             <Image
@@ -166,52 +166,88 @@ export function ProductCard({
           </div>
 
           {/* Product Info */}
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 space-y-3 flex-1 flex flex-col">
             <div className="flex items-start justify-between">
-              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
                 {product.name}
               </h3>
             </div>
 
-            <p className="text-sm text-gray-600 line-clamp-2">
+            <p className="text-sm text-gray-600 line-clamp-2 flex-1">
               {product.description}
             </p>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-gray-900">
-                  ${finalPrice.toFixed(2)}
-                </span>
-                {hasDiscount && (
-                  <span className="text-sm text-gray-500 line-through">
-                    ${variantPrice.toFixed(2)}
-                  </span>
+            <div className="space-y-3 mt-auto">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl font-bold text-green-600">
+                      ${finalPrice.toFixed(2)}
+                    </span>
+                    {hasDiscount && (
+                      <span className="text-lg text-gray-500 line-through">
+                        ${variantPrice.toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+                  {hasDiscount && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge variant="destructive" className="text-xs">
+                        Save ${(variantPrice - finalPrice).toFixed(2)}
+                      </Badge>
+                      <span className="text-xs text-gray-600">
+                        ({Math.round(variantDiscount)}% off)
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {selectedVariant && (
+                  <div className="text-right">
+                    {selectedVariant.stock > 0 ? (
+                      <div className="text-xs">
+                        <span className="text-green-600 font-semibold">
+                          ✓ In Stock
+                        </span>
+                        <div className="text-gray-500">
+                          {selectedVariant.stock} available
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-red-600 font-semibold">
+                        Out of stock
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
 
-              {selectedVariant && (
-                <div className="text-xs text-gray-500">
-                  {selectedVariant.stock > 0 ? (
-                    <span className="text-green-600">
-                      {selectedVariant.stock} in stock
-                    </span>
-                  ) : (
-                    <span className="text-red-600">Out of stock</span>
-                  )}
-                </div>
-              )}
-            </div>
+              {/* Add to Cart Button */}
+              <Button
+                variant="green"
+                className="w-full font-semibold"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // TODO: Add to cart functionality
+                }}
+                disabled={selectedVariant?.stock === 0}
+              >
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                {selectedVariant?.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+              </Button>
 
-            {/* Category */}
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {product.category.name}
-              </Badge>
-              {selectedVariant && (
-                <span className="text-xs text-gray-500">
-                  {selectedVariant.name}
-                </span>
-              )}
+              {/* Category */}
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="text-xs">
+                  {product.category.name}
+                </Badge>
+                {selectedVariant && (
+                  <span className="text-xs text-gray-500">
+                    {selectedVariant.name}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -44,15 +44,37 @@ export const CategoriesGrid = () => {
             Shop by <HighlightedText color="#f59e0b">Category</HighlightedText>
           </AnimatedTextWrapper>
           <motion.p
-            className="text-lg text-neutral-300 max-w-2xl mx-auto"
+            className="text-lg text-neutral-300 max-w-2xl mx-auto mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Explore our comprehensive range of professional hair care equipment
-            and accessories
+            Find exactly what you need from our comprehensive range of
+            professional salon equipment. All categories feature premium quality
+            products with competitive pricing.
           </motion.p>
+
+          <motion.div
+            className="flex justify-center items-center gap-6 text-sm text-neutral-400"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
+              Professional grade quality
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
+              Competitive pricing
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
+              Fast delivery
+            </div>
+          </motion.div>
         </div>
 
         {/* Categories Grid */}

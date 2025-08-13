@@ -188,7 +188,7 @@ export function ProductCard({
               </h3>
             </div>
 
-            <p className="text-sm text-gray-600 line-clamp-2 flex-1">
+            <p className="text-sm text-gray-600 w-full h-9 leading-5 overflow-hidden line-clamp-2">
               {product.description}
             </p>
 

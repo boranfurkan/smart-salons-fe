@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import type { ProductDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 
-// Type helpers for the images until API generation is fixed
 interface ImageData {
   id: string;
   url: string;
@@ -53,7 +52,6 @@ export function ProductCard({
     (variant) => variant.id === selectedVariantId
   );
 
-  // Get the primary image for the selected variant or fallback to product images
   const primaryImage: string =
     selectedVariant?.images?.find((img) => img.isPrimary)?.url ||
     selectedVariant?.images?.[0]?.url ||
@@ -61,7 +59,6 @@ export function ProductCard({
     productImages?.[0]?.url ||
     `https://picsum.photos/400/400?random=${product.id}`;
 
-  // Calculate prices
   const basePrice = parseFloat(product.price);
   const discount = parseFloat(product.discount);
   const variantPrice = selectedVariant?.price
@@ -109,20 +106,6 @@ export function ProductCard({
                 -{Math.round(variantDiscount)}%
               </Badge>
             )}
-
-            {/* Quick Actions */}
-            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
-              <Button
-                size="icon"
-                className="w-8 h-8 rounded-full bg-white/90 hover:bg-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // TODO: Add to cart functionality
-                }}
-              >
-                <ShoppingBag className="w-4 h-4" />
-              </Button>
-            </div>
 
             {/* Color Variants */}
             {colorVariants && colorVariants.length > 1 && (

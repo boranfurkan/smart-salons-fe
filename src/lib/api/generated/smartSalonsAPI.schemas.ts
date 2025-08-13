@@ -503,6 +503,8 @@ export interface CategoryDto {
   description?: string;
   /** URL slug */
   slug: string;
+  /** Category image URL */
+  imageUrl?: string;
   /** Is category active */
   isActive: boolean;
   /** Creation date */
@@ -569,6 +571,112 @@ export interface ProductDto {
   colorVariants: ColorVariantDto[];
   /** Product images */
   images: ProductDtoImagesItem[];
+}
+
+/**
+ * Social media platform
+ */
+export type SocialPostDtoPlatform =
+  (typeof SocialPostDtoPlatform)[keyof typeof SocialPostDtoPlatform];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SocialPostDtoPlatform = {
+  INSTAGRAM: 'INSTAGRAM',
+  TIKTOK: 'TIKTOK',
+  FACEBOOK: 'FACEBOOK',
+  TWITTER: 'TWITTER',
+} as const;
+
+export interface SocialPostDto {
+  /** Unique identifier */
+  id: string;
+  /** Social media platform */
+  platform: SocialPostDtoPlatform;
+  /** Post URL */
+  postUrl: string;
+  /** Image URL */
+  imageUrl?: string;
+  /** Video URL */
+  videoUrl?: string;
+  /** Post description */
+  description?: string;
+  /** Publisher username */
+  publisher?: string;
+  /** Hashtags used in the post */
+  hashtags: string[];
+  /** Is post active */
+  isActive: boolean;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+}
+
+export interface GetSocialPostsResponseDto {
+  /** Social media posts */
+  posts: SocialPostDto[];
+  /** Total number of posts */
+  total: number;
+  /** Whether there are more posts available */
+  hasMore: boolean;
+}
+
+export interface CartItemDto {
+  /** Unique identifier */
+  id: string;
+  /** Quantity of the product */
+  quantity: number;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+  /** Product details */
+  product: ProductDto;
+  /** Selected color variant */
+  colorVariant?: ColorVariantDto;
+  /** Unit price at the time of adding to cart */
+  unitPrice: string;
+  /** Total price (quantity * unitPrice) */
+  totalPrice: string;
+}
+
+export interface CartDto {
+  /** Unique identifier */
+  id: string;
+  /** Session ID for guest users */
+  sessionId?: string;
+  /** Creation date */
+  createdAt: string;
+  /** Last update date */
+  updatedAt: string;
+  /** Cart items */
+  cartItems: CartItemDto[];
+  /** Total cart value */
+  totalAmount: string;
+  /** Total number of items in cart */
+  totalItems: number;
+}
+
+export interface AddToCartDto {
+  /** Product ID to add to cart */
+  productId: string;
+  /** Color variant ID (optional) */
+  colorVariantId?: string;
+  /**
+   * Quantity to add
+   * @minimum 1
+   */
+  quantity: number;
+  /** Session ID for guest users (required if not authenticated) */
+  sessionId?: string;
+}
+
+export interface UpdateCartItemDto {
+  /**
+   * New quantity
+   * @minimum 1
+   */
+  quantity: number;
 }
 
 export type AdminControllerUploadImageParams = {
@@ -747,19 +855,45 @@ export const PublicControllerGetSocialPostsPlatform = {
   TWITTER: 'TWITTER',
 } as const;
 
-export type PublicControllerGetSocialPosts200 = {
-  posts?: SocialPostResponseDto[];
-  total?: number;
-  hasMore?: boolean;
-};
-
 export type PublicControllerSearchProductsParams = {
   /**
    * Search term
    */
   q: string;
   /**
+   * Category slug to filter by
+   */
+  category?: string;
+  /**
    * Number of results to return
    */
   limit?: number;
+};
+
+export type CartControllerGetCartParams = {
+  /**
+   * Session ID for guest users (required if not authenticated)
+   */
+  sessionId?: string;
+};
+
+export type CartControllerUpdateCartItemParams = {
+  /**
+   * Session ID for guest users (required if not authenticated)
+   */
+  sessionId?: string;
+};
+
+export type CartControllerRemoveFromCartParams = {
+  /**
+   * Session ID for guest users (required if not authenticated)
+   */
+  sessionId?: string;
+};
+
+export type CartControllerClearCartParams = {
+  /**
+   * Session ID for guest users (required if not authenticated)
+   */
+  sessionId?: string;
 };

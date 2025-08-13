@@ -1,6 +1,6 @@
-import type { SocialPostResponseDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
+import type { SocialPostDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 
-export type SocialPost = SocialPostResponseDto;
+export type SocialPost = SocialPostDto;
 
 export interface SocialPostCardProps {
   post: SocialPost;

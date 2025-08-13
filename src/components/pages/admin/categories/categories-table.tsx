@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { MoreHorizontal, Edit, Trash2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -202,10 +203,12 @@ export function CategoriesTable({
                   <TableRow key={category.id}>
                     <TableCell>
                       {imageUrl ? (
-                        <img
+                        <Image
                           src={imageUrl}
                           alt={category.name}
-                          className="h-10 w-10 object-cover rounded border"
+                          width={40}
+                          height={40}
+                          className="object-cover rounded border"
                         />
                       ) : (
                         <div className="h-10 w-10 bg-gray-100 rounded border flex items-center justify-center">

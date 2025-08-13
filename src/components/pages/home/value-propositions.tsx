@@ -73,7 +73,7 @@ export function ValuePropositions() {
           Why Choose Smart Salons?
         </h3>
         <p className="text-gray-600 text-lg my-4 leading-relaxed">
-          We're committed to providing salon professionals with the highest
+          We&apos;re committed to providing salon professionals with the highest
           quality equipment, unmatched service, and the support you need to grow
           your business.
         </p>
@@ -223,7 +223,7 @@ const Card = ({
       </div>
 
       <p className="text-lg lg:text-xl font-light italic my-8 leading-relaxed text-center">
-        "{description}"
+        &ldquo;{description}&rdquo;
       </p>
 
       <div className="text-center">

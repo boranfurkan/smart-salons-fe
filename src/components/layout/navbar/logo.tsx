@@ -1,6 +1,5 @@
 'use client';
 
-import Logo from '@/assets/icons/Logo';
 import Image from 'next/image';
 import Link from 'next/link';
 

@@ -106,7 +106,7 @@ export function TrustIndicators() {
         {/* Certifications Row */}
         <div className="border-t border-green-200 pt-8">
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-600">
-            {certifications.map((cert, index) => (
+            {certifications.map((cert) => (
               <div key={cert} className="flex items-center">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 flex-shrink-0" />
                 <span className="whitespace-nowrap">{cert}</span>

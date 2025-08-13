@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -257,9 +258,11 @@ export function CategoryEditDialog({
               <FormLabel>Category Image (Optional)</FormLabel>
               {uploadedImageUrl ? (
                 <div className="relative">
-                  <img
+                  <Image
                     src={uploadedImageUrl}
                     alt="Category preview"
+                    width={400}
+                    height={160}
                     className="w-full h-40 object-cover rounded-lg border"
                   />
                   <Button

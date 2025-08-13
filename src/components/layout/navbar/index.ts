@@ -1,4 +1,3 @@
-export { Logo } from './logo';
 export { NavLink } from './nav-link';
 export { CartButton } from './cart-button';
 export { MobileNavLink } from './mobile-nav-link';

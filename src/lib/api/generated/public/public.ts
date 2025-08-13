@@ -23,13 +23,13 @@ import type {
 import type {
   CarouselItemDto,
   CategoryDto,
+  GetSocialPostsResponseDto,
   ProductDto,
   PublicControllerGetFeaturedProductsParams,
   PublicControllerGetProducts200,
   PublicControllerGetProductsByCategory200,
   PublicControllerGetProductsByCategoryParams,
   PublicControllerGetProductsParams,
-  PublicControllerGetSocialPosts200,
   PublicControllerGetSocialPostsParams,
   PublicControllerSearchProductsParams
 } from '../smartSalonsAPI.schemas';
@@ -396,6 +396,94 @@ export function usePublicControllerGetProductBySlug<TData = Awaited<ReturnType<t
 
 
 /**
+ * Returns a single product with all its details by ID
+ * @summary Get product by ID
+ */
+export const publicControllerGetProductById = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ProductDto>(
+      {url: `/public/products/id/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getPublicControllerGetProductByIdQueryKey = (id: string,) => {
+    return [`/public/products/id/${id}`] as const;
+    }
+
+    
+export const getPublicControllerGetProductByIdQueryOptions = <TData = Awaited<ReturnType<typeof publicControllerGetProductById>>, TError = void>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getPublicControllerGetProductByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof publicControllerGetProductById>>> = ({ signal }) => publicControllerGetProductById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type PublicControllerGetProductByIdQueryResult = NonNullable<Awaited<ReturnType<typeof publicControllerGetProductById>>>
+export type PublicControllerGetProductByIdQueryError = void
+
+
+export function usePublicControllerGetProductById<TData = Awaited<ReturnType<typeof publicControllerGetProductById>>, TError = void>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof publicControllerGetProductById>>,
+          TError,
+          Awaited<ReturnType<typeof publicControllerGetProductById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePublicControllerGetProductById<TData = Awaited<ReturnType<typeof publicControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof publicControllerGetProductById>>,
+          TError,
+          Awaited<ReturnType<typeof publicControllerGetProductById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePublicControllerGetProductById<TData = Awaited<ReturnType<typeof publicControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get product by ID
+ */
+
+export function usePublicControllerGetProductById<TData = Awaited<ReturnType<typeof publicControllerGetProductById>>, TError = void>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetProductById>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getPublicControllerGetProductByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
  * Returns all active categories with product counts
  * @summary Get all active categories
  */
@@ -677,7 +765,7 @@ export const publicControllerGetSocialPosts = (
 ) => {
       
       
-      return customInstance<PublicControllerGetSocialPosts200>(
+      return customInstance<GetSocialPostsResponseDto>(
       {url: `/public/social-posts`, method: 'GET',
         params, signal
     },

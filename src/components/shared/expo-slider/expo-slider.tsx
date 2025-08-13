@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import SwiperCore from 'swiper';
 import type { Swiper as SwiperType, SwiperOptions } from 'swiper';
 import { Autoplay } from 'swiper/modules';
@@ -202,10 +203,12 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
             {slides.map((slide) => (
               <div key={slide.id} className="swiper-slide">
                 <div className="expo-container">
-                  <img
+                  <Image
                     src={slide.imageUrl}
                     className="expo-image object-fill"
                     alt={slide.title || 'slide'}
+                    fill
+                    sizes="100vw"
                   />
                   {(slide.title ||
                     slide.description ||

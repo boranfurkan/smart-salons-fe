@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRef } from 'react';
-import { Logo } from './logo';
+import { LogoNavbar } from './logo';
 import { NavLink } from './nav-link';
 import { Button } from '@/components/ui/button';
 import { CartButton } from './cart-button';
@@ -40,7 +40,7 @@ export function DesktopNavbar({
 
   return (
     <nav className="fixed left-1/2 top-4 z-50 hidden w-fit -translate-x-1/2 items-center gap-4 rounded-lg border border-neutral-200/70 bg-white/90 px-2 py-2 text-sm text-neutral-600 backdrop-blur-md shadow-md md:flex">
-      <Logo />
+      <LogoNavbar />
       <div className="mx-1 h-5 w-px bg-neutral-300/60" />
 
       <NavLink href="/">Home</NavLink>

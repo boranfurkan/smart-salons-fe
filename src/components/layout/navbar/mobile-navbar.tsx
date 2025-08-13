@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Logo } from './logo';
+import { LogoNavbar } from './logo';
 import { CartButton } from './cart-button';
 import { MobileNavLink } from './mobile-nav-link';
 import type { User } from '@/context/auth-context';
@@ -43,7 +43,7 @@ export function MobileNavbar({
 }: MobileNavbarProps) {
   return (
     <nav className="fixed left-0 right-0 top-4 z-50 mx-4 flex items-center justify-between rounded-lg border border-neutral-200/70 bg-white/90 px-4 py-3 backdrop-blur-md shadow-md md:hidden">
-      <Logo />
+      <LogoNavbar />
 
       <div className="flex items-center gap-3">
         {isAuthenticated && <CartButton count={0} />}

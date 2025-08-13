@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense, useCallback } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, XCircle, Loader2, Mail } from 'lucide-react';
@@ -20,6 +20,8 @@ function VerifyEmailContent() {
     'pending' | 'success' | 'error' | 'no-token'
   >('pending');
   const [error, setError] = useState<string | null>(null);
+  const [hasAttemptedVerification, setHasAttemptedVerification] =
+    useState(false);
 
   const verifyEmailMutation = useAuthControllerVerifyEmail({
     mutation: {
@@ -38,21 +40,18 @@ function VerifyEmailContent() {
     },
   });
 
-  const verifyEmail = useCallback(() => {
-    if (token) {
-      verifyEmailMutation.mutate({ data: { token } });
-    }
-  }, [token, verifyEmailMutation]);
-
   useEffect(() => {
     if (!token) {
       setVerificationState('no-token');
       return;
     }
 
-    // Automatically verify email when component mounts
-    verifyEmail();
-  }, [token, verifyEmail]);
+    // Only attempt verification once
+    if (!hasAttemptedVerification) {
+      setHasAttemptedVerification(true);
+      verifyEmailMutation.mutate({ data: { token } });
+    }
+  }, [token, hasAttemptedVerification, verifyEmailMutation]);
 
   // No token provided - user probably visited the page directly
   if (verificationState === 'no-token') {

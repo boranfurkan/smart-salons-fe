@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,10 +56,24 @@ export function CarouselEditDialog({
   onClose,
 }: CarouselEditDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>(
+    carouselItem.imageUrl || ''
+  );
 
-  const { upload, isUploading } = useImageUpload();
+  const { upload, isUploading } = useImageUpload({
+    folder: 'carousel',
+    maxFiles: 1,
+    onSuccess: (result) => {
+      if ('url' in result) {
+        setUploadedImageUrl(result.url);
+        form.setValue('imageUrl', result.url);
+        toast.success('Image uploaded successfully');
+      }
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
 
   const form = useForm<UpdateCarouselItemFormData>({
     resolver: zodResolver(updateCarouselItemSchema),
@@ -73,6 +87,11 @@ export function CarouselEditDialog({
       isActive: carouselItem.isActive,
     },
   });
+
+  // Reset uploadedImageUrl when carouselItem changes
+  useEffect(() => {
+    setUploadedImageUrl(carouselItem.imageUrl || '');
+  }, [carouselItem.imageUrl]);
 
   const updateCarouselItemMutation = useAdminControllerUpdateCarouselItem({
     mutation: {
@@ -92,52 +111,37 @@ export function CarouselEditDialog({
 
   const handleClose = () => {
     form.reset();
-    setSelectedImage(null);
-    setImagePreview('');
+    setUploadedImageUrl(carouselItem.imageUrl || '');
     onOpenChange(false);
     onClose();
     setIsSubmitting(false);
   };
 
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      await upload(file);
     }
+  };
+
+  const handleRemoveImage = () => {
+    setUploadedImageUrl('');
+    form.setValue('imageUrl', '');
   };
 
   const onSubmit = async (data: UpdateCarouselItemFormData) => {
     setIsSubmitting(true);
 
     try {
-      let imageUrl = carouselItem.imageUrl;
-
-      // If a new image is selected, upload it first
-      if (selectedImage) {
-        const uploadResult = await upload([selectedImage]);
-        const uploadedImages = Array.isArray(uploadResult)
-          ? uploadResult
-          : [uploadResult];
-
-        if (uploadedImages && uploadedImages.length > 0) {
-          imageUrl = uploadedImages[0].url;
-        } else {
-          throw new Error('Failed to upload image');
-        }
-      }
-
-      // Update carousel item
+      // Update carousel item with current form data
       await updateCarouselItemMutation.mutateAsync({
         id: carouselItem.id,
         data: {
           title: data.title,
           description: data.description || undefined,
-          imageUrl: imageUrl,
+          imageUrl: data.imageUrl,
           buttonText: data.buttonText || undefined,
           buttonLink: data.buttonLink || undefined,
           order: data.order,
@@ -150,7 +154,7 @@ export function CarouselEditDialog({
     }
   };
 
-  const currentImageUrl = imagePreview || carouselItem.imageUrl;
+  const currentImageUrl = uploadedImageUrl || carouselItem.imageUrl;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -216,29 +220,29 @@ export function CarouselEditDialog({
                           document.getElementById('image-input')?.click()
                         }
                         className="flex-1"
+                        disabled={isUploading}
                       >
                         <Upload className="mr-2 h-4 w-4" />
-                        Change Image
+                        {isUploading ? 'Uploading...' : 'Change Image'}
                       </Button>
-                      {selectedImage && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => {
-                            setSelectedImage(null);
-                            setImagePreview('');
-                          }}
-                        >
-                          Reset
-                        </Button>
-                      )}
+                      {uploadedImageUrl &&
+                        uploadedImageUrl !== carouselItem.imageUrl && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleRemoveImage}
+                          >
+                            Reset
+                          </Button>
+                        )}
                     </div>
                     <input
                       id="image-input"
                       type="file"
                       accept="image/*"
-                      onChange={handleImageSelect}
+                      onChange={handleImageUpload}
                       className="hidden"
+                      disabled={isUploading}
                     />
                   </div>
                 </div>

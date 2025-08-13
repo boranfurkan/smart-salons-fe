@@ -51,10 +51,22 @@ export function CarouselCreateDialog({
   onOpenChange,
 }: CarouselCreateDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
-  const { upload, isUploading } = useImageUpload();
+  const { upload, isUploading } = useImageUpload({
+    folder: 'carousel',
+    maxFiles: 1,
+    onSuccess: (result) => {
+      if ('url' in result) {
+        setUploadedImageUrl(result.url);
+        form.setValue('imageUrl', result.url);
+        toast.success('Image uploaded successfully');
+      }
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
 
   const form = useForm<CreateCarouselItemFormData>({
     resolver: zodResolver(createCarouselItemSchema),
@@ -87,57 +99,46 @@ export function CarouselCreateDialog({
 
   const handleClose = () => {
     form.reset();
-    setSelectedImage(null);
-    setImagePreview('');
+    setUploadedImageUrl('');
     onOpenChange(false);
     setIsSubmitting(false);
   };
 
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      await upload(file);
     }
   };
 
+  const handleRemoveImage = () => {
+    setUploadedImageUrl('');
+    form.setValue('imageUrl', '');
+  };
+
   const onSubmit = async (data: CreateCarouselItemFormData) => {
-    if (!selectedImage) {
-      toast.error('Please select an image');
+    if (!data.imageUrl) {
+      toast.error('Please upload an image before creating the carousel item');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Upload image first
-      const uploadResult = await upload([selectedImage]);
-      const uploadedImages = Array.isArray(uploadResult)
-        ? uploadResult
-        : [uploadResult];
-
-      if (uploadedImages && uploadedImages.length > 0) {
-        const imageUrl = uploadedImages[0].url;
-
-        // Create carousel item with the uploaded image URL
-        await createCarouselItemMutation.mutateAsync({
-          data: {
-            title: data.title,
-            description: data.description || undefined,
-            imageUrl: imageUrl,
-            buttonText: data.buttonText || undefined,
-            buttonLink: data.buttonLink || undefined,
-            order: data.order || 0,
-            isActive: data.isActive,
-          },
-        });
-      } else {
-        throw new Error('Failed to upload image');
-      }
+      // Create carousel item with the uploaded image URL
+      await createCarouselItemMutation.mutateAsync({
+        data: {
+          title: data.title,
+          description: data.description || undefined,
+          imageUrl: data.imageUrl,
+          buttonText: data.buttonText || undefined,
+          buttonLink: data.buttonLink || undefined,
+          order: data.order || 0,
+          isActive: data.isActive,
+        },
+      });
     } catch (error) {
       console.error('Error creating carousel item:', error);
       setIsSubmitting(false);
@@ -188,11 +189,11 @@ export function CarouselCreateDialog({
               <div className="space-y-2">
                 <label className="text-sm font-medium">Carousel Image *</label>
                 <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6">
-                  {imagePreview ? (
+                  {uploadedImageUrl ? (
                     <div className="space-y-4">
                       <div className="relative w-full h-32 bg-muted rounded overflow-hidden">
                         <Image
-                          src={imagePreview}
+                          src={uploadedImageUrl}
                           alt="Preview"
                           fill
                           className="object-cover"
@@ -201,10 +202,7 @@ export function CarouselCreateDialog({
                       <Button
                         type="button"
                         variant="outline"
-                        onClick={() => {
-                          setSelectedImage(null);
-                          setImagePreview('');
-                        }}
+                        onClick={handleRemoveImage}
                       >
                         Remove Image
                       </Button>
@@ -218,9 +216,15 @@ export function CarouselCreateDialog({
                       <Input
                         type="file"
                         accept="image/*"
-                        onChange={handleImageSelect}
+                        onChange={handleImageUpload}
                         className="cursor-pointer"
+                        disabled={isUploading}
                       />
+                      {isUploading && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Uploading image...
+                        </p>
+                      )}
                     </div>
                   )}
                 </div>

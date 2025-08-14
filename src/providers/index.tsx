@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactQueryProvider } from './react-query-provider';
 import { AuthProvider } from '@/context/auth-context';
+import { CartProvider } from '@/context/cart-context';
 
 interface ProvidersWrapperProps {
   children: React.ReactNode;
@@ -9,7 +10,9 @@ interface ProvidersWrapperProps {
 const ProvidersWrapper = ({ children }: ProvidersWrapperProps) => {
   return (
     <ReactQueryProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <CartProvider>{children}</CartProvider>
+      </AuthProvider>
     </ReactQueryProvider>
   );
 };

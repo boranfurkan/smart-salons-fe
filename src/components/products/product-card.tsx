@@ -4,9 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShoppingBag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { AddToCartButton } from '@/components/shared/add-to-cart-button';
 import type { ProductDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
 
 interface ImageData {
@@ -236,19 +235,18 @@ export function ProductCard({
               </div>
 
               {/* Add to Cart Button */}
-              <Button
-                variant="green"
-                className="w-full font-semibold"
-                size="sm"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // TODO: Add to cart functionality
-                }}
-                disabled={currentStock === 0}
-              >
-                <ShoppingBag className="w-4 h-4 mr-2" />
-                {currentStock === 0 ? 'Out of Stock' : 'Add to Cart'}
-              </Button>
+              <div onClick={(e) => e.preventDefault()}>
+                <AddToCartButton
+                  productId={product.id}
+                  selectedVariantId={selectedVariantId}
+                  quantity={1}
+                  price={variantPrice}
+                  discount={variantDiscount}
+                  stock={currentStock}
+                  showPrice={false}
+                  className="w-full font-semibold text-sm h-9"
+                />
+              </div>
 
               {/* Category and Variant */}
               <div className="flex items-center gap-2">

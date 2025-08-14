@@ -42,7 +42,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * Get current user cart or guest cart by session ID
+ * Get current user cart
  * @summary Get cart
  */
 export const cartControllerGetCart = (

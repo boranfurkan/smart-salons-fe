@@ -63,8 +63,6 @@ export function DesktopNavbar({
       <NavLink href="/products">All Products</NavLink>
       <div className="mx-1 h-5 w-px bg-neutral-900/50" />
       <div className="flex items-center gap-2">
-        {/* Right-side actions inside bar */}
-
         {isAuthenticated && <CartButton count={0} />}
         {isAuthenticated ? (
           <Link
@@ -80,10 +78,6 @@ export function DesktopNavbar({
             <Link href="/auth/signin">Login</Link>
           </Button>
         )}
-
-        <Button asChild variant="default" theme="light" size="sm">
-          <Link href="/products">Shop</Link>
-        </Button>
       </div>
     </nav>
   );

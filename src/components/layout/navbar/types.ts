@@ -8,7 +8,3 @@ export interface MobileNavLinkProps {
   children: React.ReactNode;
   onClick?: () => void;
 }
-
-export interface CartButtonProps {
-  count?: number;
-}

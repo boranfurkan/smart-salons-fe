@@ -63,7 +63,7 @@ export function DesktopNavbar({
       <NavLink href="/products">All Products</NavLink>
       <div className="mx-1 h-5 w-px bg-neutral-900/50" />
       <div className="flex items-center gap-2">
-        {isAuthenticated && <CartButton count={0} />}
+        {isAuthenticated && <CartButton />}
         {isAuthenticated ? (
           <Link
             href="/dashboard"

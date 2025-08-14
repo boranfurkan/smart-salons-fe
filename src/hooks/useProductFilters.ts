@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 export interface ProductFilters {
@@ -30,6 +30,12 @@ export function useProductFilters() {
   }, [searchParams]);
 
   const [filters, setFilters] = useState<ProductFilters>(getFiltersFromURL);
+
+  // Listen to URL parameter changes and update filters accordingly
+  useEffect(() => {
+    const urlFilters = getFiltersFromURL();
+    setFilters(urlFilters);
+  }, [getFiltersFromURL]);
 
   // Memoize filters to prevent unnecessary re-renders
   const memoizedFilters = useMemo(() => filters, [filters]);

@@ -89,7 +89,7 @@ export function MobileNavbar({
                     categories.map((c) => (
                       <MobileNavLink
                         key={c.id}
-                        href={`/categories/${c.slug}`}
+                        href={`/products?categoryId=${c.id}`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <div className="flex items-center justify-between">

@@ -18,7 +18,6 @@ import {
   ShoppingCart,
   Plus,
   Minus,
-  X,
   ArrowRight,
   ShoppingBag,
   Trash2,
@@ -61,7 +60,7 @@ export function CartSheet({ children }: CartSheetProps) {
 
       await updateCartItem(itemId, newQuantity);
       toast.success('Cart updated successfully');
-    } catch (error) {
+    } catch {
       toast.error('Failed to update cart. Please try again.');
     } finally {
       setUpdatingItems((prev) => {
@@ -78,7 +77,7 @@ export function CartSheet({ children }: CartSheetProps) {
     try {
       await removeFromCart(itemId);
       toast.success('Item removed from cart');
-    } catch (error) {
+    } catch {
       toast.error('Failed to remove item. Please try again.');
     } finally {
       setUpdatingItems((prev) => {

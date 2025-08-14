@@ -32,16 +32,7 @@ export function useProductFilters() {
   const [filters, setFilters] = useState<ProductFilters>(getFiltersFromURL);
 
   // Memoize filters to prevent unnecessary re-renders
-  const memoizedFilters = useMemo(
-    () => filters,
-    [
-      filters.categoryId,
-      filters.sortBy,
-      filters.sortOrder,
-      filters.featured,
-      filters.search,
-    ]
-  );
+  const memoizedFilters = useMemo(() => filters, [filters]);
 
   // Update URL when filters change
   const updateFilters = useCallback(

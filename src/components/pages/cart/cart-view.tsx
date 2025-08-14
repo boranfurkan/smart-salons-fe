@@ -4,14 +4,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   ArrowLeft,
   Plus,
   Minus,
-  X,
   ShoppingCart,
   Truck,
   Shield,
@@ -19,6 +17,14 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
+
+interface ImageData {
+  id: string;
+  url: string;
+  altText?: string;
+  isPrimary: boolean;
+  order: number;
+}
 
 interface CartItem {
   id: string;
@@ -28,7 +34,7 @@ interface CartItem {
     slug: string;
     price: string;
     discount?: string;
-    images: any[];
+    images: ImageData[];
     category: {
       name: string;
       slug: string;
@@ -38,7 +44,7 @@ interface CartItem {
     id: string;
     name: string;
     hexCode: string;
-    images: any[];
+    images: ImageData[];
   };
   quantity: number;
   unitPrice: string;
@@ -201,8 +207,8 @@ export function CartView() {
               Your cart is empty
             </h1>
             <p className="text-gray-600 mb-8">
-              Looks like you haven't added any items to your cart yet. Start
-              shopping to fill it up!
+              Looks like you haven&apos;t added any items to your cart yet.
+              Start shopping to fill it up!
             </p>
             <Link href="/products">
               <Button size="lg">Browse Products</Button>

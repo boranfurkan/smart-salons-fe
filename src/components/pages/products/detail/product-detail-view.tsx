@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { ProductDetailContent } from './product-detail-content';
 import { ProductDetailSkeleton } from './product-detail-skeleton';
 import { usePublicControllerGetProductBySlug } from '@/lib/api/generated/public/public';
@@ -28,14 +28,14 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
             Product Not Found
           </h1>
           <p className="text-gray-600 mb-4">
-            The product you're looking for doesn't exist.
+            The product you&apos;re looking for doesn&apos;t exist.
           </p>
-          <a
+          <Link
             href="/products"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
           >
             Browse Products
-          </a>
+          </Link>
         </div>
       </div>
     );

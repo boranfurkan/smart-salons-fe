@@ -1,18 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import {
-  ArrowLeft,
-  ShoppingBag,
-  Heart,
-  Star,
-  CheckCircle,
-  Truck,
-  Shield,
-  RefreshCw,
-} from 'lucide-react';
+import { ArrowLeft, Star, Truck, Shield, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -23,7 +12,6 @@ import { AddToCartButton } from '@/components/shared/add-to-cart-button';
 import { WishlistButton } from '@/components/shared/wishlist-button';
 import { ShareProductButton } from '@/components/shared/share-product-button';
 import type { ProductDto } from '@/lib/api/generated/smartSalonsAPI.schemas';
-import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -53,7 +41,7 @@ interface ProductDetailContentProps {
 
 export function ProductDetailContent({ product }: ProductDetailContentProps) {
   const router = useRouter();
-  const { user } = useAuth();
+  // const { user } = useAuth(); // Uncomment when needed
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
     'default'
   );

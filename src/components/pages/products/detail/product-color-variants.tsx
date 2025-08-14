@@ -2,6 +2,14 @@
 
 import { cn } from '@/lib/utils';
 
+interface ImageData {
+  id: string;
+  url: string;
+  altText?: string;
+  isPrimary: boolean;
+  order: number;
+}
+
 interface ColorVariantData {
   id: string;
   name: string;
@@ -11,7 +19,7 @@ interface ColorVariantData {
   discount?: string;
   sku?: string;
   isActive: boolean;
-  images: any[];
+  images: ImageData[];
 }
 
 interface ProductColorVariantsProps {

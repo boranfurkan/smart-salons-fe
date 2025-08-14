@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ChevronDown, ChevronUp, X, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -20,7 +19,6 @@ import { usePublicControllerGetCategories } from '@/lib/api/generated/public/pub
 export function ProductsFilters() {
   const {
     filters,
-    updateFilters,
     clearFilters,
     updateSort,
     updateCategory,
@@ -37,7 +35,7 @@ export function ProductsFilters() {
     features: true,
   });
 
-  const [searchInput, setSearchInput] = useState(filters.search || '');
+  // const [searchInput, setSearchInput] = useState(filters.search || '');
 
   const { data: categoriesData, isLoading: categoriesLoading } =
     usePublicControllerGetCategories();
@@ -50,10 +48,10 @@ export function ProductsFilters() {
     }));
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateSearch(searchInput.trim() || undefined);
-  };
+  // const handleSearchSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   updateSearch(searchInput.trim() || undefined);
+  // };
 
   const handleCategoryChange = (categoryId: string, checked: boolean) => {
     if (checked) {
@@ -72,9 +70,9 @@ export function ProductsFilters() {
   };
 
   // Update search input when filters change externally
-  useEffect(() => {
-    setSearchInput(filters.search || '');
-  }, [filters.search]);
+  // useEffect(() => {
+  //   setSearchInput(filters.search || '');
+  // }, [filters.search]);
 
   const getSortValue = () => {
     return `${filters.sortBy || 'createdAt'}-${filters.sortOrder || 'desc'}`;

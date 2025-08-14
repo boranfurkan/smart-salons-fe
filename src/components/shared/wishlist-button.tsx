@@ -41,13 +41,13 @@ export function WishlistButton({ productId, className }: WishlistButtonProps) {
 
       toast.success('Item added to favorites!');
       setIsPopoverOpen(false); // Close popover after successful addition
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to add to wishlist:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to add item to favorites. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to add item to favorites. Please try again.';
 
       toast.error(errorMessage);
     } finally {

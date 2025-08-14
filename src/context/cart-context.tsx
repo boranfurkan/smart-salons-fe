@@ -73,13 +73,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       toast.success('Item added to cart successfully!');
       invalidateCart();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to add to cart:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to add item to cart. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to add item to cart. Please try again.';
 
       toast.error(errorMessage);
       throw error;
@@ -99,13 +99,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       });
 
       invalidateCart();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to update cart item:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to update cart item. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to update cart item. Please try again.';
 
       toast.error(errorMessage);
       throw error;
@@ -125,13 +125,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       toast.success('Item removed from cart');
       invalidateCart();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to remove from cart:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to remove item from cart. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to remove item from cart. Please try again.';
 
       toast.error(errorMessage);
       throw error;
@@ -149,13 +149,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       toast.success('Cart cleared');
       invalidateCart();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to clear cart:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to clear cart. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to clear cart. Please try again.';
 
       toast.error(errorMessage);
       throw error;
@@ -164,16 +164,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const cartItemsCount =
     user && cart?.cartItems
-      ? cart.cartItems.reduce(
-          (total: number, item: any) => total + item.quantity,
-          0
-        )
+      ? cart.cartItems.reduce((total: number, item) => total + item.quantity, 0)
       : 0;
 
   const cartTotal =
     user && cart?.cartItems
       ? cart.cartItems.reduce(
-          (total: number, item: any) => total + parseFloat(item.totalPrice),
+          (total: number, item) => total + parseFloat(item.totalPrice),
           0
         )
       : 0;

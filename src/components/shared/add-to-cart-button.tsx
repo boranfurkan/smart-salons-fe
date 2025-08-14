@@ -59,7 +59,7 @@ export function AddToCartButton({
           : selectedVariantId,
         quantity
       );
-    } catch (error) {
+    } catch {
       // Error is already handled in the cart context
     } finally {
       setIsAddingToCart(false);

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -17,12 +16,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
-export function CheckoutSuccessView() {
-  const searchParams = useSearchParams();
-  const [orderNumber] = useState(
-    () =>
-      searchParams.get('orderNumber') || `SS${Date.now().toString().slice(-6)}`
-  );
+interface CheckoutSuccessViewProps {
+  orderNumber: string;
+}
+
+export function CheckoutSuccessView({ orderNumber }: CheckoutSuccessViewProps) {
   const [estimatedDelivery] = useState(() => {
     const date = new Date();
     date.setDate(date.getDate() + 5); // 5 days from now
@@ -169,8 +167,8 @@ export function CheckoutSuccessView() {
                     Order Confirmation
                   </p>
                   <p className="text-gray-600 text-sm">
-                    You'll receive an email confirmation with your order details
-                    within the next few minutes.
+                    You&apos;ll receive an email confirmation with your order
+                    details within the next few minutes.
                   </p>
                 </div>
               </div>
@@ -182,8 +180,8 @@ export function CheckoutSuccessView() {
                 <div>
                   <p className="font-medium text-gray-900">Processing</p>
                   <p className="text-gray-600 text-sm">
-                    We'll prepare your order for shipment within 1-2 business
-                    days.
+                    We&apos;ll prepare your order for shipment within 1-2
+                    business days.
                   </p>
                 </div>
               </div>
@@ -195,7 +193,8 @@ export function CheckoutSuccessView() {
                 <div>
                   <p className="font-medium text-gray-900">Shipping</p>
                   <p className="text-gray-600 text-sm">
-                    You'll receive tracking information once your order ships.
+                    You&apos;ll receive tracking information once your order
+                    ships.
                   </p>
                 </div>
               </div>

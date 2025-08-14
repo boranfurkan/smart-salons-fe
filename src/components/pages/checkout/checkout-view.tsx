@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   ArrowLeft,
@@ -25,6 +24,14 @@ import { useAuth } from '@/context/auth-context';
 import { useOrdersControllerCreateOrder } from '@/lib/api/generated/orders/orders';
 import { toast } from 'sonner';
 
+interface ImageData {
+  id: string;
+  url: string;
+  altText?: string;
+  isPrimary: boolean;
+  order: number;
+}
+
 interface CartItem {
   id: string;
   product: {
@@ -33,7 +40,7 @@ interface CartItem {
     slug: string;
     price: string;
     discount?: string;
-    images: any[];
+    images: ImageData[];
   };
   colorVariant?: {
     id: string;
@@ -70,9 +77,7 @@ export function CheckoutView() {
   const { user } = useAuth();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [step, setStep] = useState<'shipping' | 'payment' | 'review'>(
-    'shipping'
-  );
+  const [step] = useState<'shipping' | 'payment' | 'review'>('shipping');
 
   // Order creation mutation
   const createOrderMutation = useOrdersControllerCreateOrder();
@@ -210,13 +215,13 @@ export function CheckoutView() {
 
       // Redirect to success page with order info
       router.push(`/checkout/success?orderNumber=${result.orderNumber}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Order placement failed:', error);
 
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Failed to place order. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Failed to place order. Please try again.';
 
       toast.error(errorMessage);
     } finally {

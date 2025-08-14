@@ -48,7 +48,15 @@ export function ProductsProvider({ children }: ProductsProviderProps) {
       updateSearch: filtersState.updateSearch,
       toggleFeatured: filtersState.toggleFeatured,
     }),
-    [filtersState.filters] // Only re-create when filters actually change
+    [
+      filtersState.filters,
+      filtersState.updateFilters,
+      filtersState.clearFilters,
+      filtersState.updateSort,
+      filtersState.updateCategory,
+      filtersState.updateSearch,
+      filtersState.toggleFeatured,
+    ]
   );
 
   return (

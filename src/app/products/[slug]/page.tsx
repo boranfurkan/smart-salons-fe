@@ -6,10 +6,7 @@ interface ProductDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: ProductDetailPageProps): Promise<Metadata> {
-  // In a real app, you'd fetch the product data here for SEO
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Product Details - Smart Salons`,
     description: 'View detailed information about this product',

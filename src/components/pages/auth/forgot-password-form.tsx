@@ -9,7 +9,7 @@ import { Loader2, CheckCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { AuthLayout } from '@/components/shared/auth/auth-layout';
+import { ModernAuthLayout } from '@/components/shared/auth/modern-auth-layout';
 import { FormField, FormError } from '@/components/shared/auth/form-components';
 
 import { useAuthControllerForgotPassword } from '@/lib/api/generated/authentication/authentication';
@@ -66,10 +66,12 @@ export function ForgotPasswordForm() {
 
   if (success) {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Check your email"
         subtitle="We've sent password reset instructions to your email"
         footer={footer}
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Email confirmation illustration"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -84,15 +86,17 @@ export function ForgotPasswordForm() {
             password.
           </p>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   return (
-    <AuthLayout
+    <ModernAuthLayout
       title="Reset your password"
       subtitle="Enter your email address and we'll send you a reset link"
       footer={footer}
+      backgroundImage="/signin-bg.jpg"
+      imageAlt="Password reset illustration"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FormError message={error || undefined} />
@@ -127,6 +131,6 @@ export function ForgotPasswordForm() {
           )}
         </Button>
       </form>
-    </AuthLayout>
+    </ModernAuthLayout>
   );
 }

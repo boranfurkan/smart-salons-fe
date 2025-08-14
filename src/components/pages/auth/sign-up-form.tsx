@@ -10,7 +10,7 @@ import { Loader2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { AuthLayout } from '@/components/shared/auth/auth-layout';
+import { ModernAuthLayout } from '@/components/shared/auth/modern-auth-layout';
 import { PasswordInput } from '@/components/shared/auth/password-input';
 import { FormField, FormError } from '@/components/shared/auth/form-components';
 
@@ -69,9 +69,11 @@ export function SignUpForm() {
 
   if (success) {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Check your email"
         subtitle="We've sent a verification link to your email address"
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Email confirmation illustration"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -85,15 +87,17 @@ export function SignUpForm() {
             Redirecting to verification page...
           </p>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   return (
-    <AuthLayout
+    <ModernAuthLayout
       title="Create your account"
       subtitle="Get started with Smart Salons today"
       footer={footer}
+      backgroundImage="/login-bg.jpg"
+      imageAlt="Professional salon setup"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FormError message={error || undefined} />
@@ -176,6 +180,6 @@ export function SignUpForm() {
           )}
         </Button>
       </form>
-    </AuthLayout>
+    </ModernAuthLayout>
   );
 }

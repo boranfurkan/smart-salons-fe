@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { AuthLayout } from '@/components/shared/auth/auth-layout';
+import { ModernAuthLayout } from '@/components/shared/auth/modern-auth-layout';
 import { PasswordInput } from '@/components/shared/auth/password-input';
 import { FormField, FormError } from '@/components/shared/auth/form-components';
 import { Label } from '@/components/ui/label';
@@ -74,9 +74,11 @@ function ResetPasswordContent() {
   // Invalid token or missing token
   if (!token) {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Invalid reset link"
         subtitle="This password reset link is invalid or has expired"
+        backgroundImage="/signin-bg.jpg"
+        imageAlt="Invalid reset link illustration"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -92,16 +94,18 @@ function ResetPasswordContent() {
             </Button>
           </Link>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   // Success state
   if (success) {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Password reset successful"
         subtitle="Your password has been updated successfully"
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Password reset success illustration"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -115,24 +119,26 @@ function ResetPasswordContent() {
             Redirecting to sign in page...
           </p>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   const footer = (
     <Link
       href="/auth/signin"
-      className="text-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+      className="text-sm text-gray-600 hover:text-gray-900 transition-colors inline-block"
     >
-      Back to sign in
+      ← Back to sign in
     </Link>
   );
 
   return (
-    <AuthLayout
+    <ModernAuthLayout
       title="Set new password"
-      subtitle="Enter your new password below"
+      subtitle="Enter a new password for your account"
       footer={footer}
+      backgroundImage="/signin-bg.jpg"
+      imageAlt="Set new password illustration"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FormError message={error || undefined} />
@@ -178,7 +184,7 @@ function ResetPasswordContent() {
           )}
         </Button>
       </form>
-    </AuthLayout>
+    </ModernAuthLayout>
   );
 }
 
@@ -186,11 +192,16 @@ export function ResetPasswordForm() {
   return (
     <Suspense
       fallback={
-        <AuthLayout title="Loading..." subtitle="Please wait...">
+        <ModernAuthLayout
+          title="Loading..."
+          subtitle="Please wait..."
+          backgroundImage="/signin-bg.jpg"
+          imageAlt="Loading"
+        >
           <div className="flex justify-center py-8">
             <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
           </div>
-        </AuthLayout>
+        </ModernAuthLayout>
       }
     >
       <ResetPasswordContent />

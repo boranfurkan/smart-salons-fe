@@ -1,7 +1,12 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 const BackgroundGrid = () => {
+  const pathName = usePathname();
+  if (pathName.includes('auth')) {
+    return null;
+  }
   return (
     <div className="absolute inset-0 bg-white pointer-events-none z-0">
       <div className="h-full w-full opacity-50">

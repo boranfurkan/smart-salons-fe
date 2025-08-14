@@ -10,7 +10,7 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { AuthLayout } from '@/components/shared/auth/auth-layout';
+import { ModernAuthLayout } from '@/components/shared/auth/modern-auth-layout';
 import { PasswordInput } from '@/components/shared/auth/password-input';
 import { FormField, FormError } from '@/components/shared/auth/form-components';
 
@@ -64,10 +64,12 @@ export function SignInForm() {
   );
 
   return (
-    <AuthLayout
+    <ModernAuthLayout
       title="Welcome back"
       subtitle="Sign in to your Smart Salons account"
       footer={footer}
+      backgroundImage="/signin-bg.jpg"
+      imageAlt="Modern salon interior"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FormError message={error || undefined} />
@@ -121,6 +123,6 @@ export function SignInForm() {
           )}
         </Button>
       </form>
-    </AuthLayout>
+    </ModernAuthLayout>
   );
 }

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { CheckCircle, XCircle, Loader2, Mail } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { AuthLayout } from '@/components/shared/auth/auth-layout';
+import { ModernAuthLayout } from '@/components/shared/auth/modern-auth-layout';
 
 import { useAuthControllerVerifyEmail } from '@/lib/api/generated/authentication/authentication';
 import type { ApiError } from '@/types/api';
@@ -56,9 +56,11 @@ function VerifyEmailContent() {
   // No token provided - user probably visited the page directly
   if (verificationState === 'no-token') {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Check your email"
         subtitle="We've sent you a verification link"
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Email verification"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -84,16 +86,18 @@ function VerifyEmailContent() {
             </Link>
           </div>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   // Verification in progress
   if (verificationState === 'pending') {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Verifying your email"
         subtitle="Please wait while we verify your email address"
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Email verification"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -101,16 +105,18 @@ function VerifyEmailContent() {
           </div>
           <p className="text-gray-600">Verifying your email address...</p>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   // Verification successful
   if (verificationState === 'success') {
     return (
-      <AuthLayout
+      <ModernAuthLayout
         title="Email verified successfully"
         subtitle="Your account has been activated"
+        backgroundImage="/email-confirmations-bg.jpg"
+        imageAlt="Email verification success"
       >
         <div className="text-center py-8">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -130,15 +136,17 @@ function VerifyEmailContent() {
             Continue to sign in
           </Button>
         </div>
-      </AuthLayout>
+      </ModernAuthLayout>
     );
   }
 
   // Verification failed
   return (
-    <AuthLayout
+    <ModernAuthLayout
       title="Verification failed"
       subtitle="We couldn't verify your email address"
+      backgroundImage="/email-confirmations-bg.jpg"
+      imageAlt="Email verification failed"
     >
       <div className="text-center py-8">
         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -161,7 +169,7 @@ function VerifyEmailContent() {
           </Link>
         </div>
       </div>
-    </AuthLayout>
+    </ModernAuthLayout>
   );
 }
 
@@ -169,11 +177,16 @@ export function VerifyEmailForm() {
   return (
     <Suspense
       fallback={
-        <AuthLayout title="Loading..." subtitle="Please wait...">
+        <ModernAuthLayout
+          title="Loading..."
+          subtitle="Please wait..."
+          backgroundImage="/email-confirmations-bg.jpg"
+          imageAlt="Loading"
+        >
           <div className="flex justify-center py-8">
             <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
           </div>
-        </AuthLayout>
+        </ModernAuthLayout>
       }
     >
       <VerifyEmailContent />

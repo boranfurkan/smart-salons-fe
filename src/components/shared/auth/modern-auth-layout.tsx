@@ -71,8 +71,8 @@ export function ModernAuthLayout({
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <blockquote className="text-xl font-semibold mb-4">
-            &ldquo;Transform your salon with premium furniture and equipment from
-            Smart Salons&rdquo;
+            &ldquo;Transform your salon with premium furniture and equipment
+            from Smart Salons&rdquo;
           </blockquote>
           <p className="text-white/80">
             Join thousands of salon owners who trust us for their business

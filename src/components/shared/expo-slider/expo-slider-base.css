@@ -196,7 +196,7 @@
   .swiper-expo .expo-container {
     border-radius: 12px; /* Slightly smaller radius for mobile */
   }
-  
+
   /* Ensure wrapper doesn't overflow */
   .expo-slider-wrapper {
     overflow: hidden;

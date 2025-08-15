@@ -76,8 +76,8 @@
   /* Mobile horizontal optimizations */
   .swiper-expo.swiper-horizontal .expo-content-inner {
     max-width: 85%;
-    margin: 0 0 4% 4%;
-    padding: 0.75rem 1rem 1rem;
+    margin: 0 0 5% 4%; /* Increased bottom margin for better visibility */
+    padding: 0.75rem 1rem 1.25rem; /* Increased bottom padding */
     gap: 0.5rem;
   }
 
@@ -151,6 +151,15 @@
   margin: 0;
 }
 
+/* Mobile viewport fixes */
+@media (max-width: 767px) {
+  .expo-slider-wrapper {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
 /* Gradient overlay at bottom */
 .swiper-expo .expo-container::after {
   content: '';
@@ -178,12 +187,21 @@
 
   /* Mobile horizontal slider optimizations */
   .swiper-expo.swiper-horizontal {
-    aspect-ratio: 16 / 12; /* Much taller for better mobile viewing */
-    min-height: 280px; /* Ensure minimum height for better viewing */
+    aspect-ratio: 16 / 11; /* Slightly less tall to prevent cutoff */
+    min-height: 260px; /* Reduced min-height for better mobile fit */
+    max-height: 350px; /* Prevent it from getting too tall on larger mobiles */
+    height: auto; /* Let aspect ratio control height */
   }
 
   .swiper-expo .expo-container {
     border-radius: 12px; /* Slightly smaller radius for mobile */
+  }
+  
+  /* Ensure wrapper doesn't overflow */
+  .expo-slider-wrapper {
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 100%;
   }
 }
 

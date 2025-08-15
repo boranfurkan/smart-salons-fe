@@ -56,7 +56,7 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
 
     const calcDir = (): 'horizontal' | 'vertical' => {
       if (directionProp) return directionProp;
-      return window.innerWidth < 768 ? 'vertical' : 'horizontal';
+      return 'horizontal'; // Always horizontal for better mobile experience
     };
 
     const initialDir = calcDir();
@@ -68,7 +68,7 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: [EffectExpo as any, Autoplay],
       effect: 'expo',
-      slidesPerView: 1.5,
+      slidesPerView: 1.2, // Better mobile view
       initialSlide: 1,
       autoplay: {
         delay: 5000,
@@ -82,9 +82,18 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
         grayscale: true,
       },
       grabCursor: true,
-      spaceBetween: 16,
+      spaceBetween: 12, // Smaller gap for mobile
       breakpoints: {
+        640: {
+          slidesPerView: 1.3,
+          spaceBetween: 16,
+        },
         768: {
+          slidesPerView: 1.5,
+          spaceBetween: 24,
+        },
+        1024: {
+          slidesPerView: 1.5,
           spaceBetween: 32,
         },
       },
@@ -114,17 +123,8 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
 
     const handleResize = () => {
       if (directionProp) return; // fixed direction externally
-      const newDir = calcDir();
-      if (
-        swiperRef.current &&
-        swiperRef.current.params &&
-        swiperRef.current.params.direction !== newDir
-      ) {
-        setDirection(newDir);
-        swiperRef.current.changeDirection(newDir, false);
-        swiperRef.current.update();
-        swiperRef.current.slideTo(swiperRef.current.activeIndex || 0, 0);
-      } else if (swiperRef.current) {
+      // Since we're always horizontal now, just update the swiper
+      if (swiperRef.current) {
         swiperRef.current.update();
         swiperRef.current.updateProgress();
         swiperRef.current.updateSlidesClasses();

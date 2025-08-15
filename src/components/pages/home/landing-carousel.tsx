@@ -14,19 +14,15 @@ export function LandingCarousel() {
 
   if (isLoading)
     return (
-      <div className="w-full">
-        <div className="w-full aspect-[9/16] md:aspect-[16/9]">
-          <ExpoSliderSkeleton />
-        </div>
+      <div className="w-full  max-md:mt-20">
+        <ExpoSliderSkeleton />
       </div>
     );
   if (error || !slides.length) return null;
 
   return (
-    <div className="w-full">
-      <div className="w-full aspect-[9/16] md:aspect-[16/9]">
-        <ExpoSlider slides={slides} />
-      </div>
+    <div className="w-full max-md:mt-20">
+      <ExpoSlider slides={slides} />
     </div>
   );
 }

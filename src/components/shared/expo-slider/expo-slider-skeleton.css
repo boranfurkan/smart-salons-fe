@@ -28,3 +28,22 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Mobile-specific optimizations */
+@media (max-width: 767px) {
+  /* Hide description skeleton lines on mobile */
+  .swiper-expo .expo-content-inner .space-y-2 {
+    display: none;
+  }
+
+  /* Adjust horizontal slide width for mobile */
+  .swiper-expo.swiper-horizontal .swiper-slide {
+    width: 83.3333%; /* ~1.2 slides visible */
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .swiper-expo.swiper-horizontal .swiper-slide {
+    width: 76.9231%; /* ~1.3 slides visible */
+  }
+}

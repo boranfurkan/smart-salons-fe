@@ -76,9 +76,12 @@
   /* Mobile horizontal optimizations */
   .swiper-expo.swiper-horizontal .expo-content-inner {
     max-width: 85%;
-    margin: 0 0 5% 4%; /* Increased bottom margin for better visibility */
-    padding: 0.75rem 1rem 1.25rem; /* Increased bottom padding */
+    margin: 0 0 10% 4% !important; /* Increased bottom margin significantly */
+    padding: 0.75rem 1rem 2rem !important; /* Increased bottom padding */
     gap: 0.5rem;
+    position: relative;
+    z-index: 3; /* Ensure content is above overlay */
+    box-sizing: border-box;
   }
 
   .swiper-expo .expo-content-title {
@@ -182,26 +185,54 @@
 }
 @media (max-width: 767px) {
   .swiper-expo .expo-container::after {
-    height: 30%;
+    height: 25%; /* Reduced overlay height for more content space */
   }
 
   /* Mobile horizontal slider optimizations */
   .swiper-expo.swiper-horizontal {
-    aspect-ratio: 16 / 11; /* Slightly less tall to prevent cutoff */
-    min-height: 260px; /* Reduced min-height for better mobile fit */
-    max-height: 350px; /* Prevent it from getting too tall on larger mobiles */
-    height: auto; /* Let aspect ratio control height */
+    aspect-ratio: unset; /* Remove aspect ratio on mobile */
+    height: 45vh !important; /* Use viewport height with important */
+    max-height: 280px !important; /* Smaller max height */
+    min-height: 200px !important; /* Smaller min height */
+    width: 100% !important;
+    margin: 0 !important; /* Remove any margin */
+    overflow: hidden; /* Prevent any overflow */
+    box-sizing: border-box;
   }
 
   .swiper-expo .expo-container {
     border-radius: 12px; /* Slightly smaller radius for mobile */
+    height: 100% !important; /* Ensure container fills the height */
+    overflow: hidden; /* Prevent container overflow */
+    box-sizing: border-box;
   }
 
   /* Ensure wrapper doesn't overflow */
   .expo-slider-wrapper {
-    overflow: hidden;
+    overflow: hidden !important;
     margin: 0 auto;
     max-width: 100%;
+    height: auto !important; /* Let children control height */
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* Additional mobile safety */
+  .swiper-expo .swiper-wrapper {
+    height: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .swiper-expo .swiper-slide {
+    height: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Force proper dimensions on images */
+  .swiper-expo .expo-image {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
   }
 }
 

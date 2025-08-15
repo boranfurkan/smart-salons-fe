@@ -83,20 +83,6 @@ export const ExpoSlider: React.FC<ExpoSliderProps> = ({
       },
       grabCursor: true,
       spaceBetween: 16,
-      // Touch and mobile settings
-      touchRatio: 1,
-      touchAngle: 45,
-      simulateTouch: true,
-      allowTouchMove: true,
-      touchStartPreventDefault: false,
-      touchMoveStopPropagation: false,
-      resistance: true,
-      resistanceRatio: 0.85,
-      // Enable touch gestures
-      touchEventsTarget: 'container',
-      preventClicks: false,
-      preventClicksPropagation: false,
-      slideToClickedSlide: false,
       breakpoints: {
         768: {
           spaceBetween: 32,

@@ -76,7 +76,7 @@ const Stat = ({ num, suffix, decimals = 0, subheading }: StatProps) => {
 
 export function TrustIndicators() {
   return (
-    <section className="py-16 bg-green-50 border-y border-green-100 mt-16">
+    <section className="py-16 bg-green-50 border-y border-green-100 mt-10 md:mt-16">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-12 text-center text-base text-gray-700 sm:text-lg md:mb-16 font-medium tracking-wide uppercase">

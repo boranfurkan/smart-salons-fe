@@ -91,7 +91,7 @@ export function ProductCardGrid({
       whileHover={{ y: -4 }}
     >
       <Link href={`/products/${product.slug}`} className="block h-full">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+        <div className="bg-white rounded-md sm:rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 h-full flex flex-col">
           {/* Image Container */}
           <div className="relative aspect-square overflow-hidden bg-gray-50">
             {primaryImage && (
@@ -136,10 +136,10 @@ export function ProductCardGrid({
             {/* Color Variants - Simplified for grid */}
             {hasColorVariants && (
               <div className="absolute bottom-3 left-3 right-3">
-                <div className="flex gap-1.5 justify-center">
+                <div className="flex gap-1 justify-center">
                   {/* Default option */}
                   <button
-                    className={`w-5 h-5 rounded-full border-2 transition-all duration-200 bg-gray-200 ${
+                    className={`w-4 h-4 rounded-full border-2 transition-all duration-200 bg-gray-200 ${
                       selectedVariantId === 'default'
                         ? 'border-white shadow-md scale-110'
                         : 'border-white/60 hover:border-white'
@@ -155,7 +155,7 @@ export function ProductCardGrid({
                   {colorVariants.slice(0, 3).map((variant) => (
                     <button
                       key={variant.id}
-                      className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                      className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
                         selectedVariantId === variant.id
                           ? 'border-white shadow-md scale-110'
                           : 'border-white/60 hover:border-white'
@@ -171,8 +171,8 @@ export function ProductCardGrid({
 
                   {/* Show count if more variants */}
                   {colorVariants.length > 3 && (
-                    <div className="w-5 h-5 rounded-full bg-gray-600 border-2 border-white/60 flex items-center justify-center">
-                      <span className="text-[8px] text-white font-bold">
+                    <div className="w-4 h-4 rounded-full bg-gray-600 border-2 border-white/60 flex items-center justify-center">
+                      <span className="text-[7px] text-white font-bold">
                         +{colorVariants.length - 3}
                       </span>
                     </div>
@@ -183,32 +183,38 @@ export function ProductCardGrid({
           </div>
 
           {/* Content */}
-          <div className="p-4 space-y-3 flex-1 flex flex-col">
+          <div className="p-2.5 sm:p-4 space-y-2 sm:space-y-3 flex-1 flex flex-col">
             {/* Category */}
-            <Badge variant="outline" className="text-xs w-fit">
+            <Badge
+              variant="outline"
+              className="hidden sm:inline-flex text-[10px] sm:text-xs w-fit"
+            >
               {product.category.name}
             </Badge>
 
             {/* Product Name */}
-            <h3 className="font-semibold text-gray-900 line-clamp-2 text-sm leading-tight flex-1">
+            <h3 className="font-semibold text-gray-900 line-clamp-2 text-[13px] sm:text-sm leading-snug sm:leading-tight flex-1">
               {product.name}
             </h3>
 
             {/* Price and Stock */}
             <div className="flex items-center justify-between mt-auto">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-gray-900">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-[15px] sm:text-lg font-bold text-gray-900">
                     ${finalPrice.toFixed(2)}
                   </span>
                   {hasDiscount && (
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-[11px] sm:text-sm text-gray-500 line-through">
                       ${variantPrice.toFixed(2)}
                     </span>
                   )}
                 </div>
                 {hasDiscount && (
-                  <Badge variant="destructive" className="text-xs">
+                  <Badge
+                    variant="destructive"
+                    className="hidden sm:inline-flex text-[10px] sm:text-xs"
+                  >
                     Save ${variantDiscount.toFixed(2)}
                   </Badge>
                 )}
@@ -216,21 +222,23 @@ export function ProductCardGrid({
 
               <div className="text-right">
                 {currentStock > 0 ? (
-                  <div className="text-xs">
+                  <div className="text-[10px] sm:text-xs">
                     <span className="text-green-600 font-semibold">
                       ✓ In Stock
                     </span>
-                    <div className="text-gray-500">{currentStock} left</div>
+                    <div className="hidden sm:block text-gray-500">
+                      {currentStock} left
+                    </div>
                   </div>
                 ) : (
-                  <span className="text-xs text-red-600 font-semibold">
+                  <span className="text-[10px] sm:text-xs text-red-600 font-semibold">
                     Out of stock
                   </span>
                 )}
               </div>
             </div>
 
-            <div onClick={(e) => e.preventDefault()} className="mt-3">
+            <div onClick={(e) => e.preventDefault()} className="mt-2 sm:mt-3">
               <AddToCartButton
                 productId={product.id}
                 selectedVariantId={selectedVariantId}
@@ -239,7 +247,7 @@ export function ProductCardGrid({
                 discount={variantDiscount}
                 stock={currentStock}
                 showPrice={false}
-                className="w-full font-semibold text-sm h-9"
+                className="w-full font-semibold text-[11px] sm:text-sm h-8 sm:h-9"
               />
             </div>
           </div>

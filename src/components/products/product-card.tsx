@@ -92,7 +92,7 @@ export function ProductCard({
       <Link href={`/products/${product.slug}`} className="h-full">
         <div className="relative h-full flex flex-col">
           {/* Product Image */}
-          <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+          <div className="relative aspect-square overflow-hidden rounded-md sm:rounded-lg bg-gray-100">
             <Image
               src={primaryImage}
               alt={product.name}
@@ -180,32 +180,32 @@ export function ProductCard({
           </div>
 
           {/* Product Info */}
-          <div className="mt-4 space-y-3 flex-1 flex flex-col">
+          <div className="mt-2.5 sm:mt-4 space-y-2 sm:space-y-3 flex-1 flex flex-col">
             <div className="flex items-start justify-between">
-              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+              <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 text-[13px] sm:text-base leading-snug">
                 {product.name}
               </h3>
             </div>
 
-            <p className="text-sm text-gray-600 w-full h-9 leading-5 overflow-hidden line-clamp-2">
+            <p className="text-[11px] sm:text-sm text-gray-600 w-full h-8 sm:h-9 leading-4 sm:leading-5 overflow-hidden line-clamp-2">
               {product.description}
             </p>
 
             <div className="space-y-3 mt-auto">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-green-600">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <span className="text-[18px] sm:text-2xl font-bold text-green-600">
                       ${finalPrice.toFixed(2)}
                     </span>
                     {hasDiscount && (
-                      <span className="text-lg text-gray-500 line-through">
+                      <span className="text-[12px] sm:text-lg text-gray-500 line-through">
                         ${variantPrice.toFixed(2)}
                       </span>
                     )}
                   </div>
                   {hasDiscount && (
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="hidden sm:flex items-center gap-2 mt-1">
                       <Badge variant="destructive" className="text-xs">
                         Save ${variantDiscount.toFixed(2)}
                       </Badge>
@@ -218,16 +218,16 @@ export function ProductCard({
 
                 <div className="text-right">
                   {currentStock > 0 ? (
-                    <div className="text-xs">
+                    <div className="text-[10px] sm:text-xs">
                       <span className="text-green-600 font-semibold">
                         ✓ In Stock
                       </span>
-                      <div className="text-gray-500">
+                      <div className="hidden sm:block text-gray-500">
                         {currentStock} available
                       </div>
                     </div>
                   ) : (
-                    <span className="text-xs text-red-600 font-semibold">
+                    <span className="text-[10px] sm:text-xs text-red-600 font-semibold">
                       Out of stock
                     </span>
                   )}
@@ -244,22 +244,27 @@ export function ProductCard({
                   discount={variantDiscount}
                   stock={currentStock}
                   showPrice={false}
-                  className="w-full font-semibold text-sm h-9"
+                  className="w-full font-semibold text-[11px] sm:text-sm h-8 sm:h-9"
                 />
               </div>
 
               {/* Category and Variant */}
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className="text-xs">
+                <Badge
+                  variant="outline"
+                  className="hidden sm:inline-flex text-[10px] sm:text-xs"
+                >
                   {product.category.name}
                 </Badge>
                 {selectedVariant && (
-                  <span className="text-xs text-gray-500">
+                  <span className="text-[10px] sm:text-xs text-gray-500">
                     {selectedVariant.name}
                   </span>
                 )}
                 {selectedVariantId === 'default' && hasColorVariants && (
-                  <span className="text-xs text-gray-500">Default</span>
+                  <span className="text-[10px] sm:text-xs text-gray-500">
+                    Default
+                  </span>
                 )}
               </div>
             </div>

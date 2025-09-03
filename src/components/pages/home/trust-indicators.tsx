@@ -76,43 +76,36 @@ const Stat = ({ num, suffix, decimals = 0, subheading }: StatProps) => {
 
 export function TrustIndicators() {
   return (
-    <section className="py-16 bg-green-50 border-y border-green-100 mt-10 md:mt-16">
+    <section className="py-10 sm:py-14 bg-green-50 border-y border-green-100 mt-8 md:mt-14">
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-12 text-center text-base text-gray-700 sm:text-lg md:mb-16 font-medium tracking-wide uppercase">
-            TRUSTED BY SALON PROFESSIONALS WITH
-            <span className="text-green-600 font-bold"> PROVEN RESULTS</span>
-          </h2>
+        <h2 className="mb-6 sm:mb-10 text-center text-sm sm:text-base text-gray-700 font-medium tracking-wide uppercase">
+          Trusted by Professionals
+        </h2>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
-            {trustStats.map((stat, index) => (
-              <div key={index} className="relative flex justify-center">
-                <Stat
-                  num={stat.num}
-                  suffix={stat.suffix}
-                  decimals={stat.decimals}
-                  subheading={stat.subheading}
-                />
-                {/* Divider for desktop */}
-                {index < trustStats.length - 1 && (
-                  <div className="hidden xl:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-px h-24 bg-green-200" />
-                )}
-              </div>
-            ))}
-          </div>
+        {/* Stats Grid - compact 2-col on mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          {trustStats.map((stat, index) => (
+            <div key={index} className="relative flex justify-center">
+              <Stat
+                num={stat.num}
+                suffix={stat.suffix}
+                decimals={stat.decimals}
+                subheading={stat.subheading}
+              />
+            </div>
+          ))}
         </div>
 
-        {/* Certifications Row */}
-        <div className="border-t border-green-200 pt-8">
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-600">
-            {certifications.map((cert) => (
-              <div key={cert} className="flex items-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-2 flex-shrink-0" />
-                <span className="whitespace-nowrap">{cert}</span>
-              </div>
-            ))}
-          </div>
+        {/* Certifications - compact badges */}
+        <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-2 sm:gap-3">
+          {certifications.map((cert) => (
+            <span
+              key={cert}
+              className="text-[11px] sm:text-xs text-gray-700 bg-white border border-green-200 rounded-full px-3 py-1"
+            >
+              {cert}
+            </span>
+          ))}
         </div>
       </div>
     </section>

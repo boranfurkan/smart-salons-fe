@@ -9,10 +9,14 @@ import { useProductsContext } from '@/context/products-context';
 import { useProducts } from '@/hooks/useProducts';
 import { usePublicControllerGetCategories } from '@/lib/api/generated/public/public';
 
-export function ProductsHeader() {
+interface ProductsHeaderProps {
+  onOpenMobileFilters?: () => void;
+}
+
+export function ProductsHeader({ onOpenMobileFilters }: ProductsHeaderProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  // Mobile filters handled by page via BottomSheet
 
   const {
     filters,
@@ -69,7 +73,7 @@ export function ProductsHeader() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            onClick={() => onOpenMobileFilters?.()}
             className="lg:hidden"
           >
             <SlidersHorizontal className="w-4 h-4 mr-2" />
@@ -174,24 +178,7 @@ export function ProductsHeader() {
         </div>
       </div>
 
-      {/* Mobile Filters Overlay */}
-      {showMobileFilters && (
-        <div className="lg:hidden fixed inset-0 bg-white z-50 overflow-y-auto">
-          <div className="p-4">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Filters</h2>
-              <Button
-                variant="ghost"
-                onClick={() => setShowMobileFilters(false)}
-              >
-                Done
-              </Button>
-            </div>
-            {/* Mobile filters content would go here */}
-            <p className="text-gray-600">Mobile filters panel</p>
-          </div>
-        </div>
-      )}
+      {/* Mobile Filters UI is rendered via BottomSheet in page */}
     </div>
   );
 }

@@ -88,7 +88,7 @@ export const CategoriesGrid = () => {
           {rows.map((row, rowIndex) => (
             <div
               key={rowIndex}
-              className={`grid grid-cols-1 divide-y divide-neutral-700 border border-neutral-700 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:divide-x sm:divide-y-0 ${
+              className={`grid grid-cols-2 divide-y divide-neutral-700 border border-neutral-700 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:divide-x sm:divide-y-0 ${
                 rowIndex > 0 ? 'border-t-0' : ''
               }`}
             >

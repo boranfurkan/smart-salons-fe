@@ -13,7 +13,7 @@ const NavItem = ({
 }: {
   href: string;
   label: string;
-  icon: any;
+  icon: React.ComponentType<{ size?: number }>;
 }) => {
   const pathname = usePathname();
   const active =

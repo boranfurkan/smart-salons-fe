@@ -933,3 +933,91 @@ export function usePublicControllerSearchProducts<TData = Awaited<ReturnType<typ
 
 
 
+/**
+ * Returns XML sitemap for SEO purposes
+ * @summary Get XML sitemap
+ */
+export const publicControllerGetSitemap = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<string>(
+      {url: `/public/sitemap.xml`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getPublicControllerGetSitemapQueryKey = () => {
+    return [`/public/sitemap.xml`] as const;
+    }
+
+    
+export const getPublicControllerGetSitemapQueryOptions = <TData = Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getPublicControllerGetSitemapQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof publicControllerGetSitemap>>> = ({ signal }) => publicControllerGetSitemap(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type PublicControllerGetSitemapQueryResult = NonNullable<Awaited<ReturnType<typeof publicControllerGetSitemap>>>
+export type PublicControllerGetSitemapQueryError = unknown
+
+
+export function usePublicControllerGetSitemap<TData = Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof publicControllerGetSitemap>>,
+          TError,
+          Awaited<ReturnType<typeof publicControllerGetSitemap>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePublicControllerGetSitemap<TData = Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof publicControllerGetSitemap>>,
+          TError,
+          Awaited<ReturnType<typeof publicControllerGetSitemap>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function usePublicControllerGetSitemap<TData = Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get XML sitemap
+ */
+
+export function usePublicControllerGetSitemap<TData = Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicControllerGetSitemap>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getPublicControllerGetSitemapQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+

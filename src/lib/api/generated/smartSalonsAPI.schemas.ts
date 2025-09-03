@@ -90,6 +90,16 @@ export interface CreateProductDto {
   /** Array of image URLs (upload images first using /admin/upload/images endpoint) */
   imageUrls?: string[];
   isActive?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
 }
 
 export interface ProductReferenceDto {
@@ -191,6 +201,16 @@ export interface UpdateProductDto {
   deliveryDescription?: string;
   categoryId?: string;
   isActive?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
 }
 
 export interface AddImageUrlsDto {
@@ -414,6 +434,16 @@ export interface CreateCategoryDto {
   /** URL of the category image (upload image first using /admin/upload/image endpoint with folder=categories) */
   imageUrl?: string;
   isActive?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
 }
 
 export interface UpdateCategoryDto {
@@ -423,6 +453,16 @@ export interface UpdateCategoryDto {
   /** URL of the category image (upload image first using /admin/upload/image endpoint with folder=categories) */
   imageUrl?: string;
   isActive?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  canonicalUrl?: string;
 }
 
 export type UpdateUserDtoRole = typeof UpdateUserDtoRole[keyof typeof UpdateUserDtoRole];
@@ -492,6 +532,29 @@ export interface CarouselItemDto {
   updatedAt: string;
 }
 
+export interface SeoMetadataDto {
+  /** Meta title for SEO */
+  metaTitle?: string;
+  /** Meta description for SEO */
+  metaDescription?: string;
+  /** Meta keywords for SEO */
+  metaKeywords?: string;
+  /** Open Graph title */
+  ogTitle?: string;
+  /** Open Graph description */
+  ogDescription?: string;
+  /** Open Graph image URL */
+  ogImage?: string;
+  /** Twitter card title */
+  twitterTitle?: string;
+  /** Twitter card description */
+  twitterDescription?: string;
+  /** Twitter card image URL */
+  twitterImage?: string;
+  /** Canonical URL */
+  canonicalUrl?: string;
+}
+
 export interface CategoryDto {
   /** Unique identifier */
   id: string;
@@ -511,6 +574,8 @@ export interface CategoryDto {
   updatedAt: string;
   /** Number of products in this category */
   productCount: number;
+  /** SEO metadata for the category */
+  seo?: SeoMetadataDto;
 }
 
 export type ColorVariantDtoImagesItem = { [key: string]: unknown };
@@ -569,6 +634,8 @@ export interface ProductDto {
   colorVariants: ColorVariantDto[];
   /** Product images */
   images: ProductDtoImagesItem[];
+  /** SEO metadata for the product */
+  seo?: SeoMetadataDto;
 }
 
 /**

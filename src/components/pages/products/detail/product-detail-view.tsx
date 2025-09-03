@@ -3,7 +3,12 @@
 import Link from 'next/link';
 import { ProductDetailContent } from './product-detail-content';
 import { ProductDetailSkeleton } from './product-detail-skeleton';
+import { JsonLd } from '@/components/shared/json-ld';
 import { usePublicControllerGetProductBySlug } from '@/lib/api/generated/public/public';
+import {
+  generateProductJsonLd,
+  generateBreadcrumbJsonLd,
+} from '@/lib/utils/seo';
 
 interface ProductDetailViewProps {
   slug: string;
@@ -41,5 +46,37 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
     );
   }
 
-  return <ProductDetailContent product={product} />;
+  return (
+    <>
+      <JsonLd data={generateProductJsonLd(product)} />
+      <JsonLd
+        data={generateBreadcrumbJsonLd([
+          {
+            name: 'Home',
+            url:
+              process.env.NEXT_PUBLIC_SITE_URL || 'https://www.salonssmart.uk',
+          },
+          {
+            name: 'Products',
+            url: `${
+              process.env.NEXT_PUBLIC_SITE_URL || 'https://www.salonssmart.uk'
+            }/products`,
+          },
+          {
+            name: product.category.name,
+            url: `${
+              process.env.NEXT_PUBLIC_SITE_URL || 'https://www.salonssmart.uk'
+            }/categories/${product.category.slug}`,
+          },
+          {
+            name: product.name,
+            url: `${
+              process.env.NEXT_PUBLIC_SITE_URL || 'https://www.salonssmart.uk'
+            }/products/${product.slug}`,
+          },
+        ])}
+      />
+      <ProductDetailContent product={product} />
+    </>
+  );
 }

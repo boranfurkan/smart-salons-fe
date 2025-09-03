@@ -23,7 +23,10 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
 
   return (
     <div
-      className={cn('w-full h-full relative', shouldAddPaddingTop && 'pt-20')}
+      className={cn(
+        'w-full h-full relative',
+        shouldAddPaddingTop && 'max-md:pt-20'
+      )}
     >
       <div className="relative w-full h-full z-10">
         {/* Navigation */}

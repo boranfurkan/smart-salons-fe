@@ -15,17 +15,17 @@ export function HomeWrapper() {
       {/* Hero Carousel */}
       <LandingCarousel />
 
-      {/* Trust Indicators */}
-      <TrustIndicators />
+      {/* 1) Bestseller Products */}
+      <FeaturedProducts limit={4} />
 
-      {/* Featured Products */}
-      <FeaturedProducts limit={8} />
+      {/* 2) Shop by Category */}
+      <CategoriesWrapper />
 
-      {/* Value Propositions */}
+      {/* 3) Why Choose Us */}
       <ValuePropositions />
 
-      {/* Categories Section */}
-      <CategoriesWrapper />
+      {/* 4) Trusted by Professionals */}
+      <TrustIndicators />
 
       {/* Social Posts */}
       <SocialPostsSection limit={10} />

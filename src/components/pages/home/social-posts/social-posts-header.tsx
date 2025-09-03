@@ -1,16 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  AnimatedTextWrapper,
-  HighlightedText,
-} from '@/components/ui/animated-text';
+import { AnimatedTextWrapper } from '@/components/ui/animated-text';
 
 export function SocialPostsHeader() {
   return (
     <div className="text-center mb-12">
       <AnimatedTextWrapper className="mb-4">
-        Follow Our <HighlightedText color="#ec4899">Journey</HighlightedText>
+        Follow Our Journey
         <span className="text-gray-500 block text-lg font-normal mt-2">
           Latest updates from our social media
         </span>

@@ -3,7 +3,13 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ExternalLink, Facebook, Instagram, Play, Twitter } from 'lucide-react';
+import {
+  ExternalLink,
+  Facebook,
+  Instagram,
+  Play,
+  Linkedin,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { SocialPostCardProps } from './types';
 
@@ -37,8 +43,8 @@ export function SocialPostCard({
         return <Play className="w-4 h-4" />;
       case 'facebook':
         return <Facebook className="w-4 h-4" />;
-      case 'twitter':
-        return <Twitter className="w-4 h-4" />;
+      case 'linkedin':
+        return <Linkedin className="w-4 h-4" />;
       default:
         return <ExternalLink className="w-4 h-4" />;
     }
@@ -52,8 +58,8 @@ export function SocialPostCard({
         return 'bg-black';
       case 'facebook':
         return 'bg-blue-600';
-      case 'twitter':
-        return 'bg-sky-500';
+      case 'linkedin':
+        return 'bg-sky-700';
       default:
         return 'bg-gray-600';
     }

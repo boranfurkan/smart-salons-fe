@@ -4,10 +4,10 @@ import { useState } from 'react';
 import {
   Instagram,
   Facebook,
-  Twitter,
   Youtube,
   Send,
   Check,
+  Linkedin,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +24,11 @@ const socialLinks = [
     href: 'https://facebook.com/smartsalons',
     label: 'Facebook',
   },
-  { icon: Twitter, href: 'https://twitter.com/smartsalons', label: 'Twitter' },
+  {
+    icon: Linkedin,
+    href: 'https://linkedin.com/company/smartsalons',
+    label: 'LinkedIn',
+  },
   { icon: Youtube, href: 'https://youtube.com/smartsalons', label: 'YouTube' },
 ];
 

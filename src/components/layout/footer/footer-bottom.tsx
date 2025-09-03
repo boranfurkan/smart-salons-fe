@@ -2,7 +2,15 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Heart, Shield, Award, Truck } from 'lucide-react';
+import {
+  Heart,
+  Shield,
+  Award,
+  Truck,
+  CreditCard,
+  Wallet,
+  Banknote,
+} from 'lucide-react';
 
 const legalLinks = [
   { name: 'Privacy Policy', href: '/privacy' },
@@ -20,6 +28,33 @@ const features = [
 export function FooterBottom() {
   return (
     <div className="border-t border-neutral-700 py-8">
+      {/* Payment Providers */}
+      <motion.div
+        className="mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="flex flex-wrap items-center justify-center gap-4 text-neutral-300">
+          <div className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2">
+            <CreditCard className="w-4 h-4 text-blue-300" />
+            <span className="text-xs">Mastercard</span>
+          </div>
+          <div className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2">
+            <Wallet className="w-4 h-4 text-sky-300" />
+            <span className="text-xs">PayPal</span>
+          </div>
+          <div className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2">
+            <CreditCard className="w-4 h-4 text-purple-300" />
+            <span className="text-xs">American Express</span>
+          </div>
+          <div className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2">
+            <Banknote className="w-4 h-4 text-green-300" />
+            <span className="text-xs">Apple Pay</span>
+          </div>
+        </div>
+      </motion.div>
       {/* Features Row */}
       <motion.div
         className="mb-8"

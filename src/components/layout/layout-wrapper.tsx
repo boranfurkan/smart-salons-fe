@@ -8,6 +8,7 @@ import { Footer } from './footer';
 import { MobileBottomNav } from './mobile-bottom-nav';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { WhatsAppButton } from '@/components/shared/whatsapp-button';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -30,6 +31,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
         {children}
         <Footer />
         <MobileBottomNav />
+        <WhatsAppButton phone={process.env.NEXT_PUBLIC_WHATSAPP_PHONE || ''} />
       </div>
       <Toaster />
       <BackgroundGrid />

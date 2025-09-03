@@ -7,7 +7,7 @@ import { FooterBottom } from './footer-bottom';
 export function Footer() {
   return (
     <footer className="bg-neutral-900 text-neutral-50 border-t border-neutral-700">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-md:pb-20">
         <FooterHeader />
         <FooterContent />
         <FooterBottom />

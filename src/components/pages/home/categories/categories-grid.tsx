@@ -3,10 +3,7 @@
 import { motion } from 'framer-motion';
 import { CategoriesSectionSkeleton } from '@/components/shared/skeletons/landing-skeletons';
 import { usePublicControllerGetCategories } from '@/lib/api/generated/public/public';
-import {
-  AnimatedTextWrapper,
-  HighlightedText,
-} from '@/components/ui/animated-text';
+import { AnimatedTextWrapper } from '@/components/ui/animated-text';
 import { CategoryCard } from './category-card';
 import { TitleCard } from './title-card';
 
@@ -40,8 +37,8 @@ export const CategoriesGrid = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <AnimatedTextWrapper className="mb-4 text-white">
-            Shop by <HighlightedText color="#f59e0b">Category</HighlightedText>
+          <AnimatedTextWrapper className="mb-2 text-white">
+            Shop by Category
           </AnimatedTextWrapper>
           <motion.p
             className="text-lg text-neutral-300 max-w-2xl mx-auto mb-6"
@@ -54,27 +51,7 @@ export const CategoriesGrid = () => {
             professional salon equipment. All categories feature premium quality
             products with competitive pricing.
           </motion.p>
-
-          <motion.div
-            className="flex justify-center items-center gap-6 text-sm text-neutral-400"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
-              Professional grade quality
-            </div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
-              Competitive pricing
-            </div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2" />
-              Fast delivery
-            </div>
-          </motion.div>
+          {/* Removed decorative dots above section titles as requested */}
         </div>
 
         {/* Categories Grid */}

@@ -5,28 +5,28 @@ import { animate, useInView } from 'framer-motion';
 
 const trustStats = [
   {
-    num: 4.9,
+    num: 4.7,
     suffix: '/5',
     decimals: 1,
-    subheading: 'Customer satisfaction rating from verified salon owners',
+    subheading: 'Average rating from verified salon customers',
   },
   {
-    num: 15.2,
-    suffix: 'K+',
-    decimals: 1,
-    subheading: 'Professional salons trust our equipment worldwide',
-  },
-  {
-    num: 50,
-    suffix: ' States',
+    num: 2500,
+    suffix: '+',
     decimals: 0,
-    subheading: 'Nationwide delivery with fast shipping options',
+    subheading: 'Salons and professionals served in the past 24 months',
   },
   {
-    num: 10,
+    num: 48,
+    suffix: 'h',
+    decimals: 0,
+    subheading: 'Typical dispatch time for in‑stock items',
+  },
+  {
+    num: 7,
     suffix: '+ Years',
     decimals: 0,
-    subheading: 'Industry experience providing quality equipment',
+    subheading: 'Experience supplying professional salon equipment',
   },
 ];
 

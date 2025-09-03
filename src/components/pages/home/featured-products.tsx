@@ -39,8 +39,7 @@ export function FeaturedProducts({ limit = 8 }: FeaturedProductsProps) {
         {/* Section Header */}
         <div className="text-center mb-12">
           <AnimatedTextWrapper className="mb-4">
-            <HighlightedText color="#10b981">Bestselling</HighlightedText>{' '}
-            Professional Equipment
+            Bestselling Professional Equipment
           </AnimatedTextWrapper>
           <motion.p
             className="text-lg text-gray-600 max-w-2xl mx-auto mb-6"

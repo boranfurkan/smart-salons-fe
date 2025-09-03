@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import { ResponsiveProductsGrid } from '@/components/pages/products/responsive-products-grid';
+import { ProductsGrid } from '@/components/pages/products/products-grid';
 import { ProductsFilters } from '@/components/pages/products/products-filters';
-import { ResponsiveProductsHeader } from '@/components/pages/products/responsive-products-header';
+import { ProductsHeader } from '@/components/pages/products/products-header';
 import { ProductsProvider } from '@/context/products-context';
 import { ProductsPageSkeleton } from '@/components/pages/products/products-page-skeleton';
 
@@ -22,15 +22,13 @@ export default function ProductsPage() {
       <ProductsProvider>
         <div className="min-h-screen bg-gray-50">
           <div className="container mx-auto px-4 py-8">
-            <ResponsiveProductsHeader />
+            <ProductsHeader />
             <div className="flex flex-col lg:flex-row gap-8 mt-8">
-              <aside className="hidden lg:block w-80 shrink-0">
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-4">
-                  <ProductsFilters />
-                </div>
+              <aside className="w-full lg:w-80 shrink-0">
+                <ProductsFilters />
               </aside>
               <main className="flex-1">
-                <ResponsiveProductsGrid />
+                <ProductsGrid />
               </main>
             </div>
           </div>

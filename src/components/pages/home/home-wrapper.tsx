@@ -1,11 +1,11 @@
 'use client';
 
 import { LandingCarousel } from '@/components/pages/home/landing-carousel';
-import { ResponsiveFeaturedProducts } from '@/components/pages/home/responsive-featured-products';
-import { ResponsiveTrustIndicators } from '@/components/pages/home/responsive-trust-indicators';
-import { ResponsiveValuePropositions } from '@/components/pages/home/responsive-value-propositions';
+import { FeaturedProducts } from '@/components/pages/home/featured-products';
+import { TrustIndicators } from '@/components/pages/home/trust-indicators';
+import { ValuePropositions } from '@/components/pages/home/value-propositions';
 
-import { ResponsiveCategoriesGrid } from '@/components/pages/home/categories/responsive-categories-grid';
+import CategoriesWrapper from '@/components/pages/home/categories/categories-wrapper';
 
 import { SocialPostsSection } from '@/components/pages/home/social-posts';
 
@@ -16,16 +16,16 @@ export function HomeWrapper() {
       <LandingCarousel />
 
       {/* Trust Indicators */}
-      <ResponsiveTrustIndicators />
+      <TrustIndicators />
 
       {/* Featured Products */}
-      <ResponsiveFeaturedProducts limit={8} />
+      <FeaturedProducts limit={8} />
 
       {/* Value Propositions */}
-      <ResponsiveValuePropositions />
+      <ValuePropositions />
 
       {/* Categories Section */}
-      <ResponsiveCategoriesGrid />
+      <CategoriesWrapper />
 
       {/* Social Posts */}
       <SocialPostsSection limit={10} />

@@ -6,7 +6,7 @@ const ENV_CONFIG = {
     BACKEND_API_URL: 'https://meatbags-api-1.onrender.com',
   },
   production: {
-    BACKEND_API_URL: 'https://www.salonssmart.uk',
+    BACKEND_API_URL: 'https://smart-salons-be.onrender.com',
   },
 } as const;
 

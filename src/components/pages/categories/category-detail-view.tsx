@@ -56,7 +56,8 @@ export function CategoryDetailView({ slug }: CategoryDetailViewProps) {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Category not found</h1>
           <p className="text-gray-600 mb-6">
-            The category you're looking for doesn't exist or has been removed.
+            The category you&apos;re looking for doesn&apos;t exist or has been
+            removed.
           </p>
           <Link
             href="/categories"
